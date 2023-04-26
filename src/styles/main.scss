@@ -1,0 +1,62 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import './variables.css';
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rokkitt:wght@100;200;300;400;500;600;700&display=swap');
+
+
+html *::-webkit-scrollbar {
+  border-radius: 0;
+  width: 10px;
+  height: 10px;
+}
+
+html *::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background-color: var(--color-scroll);
+
+  &:hover {
+    @apply cursor-pointer;
+  }
+}
+
+html *::-webkit-scrollbar-track {
+  border-radius: 0;
+  background-color: transparent;
+}
+
+* {
+  font-family: 'Fredoka', sans-serif;
+  @apply text-base text-[var(--text-base-color)];
+}
+
+body {
+  @apply bg-[var(--bg-color)];
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+a {
+  font-family: 'Rokkitt', serif;
+  @apply text-lg font-medium text-[var(--title-color)];
+}
+
+.main {
+  &-content {
+    @apply w-4/6 mx-auto max-[1580px]:w-5/6 max-2xl:w-5/6 max-xl:w-full max-xl:px-16 max-lg:w-full max-lg:px-7 max-md:px-5 max-[360px]:px-3;
+  }
+}
+
+.btn {
+  &-primary {
+    @apply transition-all bg-[var(--primary-color)] hover:bg-[#e48383] shadow-lg min-w-[120px] rounded-full border-[.5px] border-white cursor-pointer text-white leading-10 text-center max-w-xs text-lg font-medium;
+
+  }
+}
