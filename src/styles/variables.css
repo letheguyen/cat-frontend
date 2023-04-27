@@ -2,8 +2,9 @@
   --color-scroll: #444444;
   --text-base-color: #1d1d1d;
   --title-color: #181818;
-  --bg-color: #c5d4d070;
+  --bg-color: #d2e4df70;
   --primary-color: #31d3b0f1;
-  --color-message-error: #ff0000e1;
+  --bg-modal: #f7f7f7;
+  --color-message-error: #ec0000cc;
 }
 

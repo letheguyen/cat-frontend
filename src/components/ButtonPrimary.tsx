@@ -18,7 +18,7 @@ export const ButtonPrimary: React.FC<IPropsButtons> = ({
     >
       <div
         className={clsx(
-          'py-1.5 px-3 text-lg text-white -translate-y-[2px]',
+          'py-1.5 px-3 text-lg text-white -translate-y-[2px] drop-shadow-lg shadow-black',
           textColor
         )}
       >
