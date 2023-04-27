@@ -10,8 +10,7 @@ export const fetch = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:1202',
   headers: {
     Authorization: handleGetToken(),
-    // 'Content-Type': 'application/json',
-    'Content-Type': 'multipart/form-data'
+    'Content-Type': 'application/json',
   },
 })
 

@@ -6,42 +6,46 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { schemaSignUp } from '@/schema'
 import { DataPostSignUp, TypeFormSignUp } from '@/interfaces'
 import { ButtonPrimary } from '@/components'
-import { TYPE_FILE_SUPPORT } from '@/constants'
-import { signUp } from '@/services'
+import { MODAL_TYPE, TYPE_FILE_SUPPORT } from '@/constants'
+import { signUp, uploadFile } from '@/services'
+import { useStore } from '@/store'
 // import FileUpload from '@/components/UploadFile'
 
 const SignUp = () => {
   const {
-    getValues,
-    setValue,
     register,
-    setError,
     handleSubmit,
-    control,
-    clearErrors,
     formState: { errors },
   } = useForm<TypeFormSignUp>({
     resolver: yupResolver(schemaSignUp),
   })
 
+  const { setDataModal } = useStore()
+
   const onSubmit = async (data: TypeFormSignUp) => {
     let dataSignUp: any
+    const formData = new FormData()
 
     if (data.avatar) {
-      dataSignUp = { ...data, ...dataSignUp, avatar: data.avatar[0] }
+      formData.append('file', data.avatar[0])
+      // const image = await uploadFile(formData)
+      // if (image) {
+      //   dataSignUp = { ...data, ...dataSignUp, avatar: image[0] }
+      // }
+
+      setDataModal({
+        messageModal: 'Upload image failure',
+        showModal: true,
+        modalKey: MODAL_TYPE.commonError,
+      })
     }
     if (data.background) {
-      dataSignUp = { ...data, ...dataSignUp, background: data.background[0] }
+      // formData.append('file', data.background[0])
+      // const image = await uploadFile(formData)
+      // if (image) {
+      //   dataSignUp = { ...data, ...dataSignUp, background: image[0] }
+      // }
     }
-
-    const formData = new FormData()
-    Object.keys(dataSignUp).map((field) => {
-      formData.append(field, dataSignUp[field])
-    })
-
-    const res = await signUp(formData)
-
-    console.log(res)
   }
 
   return (
