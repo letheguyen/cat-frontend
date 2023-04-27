@@ -7,6 +7,7 @@ import { schemaSignUp } from '@/schema'
 import { DataPostSignUp, TypeFormSignUp } from '@/interfaces'
 import { ButtonPrimary } from '@/components'
 import { TYPE_FILE_SUPPORT } from '@/constants'
+import { signUp } from '@/services'
 // import FileUpload from '@/components/UploadFile'
 
 const SignUp = () => {
@@ -23,7 +24,7 @@ const SignUp = () => {
     resolver: yupResolver(schemaSignUp),
   })
 
-  const onSubmit = (data: TypeFormSignUp) => {
+  const onSubmit = async (data: TypeFormSignUp) => {
     let dataSignUp: any
 
     if (data.avatar) {
@@ -33,7 +34,14 @@ const SignUp = () => {
       dataSignUp = { ...data, ...dataSignUp, background: data.background[0] }
     }
 
-    console.log(dataSignUp)
+    const formData = new FormData()
+    Object.keys(dataSignUp).map((field) => {
+      formData.append(field, dataSignUp[field])
+    })
+
+    const res = await signUp(formData)
+
+    console.log(res)
   }
 
   return (
@@ -43,31 +51,41 @@ const SignUp = () => {
         <div className="flex flex-col">
           <p>User name</p>
           <input type="text" {...register('userName')} />
-          <span className="text-red-600">{errors.userName?.message}</span>
+          <span className="text-[var(--color-message-error)]">
+            {errors.userName?.message}
+          </span>
         </div>
 
         <div className="flex flex-col">
           <p>E-mail</p>
           <input type="text" {...register('email')} />
-          <span className="text-red-600">{errors.email?.message}</span>
+          <span className="text-[var(--color-message-error)]">
+            {errors.email?.message}
+          </span>
         </div>
 
         <div className="flex flex-col">
           <p>Password</p>
           <input type="text" {...register('password')} />
-          <span className="text-red-600">{errors.password?.message}</span>
+          <span className="text-[var(--color-message-error)]">
+            {errors.password?.message}
+          </span>
         </div>
 
         <div className="flex flex-col">
           <p>Age</p>
           <input type="number" {...register('age')} />
-          <span className="text-red-600">{errors.age?.message}</span>
+          <span className="text-[var(--color-message-error)]">
+            {errors.age?.message}
+          </span>
         </div>
 
         <div className="flex flex-col">
           <p>Address</p>
           <input type="text" {...register('address')} />
-          <span className="text-red-600">{errors.address?.message}</span>
+          <span className="text-[var(--color-message-error)]">
+            {errors.address?.message}
+          </span>
         </div>
 
         <div className="flex flex-col">
@@ -77,7 +95,9 @@ const SignUp = () => {
             accept={TYPE_FILE_SUPPORT.toString()}
             {...register('avatar')}
           />
-          <span className="text-red-600">{errors.avatar?.message}</span>
+          <span className="text-[var(--color-message-error)]">
+            {errors.avatar?.message}
+          </span>
         </div>
 
         <div className="flex flex-col">
@@ -87,7 +107,9 @@ const SignUp = () => {
             accept={TYPE_FILE_SUPPORT.toString()}
             {...register('background')}
           />
-          <span className="text-red-600">{errors.background?.message}</span>
+          <span className="text-[var(--color-message-error)]">
+            {errors.background?.message}
+          </span>
         </div>
 
         {/* <FileUpload /> */}
