@@ -2,18 +2,29 @@ import clsx from 'clsx'
 import React from 'react'
 
 import { IPropsButtons } from '@/interfaces'
+import { ButtonsType } from '@/constants'
 
 export const ButtonPrimary: React.FC<IPropsButtons> = ({
   className,
   type = 'button',
   title,
   textColor,
-  onClick
+  onClick,
+  buttonType = 'primary',
 }) => {
+  const styleButton = {
+    [ButtonsType.primary as string]: 'btn-primary',
+    [ButtonsType.close as string]: 'btn-close',
+  }
+
   return (
     <button
       type={type}
-      className={clsx('btn-primary flex justify-center', className)}
+      className={clsx(
+        'flex justify-center',
+        styleButton[buttonType],
+        className
+      )}
       onClick={onClick}
     >
       <div

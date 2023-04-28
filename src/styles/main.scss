@@ -54,9 +54,40 @@ a {
   }
 }
 
+%btn {
+  @apply shadow-lg min-w-[120px] rounded-full border-[.5px] border-white cursor-pointer text-white leading-10 text-center max-w-xs text-lg font-medium transition-all ease-in drop-shadow-lg hover:cursor-pointer hover:scale-110 z-50;
+}
+
 .btn {
   &-primary {
-    @apply transition-all bg-[var(--primary-color)] hover:bg-[#e48383] shadow-lg min-w-[120px] rounded-full border-[.5px] border-white cursor-pointer text-white leading-10 text-center max-w-xs text-lg font-medium;
-
+    @apply bg-[var(--primary-color)];
+    @extend %btn;
+  }
+  &-close {
+    @apply bg-[var(--bg-color-refuse)];
+    @extend %btn;
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

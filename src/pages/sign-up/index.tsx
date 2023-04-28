@@ -24,29 +24,37 @@ const SignUp = () => {
 
   const onSubmit = async (data: TypeFormSignUp) => {
     let dataSignUp: any
+    let avatar: null | string = null
+    let background: null | string = null
     const formData = new FormData()
 
     if (data.avatar) {
       formData.append('file', data.avatar[0])
-      // const image = await uploadFile(formData)
-      // if (image) {
-      //   dataSignUp = { ...data, ...dataSignUp, avatar: image[0] }
-      // }
-
-      setDataModal({
-        messageModal: 'Upload image failure',
-        showModal: true,
-        modalKey: MODAL_TYPE.commonError,
-      })
+      avatar = await uploadFile(formData)
+      if(!avatar) {
+        handleUploadFailure()
+      }
     }
     if (data.background) {
-      // formData.append('file', data.background[0])
-      // const image = await uploadFile(formData)
+      formData.append('file', data.background[0])
+      background = await uploadFile(formData)
+      if(!background) {
+        handleUploadFailure()
+      }
       // if (image) {
-      //   dataSignUp = { ...data, ...dataSignUp, background: image[0] }
+      //   return (dataSignUp = { ...data, ...dataSignUp, background: image[0] })
       // }
     }
+
+    console.log()
   }
+
+  const handleUploadFailure = () =>
+    setDataModal({
+      messageModal: 'Upload image failure',
+      showModal: true,
+      modalKey: MODAL_TYPE.commonError,
+    })
 
   return (
     <div className="main-content">
