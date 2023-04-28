@@ -17,5 +17,9 @@ export interface IModal {
   className?:string,
   width?: string,
   height?: string,
-  noButton?: boolean
+  noButtonFooter?: boolean,
+  children: ReactNode,
+  noIconClose?: boolean,
+  textBtnAccept?: string,
+  textBtnClose?: string,
 }
