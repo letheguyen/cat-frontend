@@ -9,12 +9,12 @@
 
 html *::-webkit-scrollbar {
   border-radius: 0;
-  width: 10px;
-  height: 10px;
+  width: 6px;
+  height: 6px;
 }
 
 html *::-webkit-scrollbar-thumb {
-  border-radius: 4px;
+  border-radius: 10px;
   background-color: var(--color-scroll);
 
   &:hover {
@@ -55,7 +55,7 @@ a {
 }
 
 %btn {
-  @apply shadow-lg min-w-[120px] rounded-full border-[.5px] border-white cursor-pointer text-white leading-10 text-center max-w-xs text-lg font-medium transition-all ease-in drop-shadow-lg hover:cursor-pointer hover:scale-110 z-50;
+  @apply disabled:opacity-60 shadow-lg min-w-[120px] rounded-full border-[.5px] border-white cursor-pointer text-white leading-10 text-center max-w-xs text-lg font-medium transition-all ease-in drop-shadow-lg hover:cursor-pointer hover:scale-110 z-50;
 }
 
 .btn {
@@ -63,31 +63,21 @@ a {
     @apply bg-[var(--primary-color)];
     @extend %btn;
   }
+
   &-close {
     @apply bg-[var(--bg-color-refuse)];
     @extend %btn;
   }
 }
 
+.affter-no-data {
+  @apply absolute w-full h-full left-0 top-0 leading-10 bg-slate-300/50;
+}
 
+.input-base {
+  @apply border h-10 rounded-md pl-3 pr-4 outline-none -mt-1 focus:border-[var(--primary-color)] focus:shadow-lg;
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+.input-file-custom {
+  @apply absolute w-full h-full overflow-hidden after:content-[''] after:absolute after:bg-black after:top-0 after:left-0 after:w-full after:h-full;
+}

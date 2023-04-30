@@ -1,20 +1,29 @@
 import { API_URL } from '@/constants'
 import { fetch } from '../axios'
+import { DataPostSignUp, IResponsFetch, ISignInData } from '@/interfaces'
 
 export const getAllUsers = async () => {
   try {
     return await fetch.get(API_URL.users)
   } catch (error) {
     console.log('Get all users error :', error)
+    return null
+  }
+}
+
+export const signUp = async (data: DataPostSignUp) => {
+  try {
+    return (await fetch.post(API_URL.signUp, data)) as IResponsFetch
+  } catch (error) {
+    return error as IResponsFetch
+  }
+}
+
+export const signIn = async (data: ISignInData) => {
+  try {
+    return (await fetch.post(API_URL.signIn, data))
+  } catch (error) {
     return error
   }
 }
 
-export const signUp = async (dataForm: FormData) => {
-  try {
-    return await fetch.post(API_URL.signUp, dataForm)
-  } catch (error) {
-    console.log('Sign up error :', error)
-    return error
-  }
-}

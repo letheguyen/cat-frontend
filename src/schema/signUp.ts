@@ -1,4 +1,5 @@
 import * as yup from 'yup'
+import { phoneRegex } from './regex'
 
 export const schemaSignUp = yup.object().shape({
   userName: yup
@@ -11,6 +12,10 @@ export const schemaSignUp = yup.object().shape({
     .trim()
     .email('Please enter a valid email')
     .required('Email must be required'),
+  phone: yup
+    .string()
+    .required('Phone number must required')
+    .matches(phoneRegex, 'Invalid phone number'),
   password: yup
     .string()
     .trim()
@@ -20,10 +25,13 @@ export const schemaSignUp = yup.object().shape({
     .number()
     .typeError('Age must be number')
     .required('Age must be required'),
-  address: yup
+  provinces: yup.string().trim(),
+  districts: yup.string().trim(),
+  wards: yup.string().trim(),
+  addressDetail: yup
     .string()
     .trim()
-    .max(500, 'Address cannot be longer than 500 characters'),
+    .max(500, 'Address detail cannot be longer than 500 characters'),
   avatar: yup
     .mixed()
     .test('fileSize', 'Maximum file size of 5MB is allowed', (value: any) => {
