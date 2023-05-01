@@ -14,20 +14,22 @@ export const fetch = axios.create({
   },
 })
 
+export const fetchProvinces = axios.create({
+  baseURL: process.env.NEXT_PUBLIC_API_PROVINCES,
+})
+
 fetch.interceptors.response.use(
   (response) => {
     switch (response.status) {
       case 500:
-
         break
 
       default:
-        return response
+        return response.data
     }
-    return response
+    return response.data
   },
   (error) => {
-    console.log('Fetch data error :',error.response.data)
-    return Promise.reject(error)
+    return Promise.reject(error.response?.data)
   }
 )

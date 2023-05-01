@@ -11,6 +11,7 @@ export const ButtonPrimary: React.FC<IPropsButtons> = ({
   textColor,
   onClick,
   buttonType = 'primary',
+  disabled = false,
 }) => {
   const styleButton = {
     [ButtonsType.primary as string]: 'btn-primary',
@@ -19,6 +20,7 @@ export const ButtonPrimary: React.FC<IPropsButtons> = ({
 
   return (
     <button
+      disabled={disabled}
       type={type}
       className={clsx(
         'flex justify-center',

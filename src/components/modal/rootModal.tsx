@@ -8,7 +8,7 @@ import {
   ModalBody,
   ModalFooter,
 } from '@chakra-ui/react'
-import { ButtonPrimary } from '../ButtonPrimary'
+import { ButtonPrimary } from '../buttonPrimary'
 import { CloseIcon } from '@/icons'
 
 const RootModal: React.FC<IModal> = ({
@@ -44,7 +44,7 @@ const RootModal: React.FC<IModal> = ({
 
   return (
     <Modal onClose={closeModal} isOpen={showModal} isCentered>
-      <ModalOverlay />
+      <ModalOverlay onClick={() => console.log('aa')} />
       <ModalContent
         className="flex flex-col items-center justify-center"
         width={width}
@@ -54,9 +54,9 @@ const RootModal: React.FC<IModal> = ({
           <CloseIcon
             onClick={closeModal}
             color="var(--primary-color)"
-            width="35"
-            height="35"
-            className="ml-auto p-1 mr-2 transition-all ease-in drop-shadow-lg shadow-black hover:cursor-pointer hover:rotate-2 hover:scale-125 z-50"
+            width="30"
+            height="30"
+            className="ml-auto p-1 mr-2 opacity-60 transition-all ease-in drop-shadow-lg shadow-black hover:opacity-100 hover:cursor-pointer hover:rotate-2 hover:scale-125 z-50"
           />
         )}
 

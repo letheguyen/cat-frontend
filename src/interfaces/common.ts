@@ -1,4 +1,7 @@
+import { CODE_ERROR } from '@/constants'
+
 export type ValueOf<T> = T[keyof T]
+export type IButtonType = ValueOf<typeof CODE_ERROR>
 
 export interface ILayoutApp {
   children: React.ReactElement
@@ -10,4 +13,13 @@ export interface IIcon {
   color?: string
   className?: string
   onClick?: () => void
+}
+
+export interface ILoadingModal {
+  loading: boolean
+}
+
+export interface IResponsFetch {
+  message: string
+  errorCode: IButtonType
 }

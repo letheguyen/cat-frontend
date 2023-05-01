@@ -1,1 +1,2 @@
-export * from './modalIcons'
+export * from './modal'
+export * from './form'

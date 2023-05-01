@@ -1,12 +1,13 @@
 import { StateCreator } from 'zustand'
 
-import { ICommonState, IDataUserSign } from '@/interfaces'
+import { ICommonState, IDataUser, IDataUserSignIn } from '@/interfaces'
 
 export const commonSlice: StateCreator<ICommonState> = (set) => ({
   //user
   role: null,
   dataAccount: null,
-  setDataAccount(data: IDataUserSign) {
+  setDataAccount(data: IDataUser) {
+    console.log(data)
     set(() => ({ role: data.role, dataAccount: data }))
   },
 
@@ -33,5 +34,11 @@ export const commonSlice: StateCreator<ICommonState> = (set) => ({
       onOk: undefined,
       onClose: undefined,
     }))
+  },
+
+  // App
+  loading: null,
+  setLoading(isLoad) {
+    set(() => ({ loading: isLoad }))
   },
 })
