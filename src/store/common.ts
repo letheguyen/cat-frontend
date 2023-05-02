@@ -1,14 +1,14 @@
 import { StateCreator } from 'zustand'
 
-import { ICommonState, IDataUser, IDataUserSignIn } from '@/interfaces'
+import { ICommonState, IDataUser } from '@/interfaces'
 
 export const commonSlice: StateCreator<ICommonState> = (set) => ({
   //user
   role: null,
+  token: null,
   dataAccount: null,
-  setDataAccount(data: IDataUser) {
-    console.log(data)
-    set(() => ({ role: data.role, dataAccount: data }))
+  setDataAccount(data: IDataUser, token) {
+    set(() => ({ role: data.role, dataAccount: data, token: token }))
   },
 
   // Modal

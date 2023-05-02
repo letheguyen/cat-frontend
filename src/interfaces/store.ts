@@ -8,8 +8,9 @@ export type modalType = ValueOf<typeof MODAL_TYPE>
 export interface ICommonState {
   // user
   role: null | string
+  token: null | string
   dataAccount: null | IDataUser
-  setDataAccount: (data: IDataUser) => void
+  setDataAccount: (data: IDataUser, token: string) => void
 
   // Modal
   messageModal: null | string

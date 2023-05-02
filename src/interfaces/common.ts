@@ -23,3 +23,8 @@ export interface IResponsFetch {
   message: string
   errorCode: IButtonType
 }
+
+export interface IHeadingTitle {
+  className?: string
+  title: string
+}

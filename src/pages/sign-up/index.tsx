@@ -395,14 +395,13 @@ const SignUp = () => {
               {avatarPewview && (
                 <DeleteIcon
                   onClick={() => handleClearValueImage('AVATAR')}
-                  color="#bbb"
-                  width="40"
-                  className="pl-1 cursor-pointer hover:-translate-y-[2px]"
+                  width="30"
+                  className="pl-1 cursor-pointer opacity-60 hover:-translate-y-[2px] hover:text-[var(--primary-color)] hover:opacity-100"
                 />
               )}
             </div>
             <div
-              className="mt-3 w-40 h-40 bg-cover cursor-pointer overflow-hidden border relative rounded-md"
+              className="mt-3 w-40 h-40 bg-cover cursor-pointer overflow-hidden border border-[var(--border-input-base)] relative rounded-md"
               style={{
                 backgroundImage: avatarPewview
                   ? 'url(' + URL.createObjectURL(avatarPewview) + ')'
@@ -426,14 +425,13 @@ const SignUp = () => {
               {backgroudPewview && (
                 <DeleteIcon
                   onClick={() => handleClearValueImage('BACKGROUND')}
-                  color="#bbb"
-                  width="40"
-                  className="pl-1 cursor-pointer hover:-translate-y-[2px]"
+                  width="30"
+                  className="pl-1 cursor-pointer opacity-60 hover:-translate-y-[2px] hover:text-[var(--primary-color)] hover:opacity-100"
                 />
               )}
             </div>
             <div
-              className="mt-3 w-full h-40  bg-cover cursor-pointer overflow-hidden border relative rounded-md"
+              className="mt-3 w-full h-40  bg-cover cursor-pointer overflow-hidden border border-[var(--border-input-base)] relative rounded-md"
               style={{
                 backgroundImage: backgroudPewview
                   ? 'url(' + URL.createObjectURL(backgroudPewview) + ')'

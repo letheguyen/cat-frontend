@@ -3,3 +3,5 @@ export * from './layout'
 export * from './modal'
 export { default as Loading } from './loading'
 export { default as FooterForm } from './footerForm'
+export { default as HeadingTitle } from './heading'
+

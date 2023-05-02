@@ -28,3 +28,77 @@ export const DeleteIcon = ({
     <path d="M14 11v5" />
   </svg>
 )
+
+export const PlusIcon = ({
+  width = '25px',
+  height = '25px',
+  className = '',
+  onClick,
+}: IIcon) => (
+  <svg
+    onClick={onClick}
+    xmlns="http://www.w3.org/2000/svg"
+    height={height}
+    width={width}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className={clsx('ai ai-Plus', className)}
+  >
+    <path d="M12 20v-8m0 0V4m0 8h8m-8 0H4" />
+  </svg>
+)
+
+export const DashboardIcon = ({
+  width = '25px',
+  height = '25px',
+  className = '',
+  onClick,
+}: IIcon) => (
+  <svg
+    onClick={onClick}
+    xmlns="http://www.w3.org/2000/svg"
+    height={height}
+    width={width}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className={clsx('ai ai-AlignBottom', className)}
+  >
+    <path d="M21 22H3" />
+    <path d="M6 18V2h4v16H6z" />
+    <path d="M14 18V8h4v10h-4z" />
+  </svg>
+)
+
+export const CategoryIcon = ({
+  width = '25px',
+  height = '25px',
+  className = '',
+  onClick,
+}: IIcon) => (
+  <svg
+    onClick={onClick}
+    xmlns="http://www.w3.org/2000/svg"
+    height={height}
+    width={width}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className={clsx('ai ai-Clipboard', className)}
+  >
+   <path d="M15.5 4H18a2 2 0 0 1 2 2v13a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2.5"/>
+  <path d="M8.621 3.515A2 2 0 0 1 10.561 2h2.877a2 2 0 0 1 1.94 1.515L16 6H8l.621-2.485z"/>
+  <path d="M9 12h6"/>
+  <path d="M9 16h6"/>
+  </svg>
+)

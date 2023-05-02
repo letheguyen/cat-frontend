@@ -9,6 +9,7 @@ import {
   KEY_DATA_USERS_COOKIE,
   KEY_TOKEN_COOKIE,
   PATH_NAME,
+  ROLE,
   ROLE_APP,
 } from '@/constants'
 import { schemaSignIn } from '@/schema'
@@ -20,11 +21,8 @@ import { useStore } from '@/store'
 const SignUp = () => {
   const {
     register,
-    getValues,
     handleSubmit,
-    setValue,
     setError,
-    reset,
     watch,
     formState: { errors },
   } = useForm<ISignInData>({
@@ -32,17 +30,19 @@ const SignUp = () => {
   })
   const { push } = useRouter()
   const [disabled, setDisabled] = useState(true)
-  const { setLoading, setDataModal, closeModal } = useStore()
+  const { setLoading } = useStore()
 
   const onSubmit = async (data: ISignInData) => {
     setLoading(true)
     const res = (await signIn(data)) as IDataUserSignIn
 
     if (res?.token) {
+      Cookies.set(ROLE, res?.data?.role, { expires: DAY_SAVE_COOKIE })
       Cookies.set(KEY_TOKEN_COOKIE, res.token, { expires: DAY_SAVE_COOKIE })
       Cookies.set(KEY_DATA_USERS_COOKIE, JSON.stringify(res.data), {
         expires: DAY_SAVE_COOKIE,
       })
+
       handleNextPage(res?.data?.role)
     } else {
       setError('password', { message: 'Incorrect Account Information' })

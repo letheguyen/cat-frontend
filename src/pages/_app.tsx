@@ -1,18 +1,30 @@
+import Cookies from 'js-cookie'
+import { useRouter } from 'next/router'
 import type { AppProps } from 'next/app'
 import { ChakraProvider, extendTheme } from '@chakra-ui/react'
-import { LayoutUserSite, Loading, RootModal } from '@/components'
-import Cookies from 'js-cookie'
 
-import '@/styles/main.scss'
+import {
+  LayoutUserSite,
+  Loading,
+  RootModal,
+  LayoutAdminSite,
+} from '@/components'
+import {
+  ADMIN_PATH,
+  KEY_DATA_USERS_COOKIE,
+  KEY_TOKEN_COOKIE,
+  ROLE_APP,
+} from '@/constants'
 import { useStore } from '@/store'
 import { useEffect } from 'react'
-import { KEY_DATA_USERS_COOKIE } from '@/constants'
-import { IDataUser, IDataUserSignIn } from '@/interfaces'
+import { IDataUser } from '@/interfaces'
+import { handleParseUrl } from '@/utils'
+
+import '@/styles/main.scss'
 
 export default function App({ Component, pageProps }: AppProps) {
-  const { loading, setDataAccount } = useStore()
-
-
+  const { pathname } = useRouter()
+  const { loading, role, token, setDataAccount } = useStore()
 
   // customize your theme here
   const theme = extendTheme({
@@ -20,28 +32,41 @@ export default function App({ Component, pageProps }: AppProps) {
       heading: 'Fredoka',
       body: 'Fredoka',
     },
-    colors: {},
+    colors: {
+      dsgs: '#ccc'
+    },
   })
 
   const handleSaveDataUser = () => {
     const userData = Cookies.get(KEY_DATA_USERS_COOKIE)
-    if (userData) {
+    const token = Cookies.get(KEY_TOKEN_COOKIE)
+
+    if (userData && token) {
+      const tokenData: string = token
       const dataUser: IDataUser = JSON.parse(userData)
-      setDataAccount(dataUser)
+      setDataAccount(dataUser, tokenData)
     }
+  }
+
+  const getLayout = (page: React.ReactElement) => {
+    let Layout = LayoutUserSite
+    const adminUrls = handleParseUrl(ADMIN_PATH)
+
+    if (adminUrls.includes(pathname) && role === ROLE_APP.ADMIN && token) {
+      Layout = LayoutAdminSite
+    }
+    return <Layout>{page}</Layout>
   }
 
   useEffect(() => {
     handleSaveDataUser()
-  }, [])
+  }, [pathname])
 
   return (
     <ChakraProvider theme={theme}>
       <RootModal />
       <Loading loading={!!loading} />
-      <LayoutUserSite>
-        <Component {...pageProps} />
-      </LayoutUserSite>
+      {getLayout(<Component {...pageProps} />)}
     </ChakraProvider>
   )
 }
