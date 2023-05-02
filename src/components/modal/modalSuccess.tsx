@@ -9,7 +9,7 @@ const ModalSuccess = () => {
   const { messageModal } = useStore()
 
   return (
-    <RootModal width="340px" height="220px" noIconClose noButtonFooter>
+    <RootModal width="340px" height="280px" noIconClose noButtonFooter>
       <div>
         <h3 className="text-[28px] block font-semibold text-[var(--primary-color)] capitalize text-center drop-shadow-lg shadow-black">
           {messageModal}

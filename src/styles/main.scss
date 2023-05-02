@@ -27,13 +27,17 @@ html *::-webkit-scrollbar-track {
   background-color: transparent;
 }
 
-* {
+div,
+span,
+ul,
+ol,
+label {
   font-family: 'Fredoka', sans-serif;
   @apply text-base text-[var(--text-base-color)];
 }
 
 body {
-  @apply bg-[var(--bg-color)];
+  background-color: var(--bg-color) !important;
 }
 
 h1,
@@ -51,6 +55,9 @@ a {
 .main {
   &-content {
     @apply w-4/6 mx-auto max-[1580px]:w-5/6 max-2xl:w-5/6 max-xl:w-full max-xl:px-16 max-lg:w-full max-lg:px-7 max-md:px-5 max-[360px]:px-3;
+  }
+  &-layout-admin {
+    @apply w-full m-auto;
   }
 }
 
@@ -75,7 +82,7 @@ a {
 }
 
 .input-base {
-  @apply border h-10 rounded-md pl-3 pr-4 outline-none -mt-1 focus:border-[var(--primary-color)] focus:shadow-lg;
+  @apply border border-[var(--border-input-base)] bg-transparent h-10 rounded-md pl-3 pr-4 outline-none -mt-1 focus:border-[var(--primary-color)] focus:shadow-lg;
 }
 
 .input-file-custom {

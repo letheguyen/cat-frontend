@@ -6,4 +6,5 @@ export const API_URL = {
   provinces: '/provinces/getAll?limit=-1',
   districts: '/districts/getByProvince',
   wards: '/wards/getByDistrict',
+  createCategory: '/create-category'
 } as const
