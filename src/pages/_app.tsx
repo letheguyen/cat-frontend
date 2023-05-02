@@ -18,7 +18,7 @@ import {
 import { useStore } from '@/store'
 import { useEffect } from 'react'
 import { IDataUser } from '@/interfaces'
-import { handleParseUrl } from '@/utils'
+import { convertObjectToArray } from '@/utils'
 
 import '@/styles/main.scss'
 
@@ -50,7 +50,7 @@ export default function App({ Component, pageProps }: AppProps) {
 
   const getLayout = (page: React.ReactElement) => {
     let Layout = LayoutUserSite
-    const adminUrls = handleParseUrl(ADMIN_PATH)
+    const adminUrls = convertObjectToArray(ADMIN_PATH)
 
     if (adminUrls.includes(pathname) && role === ROLE_APP.ADMIN && token) {
       Layout = LayoutAdminSite

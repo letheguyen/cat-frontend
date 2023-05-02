@@ -6,7 +6,7 @@ export * from './common'
 export * from './modal'
 export * from './provinces'
 export * from './upload'
-export * from './createCategory'
+export * from './category'
 
 
 

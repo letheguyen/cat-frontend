@@ -88,3 +88,15 @@ a {
 .input-file-custom {
   @apply absolute w-full h-full overflow-hidden after:content-[''] after:absolute after:bg-black after:top-0 after:left-0 after:w-full after:h-full;
 }
+
+.text {
+  &-heading {
+    @apply text-2xl;
+  }
+  &-title {
+    @apply text-[22px];
+  }
+  &-des {
+    @apply text-base;
+  }
+}

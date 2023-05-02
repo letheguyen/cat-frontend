@@ -1,3 +1,3 @@
 export * from './upload'
-export * from './redirect'
+export * from './convertObject'
 
