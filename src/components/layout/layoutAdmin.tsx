@@ -9,14 +9,14 @@ import { ADMIN_PATH, PATH_NAME, USER_PATH } from '@/constants'
 import { ILayoutApp } from '@/interfaces'
 import defaultAvatar from '/public/defaultAvatar.jpg'
 import Link from 'next/link'
-import { CategoryIcon, DashboardIcon, PlusIcon } from '@/icons'
+import { CategoryIcon, CategorysIcon, DashboardIcon, PlusIcon } from '@/icons'
 
 const LayoutAdminSite: React.FC<ILayoutApp> = ({ children }) => {
   const { dataAccount } = useStore()
-  const { query, push, pathname } = useRouter()
+  const { push, pathname } = useRouter()
   const [tabIndex, setTabIndex] = useState(0)
 
-  const dataTabs = [
+  const dataNav = [
     {
       id: 3,
       style: 'ml-auto',
@@ -38,11 +38,44 @@ const LayoutAdminSite: React.FC<ILayoutApp> = ({ children }) => {
     },
   ]
 
+  const dataMenu = [
+    {
+      id: 1,
+      href: PATH_NAME.admin,
+      content: (
+        <>
+          <DashboardIcon width="30" height="22" className="mr-1" />
+          Dashboard
+        </>
+      ),
+    },
+    {
+      id: 3,
+      href: PATH_NAME.categorys,
+      content: (
+        <>
+          <CategorysIcon width="30" height="22" className="mr-1" />
+          Categorys
+        </>
+      ),
+    },
+    {
+      id: 4,
+      href: PATH_NAME.categoryCreate,
+      content: (
+        <>
+          <CategoryIcon width="30" height="22" className="mr-1" />
+          Create Category
+        </>
+      ),
+    },
+  ]
+
   return (
     <>
       <Tabs defaultIndex={tabIndex}>
-        <TabList className="fixed w-full bg-white z-30 !border-b-2 !border-[var(--primary-color)]">
-          {dataTabs.map((tabs) => (
+        <TabList className="fixed w-full bg-white z-[99] !border-b-2 !border-[var(--primary-color)]">
+          {dataNav.map((tabs) => (
             <Tab
               color="transparent"
               key={tabs.id}
@@ -58,24 +91,20 @@ const LayoutAdminSite: React.FC<ILayoutApp> = ({ children }) => {
       <div className="flex gap-7 px-4 main-layout-admin">
         <div className="w-1/4 max-w-sm top-0 pt-16 pl-4 min-h-screen bg-[var(--bg-menu-layout-admin)]">
           <div className="sticky left-0 top-20 flex flex-col gap-4">
-            <Link
-              href={PATH_NAME.admin}
-              className={clsx(
-                'text-[22px] opacity-60 flex hover:opacity-100',
-                PATH_NAME.admin === pathname && 'opacity-100 text-[var(--primary-color)]'
-              )}
-            >
-              <DashboardIcon width='30' height='22' className='mr-1'/> Dashboard
-            </Link>
-            <Link
-              href={PATH_NAME.categoryCreate}
-              className={clsx(
-                'text-[22px] opacity-60  flex hover:opacity-100',
-                PATH_NAME.categoryCreate === pathname && 'opacity-100 text-[var(--primary-color)]'
-              )}
-            >
-              <CategoryIcon width='30' height='22' className='mr-1'/> Create Category
-            </Link>
+            {dataMenu.map((item) => (
+              <Link
+                key={item.id}
+                href={item.href}
+                className={clsx(
+                  'text-[22px] flex hover:opacity-100 items-center',
+                  item.href === pathname
+                    ? 'opacity-100 text-[var(--primary-color)]'
+                    : 'opacity-60'
+                )}
+              >
+                {item.content}
+              </Link>
+            ))}
           </div>
         </div>
         <div className="pt-16 pb-7 flex-1">{children}</div>

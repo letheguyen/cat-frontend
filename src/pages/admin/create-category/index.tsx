@@ -59,14 +59,8 @@ const CreateCategory = () => {
 
   const onSubmit = async (data: IDataCreateCategory) => {
     setLoading(true)
-    console.log(data)
-
     const { isError: isErr, imageURl: url } = await saveImage(data.avatar[0])
     const { isError, imageURl } = await saveImage(data.background[0])
-
-    if (isErr || isError) {
-      handleUploadFailure()
-    }
 
     if (url && imageURl) {
       const dataCreateCategory: IDataPostCreateCategory = {
@@ -75,7 +69,7 @@ const CreateCategory = () => {
         background: imageURl,
       }
       const res = await createCategory(dataCreateCategory)
-      setLoading(null)
+      setLoading(false)
 
       if (res.errorCode === CODE_ERROR.SUCCESS) {
         setDataModal({
@@ -86,8 +80,8 @@ const CreateCategory = () => {
 
         setTimeout(() => {
           closeModal()
-          // push(PATH_NAME.signIn)
-        }, 5000)
+          push(PATH_NAME.categorys)
+        }, 3000)
       } else {
         setDataModal({
           messageModal: 'Category ' + ERROR_DATA[res.errorCode],
@@ -95,6 +89,11 @@ const CreateCategory = () => {
           modalKey: MODAL_TYPE.commonError,
         })
       }
+    }
+
+    if (isErr || isError) {
+      setLoading(false)
+      handleUploadFailure()
     }
   }
 
@@ -120,12 +119,6 @@ const CreateCategory = () => {
     append({
       key: '',
       value: '',
-    })
-
-    setDataModal({
-      messageModal: 'Create category  success',
-      showModal: true,
-      modalKey: MODAL_TYPE.commonSuccess,
     })
   }
 
@@ -175,7 +168,7 @@ const CreateCategory = () => {
           {...register('description')}
         />
         <span className="text-[var(--des-color)]">
-          Description of catalog information up to 500 characters
+          Description of catalog information up to 1.000 characters.
         </span>
         <span className="text-[var(--color-message-error)]">
           {errors.description?.message}

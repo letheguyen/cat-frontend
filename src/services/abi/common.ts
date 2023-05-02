@@ -10,6 +10,6 @@ export const uploadFile = async (fromData: FormData) => {
     })
   } catch (error) {
     console.warn('Upload image failure :', error)
-    return error
+    return undefined
   }
 }

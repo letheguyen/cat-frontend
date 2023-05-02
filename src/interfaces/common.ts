@@ -28,3 +28,10 @@ export interface IHeadingTitle {
   className?: string
   title: string
 }
+
+export interface IFitlImage {
+  width?: string,
+  height?: string,
+  className?: string,
+  url?: string 
+}

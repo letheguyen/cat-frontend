@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
-import { handleParseUrl } from './utils'
+import { convertObjectToArray } from './utils'
 import {
   ADMIN_PATH,
   KEY_TOKEN_COOKIE,
@@ -16,9 +16,9 @@ export default function middleware(req: NextRequest) {
   const role = req.cookies.get(ROLE)?.value
   const url = req.nextUrl.clone()
 
-  const adminUrls = handleParseUrl(ADMIN_PATH)
-  const signInUpUrls = handleParseUrl(SIGN_IN_UP)
-  const publicUrls = handleParseUrl({ ...PUBLIC_PATH, ...SIGN_IN_UP })
+  const adminUrls = convertObjectToArray(ADMIN_PATH)
+  const signInUpUrls = convertObjectToArray(SIGN_IN_UP)
+  const publicUrls = convertObjectToArray({ ...PUBLIC_PATH, ...SIGN_IN_UP })
 
   if (veryfi && role && signInUpUrls.includes(url.pathname)) {
     url.pathname = PATH_NAME.home

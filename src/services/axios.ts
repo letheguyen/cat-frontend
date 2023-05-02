@@ -1,9 +1,10 @@
+import { KEY_TOKEN_COOKIE } from '@/constants'
 import axios from 'axios'
 import Cookies from 'js-cookie'
 
 const handleGetToken = () => {
-  if (!Cookies.get('tokenId')) return undefined
-  return 'Bearer' + ' ' + Cookies.get('tokenId')
+  if (!Cookies.get(KEY_TOKEN_COOKIE)) return undefined
+  return 'Bearer' + ' ' + Cookies.get(KEY_TOKEN_COOKIE)
 }
 
 export const fetch = axios.create({

@@ -10,7 +10,7 @@ export const schemaCreateCategory = yup.object().shape({
   description: yup
     .string()
     .trim()
-    .max(700, 'Description cannot be longer than 700 characters')
+    .max(1000, 'Description cannot be longer than 1000 characters')
     .required('Description must be required'),
   avatar: yup
     .mixed()
