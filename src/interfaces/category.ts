@@ -1,3 +1,5 @@
+import { IPagination } from "./common"
+
 export interface TypeFormCreateCategory {
   title: string
   description: string
@@ -43,9 +45,5 @@ export interface IDetailCategory {
 
 export interface IResponCategory {
   data: IDetailCategory[] | []
-  pagination: {
-    limit: number
-    page: number
-    totalPage: number
-  }
+  pagination: IPagination
 }

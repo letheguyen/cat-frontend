@@ -3,9 +3,20 @@ import React, { memo, useEffect, useState } from 'react'
 
 import { IFitlImage } from '@/interfaces'
 import noImage from 'public/noImage.png'
+import { fetch } from '@/services'
+import axios from 'axios'
+import Image from 'next/image'
 
 const FitlImage: React.FC<IFitlImage> = (props) => {
   const [image, setImage] = useState(noImage.src)
+
+  // const handleCheckImage = async (url: string) => {
+  //   await axios
+  //     .get(url)
+  //     .then(() => {
+  //       setImage(url)
+  //     })
+  // }
 
   useEffect(() => {
     if (!props.url) return

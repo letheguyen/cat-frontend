@@ -21,6 +21,7 @@ import { IDataUser } from '@/interfaces'
 import { convertObjectToArray } from '@/utils'
 
 import '@/styles/main.scss'
+import clsx from 'clsx'
 
 export default function App({ Component, pageProps }: AppProps) {
   const { pathname } = useRouter()
@@ -33,7 +34,7 @@ export default function App({ Component, pageProps }: AppProps) {
       body: 'Fredoka',
     },
     colors: {
-      dsgs: '#ccc'
+      dsgs: '#ccc',
     },
   })
 
@@ -52,15 +53,20 @@ export default function App({ Component, pageProps }: AppProps) {
     let Layout = LayoutUserSite
     const adminUrls = convertObjectToArray(ADMIN_PATH)
 
-    if (adminUrls.includes(pathname) && role === ROLE_APP.ADMIN && token) {
+    if (
+      adminUrls.includes(clsx('/' + pathname.split('/')[1])) &&
+      role === ROLE_APP.ADMIN &&
+      token
+    ) {
       Layout = LayoutAdminSite
     }
+
     return <Layout>{page}</Layout>
   }
 
   useEffect(() => {
     handleSaveDataUser()
-  }, [pathname])
+  }, [])
 
   return (
     <ChakraProvider theme={theme}>

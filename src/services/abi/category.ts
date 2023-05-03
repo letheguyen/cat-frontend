@@ -1,5 +1,5 @@
 import { API_URL } from '@/constants'
-import { IDataPostCreateCategory, IParamsGetCategorys, IResponCategory, IResponsFetch } from '@/interfaces'
+import { IDataPostCreateCategory, IDetailCategory, IParamsGetCategorys, IResponCategory, IResponsFetch } from '@/interfaces'
 import { fetch } from '../axios'
 
 export const createCategory = async (
@@ -15,6 +15,14 @@ export const createCategory = async (
 export const getCategorys = async (params: IParamsGetCategorys) => {
   try {
     return await fetch.get(`${API_URL.categorys}?page=${params.page}&limit=${params.limit}`) as IResponCategory
+  } catch (error) {
+    return null
+  }
+}
+
+export const getDetailCategory = async (id: string) => {
+  try {
+    return await fetch.get(`${API_URL.categorys}/${id}`) as IDetailCategory
   } catch (error) {
     return null
   }

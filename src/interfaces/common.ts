@@ -35,3 +35,15 @@ export interface IFitlImage {
   className?: string,
   url?: string 
 }
+
+export interface IPagination {
+  limit: number
+  page: number
+  totalPage: number
+}
+
+export interface IPaginationsPage {
+  limit: number
+  totalPage: number
+  onChange: (page: number) => void
+}

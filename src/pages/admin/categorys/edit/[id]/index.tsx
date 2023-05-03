@@ -16,18 +16,21 @@ import { schemaCreateCategory } from '@/schema'
 import {
   IDataCreateCategory,
   IDataPostCreateCategory,
+  IDetailCategory,
 } from '@/interfaces'
 import { handleGetUrlImage as saveImage } from '@/utils'
 
 import noImage from '/public/noImage.png'
 import { useStore } from '@/store'
-import { createCategory } from '@/services'
+import { createCategory, getDetailCategory } from '@/services'
+import { string } from 'yup'
 
-const CreateCategory = () => {
-  const { push } = useRouter()
+const EditCreateCategory = () => {
+  const { push, back, pathname, query } = useRouter()
   const { setLoading, setDataModal, closeModal } = useStore()
-  const [avatarPewview, setAvatarPewview] = useState<File>()
-  const [backgroudPewview, setBackgroudPewview] = useState<File>()
+  const [avatarPewview, setAvatarPewview] = useState<File | string>()
+  const [backgroudPewview, setBackgroudPewview] = useState<File | string>()
+  // const [dataCategory, setDataCategory] = useState<IDetailCategory>()
 
   const {
     register,
@@ -41,14 +44,6 @@ const CreateCategory = () => {
     formState: { errors },
   } = useForm<IDataCreateCategory>({
     resolver: yupResolver(schemaCreateCategory),
-    defaultValues: {
-      attribute: [
-        {
-          key: '',
-          value: '',
-        },
-      ],
-    },
   })
 
   const { fields, append, remove } = useFieldArray({
@@ -121,6 +116,40 @@ const CreateCategory = () => {
     })
   }
 
+  const getCategory = async (id: string) => {
+    setLoading(true)
+    const res = await getDetailCategory(id)
+
+    if (res) {
+      setBackgroudPewview(res.background)
+      setAvatarPewview(res.avatar)
+      setValue('title', res.title)
+      setValue('description', res.description)
+      setValue('attribute', res.attribute)
+    } else {
+      setDataModal({
+        messageModal: 'Category not found',
+        showModal: true,
+        modalKey: MODAL_TYPE.commonError,
+      })
+    }
+    setTimeout(() => {
+      setLoading(null)
+    }, 600)
+  }
+
+  const handleShowImagePiewView = (data: undefined | File | string) => {
+    console.log(typeof data)
+    switch (typeof data) {
+      case 'string':
+        return data
+      case 'undefined':
+        return noImage.src
+      default:
+        return URL.createObjectURL(data)
+    }
+  }
+
   useEffect(() => {
     const file = getValues('avatar')?.item(0)
     if (file) {
@@ -135,9 +164,14 @@ const CreateCategory = () => {
     }
   }, [watch('background')])
 
+  useEffect(() => {
+    if (!query?.id) return
+    getCategory(query.id as string)
+  }, [query?.id])
+
   return (
     <form className="m-auto" onSubmit={handleSubmit(onSubmit)}>
-      <HeadingTitle title="Create Product Category" />
+      <HeadingTitle title="Update Category" />
       <div className="flex flex-col mt-4">
         <p>
           Title
@@ -199,9 +233,8 @@ const CreateCategory = () => {
           <div
             className="mt-3 w-full pt-[100%] bg-cover cursor-pointer overflow-hidden border border-[var(--border-input-base)] relative rounded-md"
             style={{
-              backgroundImage: avatarPewview
-                ? 'url(' + URL.createObjectURL(avatarPewview) + ')'
-                : 'url(' + noImage.src + ')',
+              backgroundImage:
+                'url(' + handleShowImagePiewView(avatarPewview) + ')',
               backgroundPosition: 'center',
             }}
           ></div>
@@ -235,9 +268,8 @@ const CreateCategory = () => {
           <div
             className="mt-3 w-full h-full  bg-cover cursor-pointer overflow-hidden border border-[var(--border-input-base)] relative rounded-md"
             style={{
-              backgroundImage: backgroudPewview
-                ? 'url(' + URL.createObjectURL(backgroudPewview) + ')'
-                : 'url(' + noImage.src + ')',
+              backgroundImage:
+                'url(' + handleShowImagePiewView(backgroudPewview) + ')',
               backgroundPosition: 'center',
             }}
           ></div>
@@ -303,11 +335,11 @@ const CreateCategory = () => {
         <ButtonPrimary
           className="!rounded-md mt-6"
           type="submit"
-          title="Create Category"
+          title="Update"
         />
 
         <ButtonPrimary
-          onClick={() => push(PATH_NAME.home)}
+          onClick={back}
           className="!rounded-md mt-6"
           type="button"
           title="Back"
@@ -318,4 +350,4 @@ const CreateCategory = () => {
   )
 }
 
-export default memo(CreateCategory)
+export default memo(EditCreateCategory)

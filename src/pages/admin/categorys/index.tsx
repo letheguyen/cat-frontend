@@ -1,14 +1,18 @@
-import { ButtonPrimary, HeadingTitle, NoDataPage } from '@/components'
+import React, { memo, useEffect, useState } from 'react'
+
+import { ButtonPrimary, HeadingTitle, NoDataPage, Paginate } from '@/components'
 import FitlImage from '@/components/fitlImage'
-import { LIMIT_PAGE, MODAL_TYPE } from '@/constants'
-import { IDetailCategory, IResponCategory } from '@/interfaces'
+import { LIMIT_PAGE, MODAL_TYPE, PATH_NAME } from '@/constants'
+import { IDetailCategory, IPagination, IResponCategory } from '@/interfaces'
 import { getCategorys, deleteCategorys } from '@/services'
 import { useStore } from '@/store'
-import React, { useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
 
 const Categorys = () => {
+  const { push } = useRouter()
   const { setLoading, setDataModal } = useStore()
   const [dataCategorys, setDataCategory] = useState<IDetailCategory[] | null>()
+  const [dataPaginate, setDataPaginate] = useState<IPagination>()
   const [page, setPage] = useState(1)
 
   const handleGetCategory = async () => {
@@ -17,6 +21,7 @@ const Categorys = () => {
       limit: LIMIT_PAGE,
     })
     setDataCategory(data?.data)
+    setDataPaginate(data?.pagination)
   }
 
   const deleteCategory = async (id: string) => {
@@ -55,11 +60,13 @@ const Categorys = () => {
 
   useEffect(() => {
     if (!dataCategorys) return
-    setLoading(null)
+    setTimeout(() => {
+      setLoading(null)
+    }, 600)
   }, [dataCategorys])
 
   return (
-    <div className='h-full'>
+    <div className="h-full">
       <HeadingTitle title="Categorys" />
       <div className="grid grid-cols-4 gap-4 mt-3 max-2xl:grid-cols-3 max-lg:grid-cols-2">
         {dataCategorys?.map((category) => (
@@ -84,13 +91,14 @@ const Categorys = () => {
 
               <div className="flex gap-4 mt-1">
                 <ButtonPrimary
-                  className="!rounded-md w-full"
+                  onClick={() => push(`${PATH_NAME.categorysEdit}/${category._id}`)}
+                  className="!rounded-md w-full !min-w-max cursor-wait"
                   type="button"
                   title="Update"
                 />
                 <ButtonPrimary
                   onClick={() => deleteCategory(category._id)}
-                  className="!rounded-md w-full !bg-[var(--bg-delete)]"
+                  className="!rounded-md w-full !min-w-max !bg-[var(--bg-delete)]"
                   type="button"
                   title="Delete"
                 />
@@ -99,9 +107,18 @@ const Categorys = () => {
           </div>
         ))}
       </div>
-        {dataCategorys && dataCategorys.length === 0 ? <NoDataPage /> : ''}
+
+      {dataCategorys && dataCategorys.length === 0 ? <NoDataPage /> : ''}
+
+      {dataPaginate && (
+        <Paginate
+          totalPage={dataPaginate.totalPage}
+          limit={dataPaginate.limit}
+          onChange={setPage}
+        />
+      )}
     </div>
   )
 }
 
-export default Categorys
+export default memo(Categorys)

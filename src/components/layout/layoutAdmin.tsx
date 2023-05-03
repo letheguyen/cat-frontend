@@ -1,20 +1,19 @@
 import clsx from 'clsx'
+import Link from 'next/link'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
-import React, { memo, useEffect, useState } from 'react'
-import { Tab, TabList, TabPanels, Tabs } from '@chakra-ui/react'
+import React, { memo } from 'react'
+import { Tab, TabList, Tabs } from '@chakra-ui/react'
 
 import { useStore } from '@/store'
-import { ADMIN_PATH, PATH_NAME, USER_PATH } from '@/constants'
+import { PATH_NAME, USER_PATH } from '@/constants'
 import { ILayoutApp } from '@/interfaces'
 import defaultAvatar from '/public/defaultAvatar.jpg'
-import Link from 'next/link'
-import { CategoryIcon, CategorysIcon, DashboardIcon, PlusIcon } from '@/icons'
+import { CategoryIcon, CategorysIcon, DashboardIcon } from '@/icons'
 
 const LayoutAdminSite: React.FC<ILayoutApp> = ({ children }) => {
   const { dataAccount } = useStore()
   const { push, pathname } = useRouter()
-  const [tabIndex, setTabIndex] = useState(0)
 
   const dataNav = [
     {
@@ -73,7 +72,7 @@ const LayoutAdminSite: React.FC<ILayoutApp> = ({ children }) => {
 
   return (
     <>
-      <Tabs defaultIndex={tabIndex}>
+      <Tabs>
         <TabList className="fixed w-full bg-white z-[99] !border-b-2 !border-[var(--primary-color)]">
           {dataNav.map((tabs) => (
             <Tab
