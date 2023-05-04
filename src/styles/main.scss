@@ -100,3 +100,13 @@ a {
     @apply text-base;
   }
 }
+
+.custom-paginate {
+  @apply flex gap-3 mt-12;
+  li {
+    @apply py-0;
+    a {
+      @apply py-1 px-4 bg-slate-400/20 rounded-md hover:bg-[var(--shadow-item)] transition-all ease-in;
+    }
+  }
+}
