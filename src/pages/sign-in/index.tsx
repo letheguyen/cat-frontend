@@ -1,29 +1,30 @@
-import React, { useEffect, useState } from 'react'
+import Cookies from 'js-cookie'
 import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
+import React, { useEffect, useState } from 'react'
 import { yupResolver } from '@hookform/resolvers/yup'
-import Cookies from 'js-cookie'
 
 import {
-  DAY_SAVE_COOKIE,
-  KEY_DATA_USERS_COOKIE,
-  KEY_TOKEN_COOKIE,
-  PATH_NAME,
   ROLE,
   ROLE_APP,
+  PATH_NAME,
+  DAY_SAVE_COOKIE,
+  KEY_TOKEN_COOKIE,
+  KEY_DATA_USERS_COOKIE,
 } from '@/constants'
 import { useStore } from '@/store'
 import { signIn } from '@/services'
 import { schemaSignIn } from '@/schema'
+import { Box, Text } from '@chakra-ui/react'
 import { ButtonPrimary, FooterForm } from '@/components'
 import { IDataUserSignIn, ISignInData } from '@/interfaces'
 
 const SignUp = () => {
   const {
+    watch,
+    setError,
     register,
     handleSubmit,
-    setError,
-    watch,
     formState: { errors },
   } = useForm<ISignInData>({
     resolver: yupResolver(schemaSignIn),
@@ -72,45 +73,45 @@ const SignUp = () => {
   }, [watch('email'), watch('password')])
 
   return (
-    <div className="main-content flex justify-center items-center h-screen overflow-hidden">
+    <Box className="main-content flex justify-center items-center h-screen overflow-hidden">
       <form className="w-96 m-auto " onSubmit={handleSubmit(onSubmit)}>
-        <p className="text-5xl sm:hidden text-[var(--primary-color)]">
-          Sign In
-        </p>
+        <Text className="text-5xl sm:hidden text-primaryColor">Sign In</Text>
 
-        <div className="flex flex-col mt-4">
-          <p>
+        <Box className="flex flex-col mt-4">
+          <Text>
             E-mail
-            <span className="text-[var(--color-field-required)] -mt-1">*</span>
-          </p>
+            <Text as="span" className="text-primaryColor -mt-1">
+              *
+            </Text>
+          </Text>
           <input
             placeholder="Enter email"
             className="input-base"
             type="text"
             {...register('email')}
           />
-          <span className="text-[var(--color-message-error)]">
+          <Text as="span" className="text-primaryColor">
             {errors.email?.message}
-          </span>
-        </div>
+          </Text>
+        </Box>
 
-        <div className="flex flex-col mt-4">
-          <p>
+        <Box className="flex flex-col mt-4">
+          <Text>
             Password
-            <span className="text-[var(--color-field-required)] -mt-1">*</span>
-          </p>
+            <Text as="span" className="text-primaryColor -mt-1">
+              *
+            </Text>
+          </Text>
           <input
             placeholder="Enter password"
             className="input-base"
             type="text"
             {...register('password')}
           />
-          <span className="text-[var(--color-message-error)]">
-            {errors.password?.message}
-          </span>
-        </div>
+          <Text className="text-primaryColor">{errors.password?.message}</Text>
+        </Box>
 
-        <div className="grid grid-cols-2 gap-4">
+        <Box className="grid grid-cols-2 gap-4">
           <ButtonPrimary
             disabled={disabled}
             className="!rounded-md mt-6"
@@ -125,10 +126,10 @@ const SignUp = () => {
             title="Back"
             buttonType="close"
           />
-        </div>
+        </Box>
         <FooterForm />
       </form>
-    </div>
+    </Box>
   )
 }
 

@@ -1,3 +1,3 @@
 export * from './upload'
-export * from './convertObject'
+export * from './common'
 

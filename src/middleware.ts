@@ -2,13 +2,13 @@ import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 import { convertObjectToArray } from './utils'
 import {
-  ADMIN_PATH,
-  KEY_TOKEN_COOKIE,
-  PATH_NAME,
-  PUBLIC_PATH,
   ROLE,
   ROLE_APP,
+  PATH_NAME,
   SIGN_IN_UP,
+  ADMIN_PATH,
+  PUBLIC_PATH,
+  KEY_TOKEN_COOKIE,
 } from '@/constants'
 
 export default function middleware(req: NextRequest) {

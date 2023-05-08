@@ -70,7 +70,7 @@ const Categorys = () => {
         {dataCategorys?.map((category) => (
           <Box
             key={category._id}
-            border="borderInputBase"
+            border="borderColorInput"
             className="border rounded-lg p-4 shadow transition-all ease-linear hover:shadow-lg hover:cursor-pointer hover:-translate-y-1"
           >
             <Box key={category._id}>

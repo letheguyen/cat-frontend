@@ -1,7 +1,7 @@
 import { create } from 'zustand'
 
-import { ICommonState } from '@/interfaces'
 import { commonSlice } from './common'
+import { ICommonState } from '@/interfaces'
 
 export const useStore = create<ICommonState>()((...a) => ({
   ...commonSlice(...a),
