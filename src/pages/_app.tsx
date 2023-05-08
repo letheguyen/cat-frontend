@@ -1,8 +1,8 @@
 import clsx from 'clsx'
 import Cookies from 'js-cookie'
+import { useEffect } from 'react'
 import { useRouter } from 'next/router'
 import type { AppProps } from 'next/app'
-import { ChakraProvider, extendTheme } from '@chakra-ui/react'
 
 import {
   LayoutUserSite,
@@ -17,25 +17,15 @@ import {
   ROLE_APP,
 } from '@/constants'
 import { useStore } from '@/store'
-import { useEffect } from 'react'
 import { IDataUser } from '@/interfaces'
 import { convertObjectToArray } from '@/utils'
+import ThemesProvider from '@/themes/themesProvider'
 
 import '@/styles/main.scss'
 
-export default function App({ Component, pageProps }: AppProps) {
+const App = ({ Component, pageProps }: AppProps) => {
   const { pathname } = useRouter()
   const { loading, role, token, setDataAccount } = useStore()
-
-  const theme = extendTheme({
-    fonts: {
-      heading: 'Fredoka',
-      body: 'Fredoka',
-    },
-    colors: {
-      primaryColorPage: '#138582f1',
-    },
-  })
 
   const handleSaveDataUser = () => {
     const userData = Cookies.get(KEY_DATA_USERS_COOKIE)
@@ -65,10 +55,14 @@ export default function App({ Component, pageProps }: AppProps) {
   }, [])
 
   return (
-    <ChakraProvider theme={theme}>
-      <RootModal />
-      <Loading loading={!!loading} />
-      {getLayout(<Component {...pageProps} />)}
-    </ChakraProvider>
+    <ThemesProvider>
+      <>
+        <RootModal />
+        <Loading loading={!!loading} />
+        {getLayout(<Component {...pageProps} />)}
+      </>
+    </ThemesProvider>
   )
 }
+
+export default App

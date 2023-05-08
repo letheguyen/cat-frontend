@@ -5,11 +5,11 @@ import { IPropsButtons } from '@/interfaces'
 import { ButtonsType } from '@/constants'
 
 export const ButtonPrimary: React.FC<IPropsButtons> = ({
-  className,
-  type = 'button',
   title,
-  textColor,
   onClick,
+  className,
+  textColor,
+  type = 'button',
   buttonType = 'primary',
   disabled = false,
 }) => {

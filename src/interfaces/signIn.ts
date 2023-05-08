@@ -1,24 +1,22 @@
 export interface IDataUserSignIn {
-  data: IDataUser
   token: string
+  data: IDataUser
 }
-
 export interface ISignInData {
   email: string
   password: string
 }
-
 export interface IDataUser {
-  addressDetail: string | undefined
   age: number
-  avatar: string | undefined
-  background: string | undefined
-  districts: string | undefined
+  _id: string
+  role: string
   email: string
   phone: string
-  provinces: string | undefined
-  role: string
   userName: string
   wards: string | undefined
-  _id: string
+  avatar: string | undefined
+  provinces: string | undefined
+  districts: string | undefined
+  background: string | undefined
+  addressDetail: string | undefined
 }

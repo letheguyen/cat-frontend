@@ -13,13 +13,13 @@ export interface ICommonState {
   setDataAccount: (data: IDataUser, token: string) => void
 
   // Modal
-  messageModal: null | string
-  modalKey: modalType | null
-  showModal?: boolean
   onOk?: () => void
+  showModal?: boolean
   onClose?: () => void
-  setDataModal: (data: IModalType) => void
   closeModal: () => void
+  modalKey: modalType | null
+  messageModal: null | string
+  setDataModal: (data: IModalType) => void
 
   // App
   loading: null | boolean

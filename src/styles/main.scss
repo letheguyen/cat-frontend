@@ -27,6 +27,11 @@ html *::-webkit-scrollbar-track {
   background-color: transparent;
 }
 
+:root {
+  --heightHeadingTitle: '80px';
+}
+
+
 div,
 span,
 ul,
@@ -110,3 +115,51 @@ a {
     }
   }
 }
+
+%flexCenter {
+  @apply flex items-center;
+}
+
+%positionsCenter {
+  @apply absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2;
+}
+
+.flexItem {
+  @extend %flexCenter;
+
+  &-center {
+    @extend %flexCenter;
+    @apply justify-center;
+  }
+
+  &-between {
+    @extend %flexCenter;
+    @apply justify-between;
+  }
+
+  &-around {
+    @extend %flexCenter;
+    @apply justify-around;
+  }
+}
+
+.positionsCenter {
+  @extend %positionsCenter;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

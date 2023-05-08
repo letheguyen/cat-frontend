@@ -1,8 +1,8 @@
 import React, { memo } from 'react'
 
 import { useStore } from '@/store'
-import { MODAL_TYPE } from '@/constants'
 import ModalError from './modalError'
+import { MODAL_TYPE } from '@/constants'
 import ModalSuccess from './modalSuccess'
 import ModalConfirm from './modalConfirm'
 

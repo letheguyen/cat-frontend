@@ -4,6 +4,7 @@ import React from 'react'
 
 import successImage from '/public/success.png'
 import RootModal from './rootModal'
+import { Text } from '@chakra-ui/react'
 
 const ModalSuccess = () => {
   const { messageModal } = useStore()
@@ -11,15 +12,15 @@ const ModalSuccess = () => {
   return (
     <RootModal width="340px" height="280px" noIconClose noButtonFooter>
       <div>
-        <h3 className="text-[28px] block font-semibold text-[var(--primary-color)] capitalize text-center drop-shadow-lg shadow-black">
+        <Text fontSize='headingTitle' className="block font-semibold text-primaryColor capitalize text-center drop-shadow-lg shadow-black">
           {messageModal}
-        </h3>
+        </Text>
 
         <Image
-          className="animate-bounce m-auto mt-10"
           width={100}
           src={successImage}
           alt="Image success"
+          className="animate-bounce m-auto mt-10"
         />
       </div>
     </RootModal>

@@ -2,10 +2,10 @@ import { IIcon } from '@/interfaces'
 import clsx from 'clsx'
 
 export const CloseIcon = ({
-  width = '25px',
-  height = '25px',
   color,
   className = '',
+  width = '25px',
+  height = '25px',
   onClick,
 }: IIcon) => (
   <svg

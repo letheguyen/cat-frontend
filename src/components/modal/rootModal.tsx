@@ -7,18 +7,19 @@ import {
   ModalContent,
   ModalBody,
   ModalFooter,
+  Box,
 } from '@chakra-ui/react'
 import { ButtonPrimary } from '../buttonPrimary'
 import { CloseIcon } from '@/icons'
 
 const RootModal: React.FC<IModal> = ({
+  children,
   className = '',
   width = '400px',
   height = '300px',
-  noButtonFooter = false,
   noIconClose = false,
-  children,
   textBtnAccept = 'Ok',
+  noButtonFooter = false,
   textBtnClose = 'Close',
 }) => {
   // Store
@@ -43,42 +44,46 @@ const RootModal: React.FC<IModal> = ({
   }
 
   return (
-    <Modal onClose={closeModal} isOpen={showModal} isCentered>
-      <ModalOverlay onClick={() => console.log('aa')} />
+    <Modal onClose={closeModal} isOpen={!!showModal} isCentered>
+      <ModalOverlay />
       <ModalContent
-        className="flex flex-col items-center justify-center"
         width={width}
         height={height}
+        className="flex-col flexItem-center"
       >
         {!noIconClose && (
           <CloseIcon
-            onClick={closeModal}
-            color="var(--primary-color)"
             width="30"
             height="30"
-            className="ml-auto p-1 mr-2 opacity-60 transition-all ease-in drop-shadow-lg shadow-black hover:opacity-100 hover:cursor-pointer hover:rotate-2 hover:scale-125 z-50"
+            onClick={closeModal}
+            className="ml-auto text-primaryColor p-1 mr-2 opacity-60 transition-all ease-in drop-shadow-lg shadow-black hover:opacity-100 hover:cursor-pointer hover:rotate-2 hover:scale-125 z-50"
           />
         )}
 
-        <div className="-mt-3">
+        <Box className="-mt-3">
           <ModalBody className={className}>{children}</ModalBody>
-        </div>
+        </Box>
 
         {!noButtonFooter && (
-          <ModalFooter gap={4} className="flex !justify-center !items-center">
+          <ModalFooter
+            gap={4}
+            className="flex"
+            alignItems="center"
+            justifyContent="center"
+          >
             <ButtonPrimary
-              onClick={handleOk}
               type="button"
+              onClick={handleOk}
               title={textBtnAccept}
               className="!rounded-lg w-24 capitalize"
             />
 
             <ButtonPrimary
-              onClick={handleClose}
               type="button"
-              title={textBtnClose}
-              className="!rounded-lg w-24 capitalize"
               buttonType="close"
+              title={textBtnClose}
+              onClick={handleClose}
+              className="!rounded-lg w-24 capitalize"
             />
           </ModalFooter>
         )}
