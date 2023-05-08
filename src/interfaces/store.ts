@@ -14,8 +14,8 @@ export interface ICommonState {
 
   // Modal
   messageModal: null | string
-  showModal: boolean
   modalKey: modalType | null
+  showModal?: boolean
   onOk?: () => void
   onClose?: () => void
   setDataModal: (data: IModalType) => void

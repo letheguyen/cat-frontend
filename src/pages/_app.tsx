@@ -1,3 +1,4 @@
+import clsx from 'clsx'
 import Cookies from 'js-cookie'
 import { useRouter } from 'next/router'
 import type { AppProps } from 'next/app'
@@ -21,20 +22,18 @@ import { IDataUser } from '@/interfaces'
 import { convertObjectToArray } from '@/utils'
 
 import '@/styles/main.scss'
-import clsx from 'clsx'
 
 export default function App({ Component, pageProps }: AppProps) {
   const { pathname } = useRouter()
   const { loading, role, token, setDataAccount } = useStore()
 
-  // customize your theme here
   const theme = extendTheme({
     fonts: {
       heading: 'Fredoka',
       body: 'Fredoka',
     },
     colors: {
-      dsgs: '#ccc',
+      primaryColorPage: '#138582f1',
     },
   })
 
@@ -53,14 +52,11 @@ export default function App({ Component, pageProps }: AppProps) {
     let Layout = LayoutUserSite
     const adminUrls = convertObjectToArray(ADMIN_PATH)
 
-    if (
-      adminUrls.includes(clsx('/' + pathname.split('/')[1])) &&
-      role === ROLE_APP.ADMIN &&
-      token
-    ) {
-      Layout = LayoutAdminSite
+    if (adminUrls.includes(clsx('/' + pathname.split('/')[1]))) {
+      if (role === ROLE_APP.ADMIN && token) {
+        Layout = LayoutAdminSite
+      }
     }
-
     return <Layout>{page}</Layout>
   }
 

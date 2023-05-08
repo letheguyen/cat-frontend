@@ -68,7 +68,6 @@ const EditCreateCategory = () => {
       if (res.errorCode === CODE_ERROR.SUCCESS) {
         setDataModal({
           messageModal: 'Create category ' + ERROR_DATA[res.errorCode],
-          showModal: true,
           modalKey: MODAL_TYPE.commonSuccess,
         })
 
@@ -79,7 +78,6 @@ const EditCreateCategory = () => {
       } else {
         setDataModal({
           messageModal: 'Category ' + ERROR_DATA[res.errorCode],
-          showModal: true,
           modalKey: MODAL_TYPE.commonError,
         })
       }
@@ -104,7 +102,6 @@ const EditCreateCategory = () => {
   const handleUploadFailure = () => {
     setDataModal({
       messageModal: 'Upload image failure',
-      showModal: true,
       modalKey: MODAL_TYPE.commonError,
     })
   }
@@ -129,7 +126,6 @@ const EditCreateCategory = () => {
     } else {
       setDataModal({
         messageModal: 'Category not found',
-        showModal: true,
         modalKey: MODAL_TYPE.commonError,
       })
     }
