@@ -77,7 +77,6 @@ const SignUp = () => {
       if (res.errorCode === CODE_ERROR.SUCCESS) {
         setDataModal({
           messageModal: 'Sign up ' + ERROR_DATA[res.errorCode],
-          showModal: true,
           modalKey: MODAL_TYPE.commonSuccess,
         })
 
@@ -88,7 +87,6 @@ const SignUp = () => {
       } else {
         setDataModal({
           messageModal: 'Sign up ' + ERROR_DATA[res.errorCode],
-          showModal: true,
           modalKey: MODAL_TYPE.commonError,
         })
       }
@@ -108,7 +106,6 @@ const SignUp = () => {
   const handleUploadFailure = () => {
     setDataModal({
       messageModal: 'Upload image failure',
-      showModal: true,
       modalKey: MODAL_TYPE.commonError,
     })
   }

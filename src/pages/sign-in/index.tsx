@@ -12,11 +12,11 @@ import {
   ROLE,
   ROLE_APP,
 } from '@/constants'
-import { schemaSignIn } from '@/schema'
-import { IDataUserSignIn, ISignInData } from '@/interfaces'
-import { ButtonPrimary, FooterForm } from '@/components'
-import { signIn } from '@/services'
 import { useStore } from '@/store'
+import { signIn } from '@/services'
+import { schemaSignIn } from '@/schema'
+import { ButtonPrimary, FooterForm } from '@/components'
+import { IDataUserSignIn, ISignInData } from '@/interfaces'
 
 const SignUp = () => {
   const {
@@ -30,7 +30,7 @@ const SignUp = () => {
   })
   const { push } = useRouter()
   const [disabled, setDisabled] = useState(true)
-  const { setLoading } = useStore()
+  const { setLoading, setDataAccount } = useStore()
 
   const onSubmit = async (data: ISignInData) => {
     setLoading(true)
@@ -42,7 +42,7 @@ const SignUp = () => {
       Cookies.set(KEY_DATA_USERS_COOKIE, JSON.stringify(res.data), {
         expires: DAY_SAVE_COOKIE,
       })
-
+      setDataAccount(res.data, res.token)
       handleNextPage(res?.data?.role)
     } else {
       setError('password', { message: 'Incorrect Account Information' })

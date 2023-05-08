@@ -27,7 +27,6 @@ const Categorys = () => {
   const deleteCategory = async (id: string) => {
     setDataModal({
       messageModal: 'Confirm delete',
-      showModal: true,
       modalKey: MODAL_TYPE.commonConfirm,
       onOk: () => confirmDelete(id),
     })
@@ -41,13 +40,11 @@ const Categorys = () => {
       await handleGetCategory()
       setDataModal({
         messageModal: 'Delete success',
-        showModal: true,
         modalKey: MODAL_TYPE.commonSuccess,
       })
     } else {
       setDataModal({
         messageModal: 'Delete failed',
-        showModal: true,
         modalKey: MODAL_TYPE.commonError,
       })
     }

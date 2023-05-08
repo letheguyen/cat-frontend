@@ -3,8 +3,8 @@ import { modalType } from "./store"
 
 export interface IModalType {
   messageModal: null | string
-  showModal: boolean,
   modalKey: modalType | null,
+  showModal?: boolean,
   onOk?: () => void,
   onClose?: () => void,
 }
