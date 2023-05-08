@@ -1,10 +1,10 @@
 export const API_URL = {
   users: '/users',
+  upload: '/upload',
   signUp: '/sign-up',
   signIn: '/sign-in',
-  upload: '/upload',
-  provinces: '/provinces/getAll?limit=-1',
-  districts: '/districts/getByProvince',
+  categorys: '/categorys',
   wards: '/wards/getByDistrict',
-  categorys: '/categorys'
+  districts: '/districts/getByProvince',
+  provinces: '/provinces/getAll?limit=-1',
 } as const

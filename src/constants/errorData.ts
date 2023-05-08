@@ -6,8 +6,8 @@ export const CODE_ERROR = {
 } as const
 
 export const ERROR_DATA = {
-  [CODE_ERROR.EXISTS]: 'already exists',
   [CODE_ERROR.SUCCESS]: 'success',
+  [CODE_ERROR.NO_DATA]: 'not found',
+  [CODE_ERROR.EXISTS]: 'already exists',
   [CODE_ERROR.SERVER]: 'Something went wrong',
-  [CODE_ERROR.NO_DATA]: 'not found'
 }

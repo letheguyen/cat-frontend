@@ -3,17 +3,24 @@ import Image from 'next/image'
 import React, { memo } from 'react'
 
 import imageConfirm from '/public/imageConfirm.gif'
+import { Box, Text } from '@chakra-ui/react'
+import { IDataNoPage } from '@/interfaces'
 
-const NoDataPage = () => {
+const NoDataPage: React.FC<IDataNoPage> = ({className}) => {
   return (
-    <div className="w-full min-h-[50vh] flex flex-col m-auto justify-center items-center">
-      <Image
-        width={250}
-        src={imageConfirm}
-        alt="Image Error"
-      />
-      <h3 className='font-bold text-heading opacity-70'>No Data</h3>
-    </div>
+    <Box pt="100%" position="relative" className={clsx("w-full", className)}>
+      <Box position="absolute" className='positionsCenter'>
+        <Image width={250} src={imageConfirm} alt="Image Error" />
+        <Text
+          as="h3"
+          color="desColor"
+          fontSize="headingTitle"
+          className="font-bold opacity-70 text-center"
+        >
+          No Data
+        </Text>
+      </Box>
+    </Box>
   )
 }
 

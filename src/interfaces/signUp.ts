@@ -1,27 +1,26 @@
 export interface TypeFormSignUp {
-  userName: string
-  email: string
-  password: string
-  phone: number
   age: number
-  provinces?: string
-  districts?: string
+  phone: number
+  email: string
   wards?: string
-  addressDetail?: string
+  userName: string
+  password: string
   avatar?: FileList
-  background?: FileList
-}
-
-export interface DataPostSignUp {
-  userName: string
-  email: string
-  password: string
-  phone: number
-  age: number
   provinces?: string
   districts?: string
-  wards?: string
+  background?: FileList
   addressDetail?: string
+}
+export interface DataPostSignUp {
+  age: number
+  phone: number
+  email: string
+  wards?: string
   avatar?: string
+  password: string
+  userName: string
+  provinces?: string
+  districts?: string
   background?: string
+  addressDetail?: string
 }

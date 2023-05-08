@@ -4,6 +4,7 @@ import React from 'react'
 
 import errorImage from '/public/imageError.gif'
 import RootModal from './rootModal'
+import { Text } from '@chakra-ui/react'
 
 const ModalError = () => {
   const { messageModal } = useStore()
@@ -11,15 +12,19 @@ const ModalError = () => {
   return (
     <RootModal width="350px" height="310px">
       <div>
-        <h3 className="text-[28px] block font-semibold text-[var(--primary-color)] capitalize text-center drop-shadow-lg shadow-black">
+        <Text
+          as="h3"
+          fontSize="headingTitle"
+          className="block font-semibold text-primaryColor capitalize text-center drop-shadow-lg shadow-black"
+        >
           {messageModal}
-        </h3>
+        </Text>
 
         <Image
-          className="m-auto mt-10"
           width={100}
           src={errorImage}
           alt="Image Error"
+          className="m-auto mt-10"
         />
       </div>
     </RootModal>

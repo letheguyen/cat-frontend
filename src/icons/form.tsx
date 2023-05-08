@@ -2,11 +2,11 @@ import { IIcon } from '@/interfaces'
 import clsx from 'clsx'
 
 export const DeleteIcon = ({
+  color,
+  onClick,
+  className = '',
   width = '25px',
   height = '25px',
-  color,
-  className = '',
-  onClick,
 }: IIcon) => (
   <svg
     onClick={onClick}
@@ -30,9 +30,9 @@ export const DeleteIcon = ({
 )
 
 export const PlusIcon = ({
+  className = '',
   width = '25px',
   height = '25px',
-  className = '',
   onClick,
 }: IIcon) => (
   <svg
@@ -54,8 +54,8 @@ export const PlusIcon = ({
 
 export const DashboardIcon = ({
   width = '25px',
-  height = '25px',
   className = '',
+  height = '25px',
   onClick,
 }: IIcon) => (
   <svg
@@ -79,8 +79,8 @@ export const DashboardIcon = ({
 
 export const CategoryIcon = ({
   width = '25px',
-  height = '25px',
   className = '',
+  height = '25px',
   onClick,
 }: IIcon) => (
   <svg
@@ -105,8 +105,8 @@ export const CategoryIcon = ({
 
 export const CategorysIcon = ({
   width = '25px',
-  height = '25px',
   className = '',
+  height = '25px',
   onClick,
 }: IIcon) => (
   <svg

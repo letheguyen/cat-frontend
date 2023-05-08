@@ -18,7 +18,6 @@ import { getProvinces, signUp, getDistricts, getWards } from '@/services'
 import { useStore } from '@/store'
 import { handleGetUrlImage as saveImage } from '@/utils'
 import { DeleteIcon } from '@/icons'
-
 import noImage from '/public/noImage.png'
 
 const SignUp = () => {
@@ -27,7 +26,6 @@ const SignUp = () => {
     getValues,
     handleSubmit,
     setValue,
-    reset,
     watch,
     formState: { errors },
   } = useForm<TypeFormSignUp>({
@@ -71,10 +69,9 @@ const SignUp = () => {
       return { ...data, [field]: dataSignUp[field] }
     }, {})
 
-    if (newDataSignup) {
+    if (Object.keys(newDataSignup).length) {
       const res = await signUp(newDataSignup)
-
-      if (res.errorCode === CODE_ERROR.SUCCESS) {
+      if (res?.errorCode === CODE_ERROR.SUCCESS) {
         setDataModal({
           messageModal: 'Sign up ' + ERROR_DATA[res.errorCode],
           modalKey: MODAL_TYPE.commonSuccess,

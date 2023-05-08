@@ -2,25 +2,25 @@ import { IPagination } from "./common"
 
 export interface TypeFormCreateCategory {
   title: string
-  description: string
   avatar?: FileList
+  description: string
   background?: FileList
   attribute?: IAtrributes[]
 }
 
 export interface IDataCreateCategory {
   title: string
-  description: string
   avatar: FileList
+  description: string
   background: FileList
   attribute: IAtrributes[] | []
 }
 
 export interface IDataPostCreateCategory {
   title: string
-  description: string
   avatar: string
   background: string
+  description: string
   attribute: IAtrributes[] | []
 }
 
@@ -35,15 +35,15 @@ export interface IAtrributes {
 }
 
 export interface IDetailCategory {
-  attribute: IAtrributes[] | []
+  _id: string
+  title: string
   avatar: string
   background: string
   description: string
-  title: string
-  _id: string
+  attribute: IAtrributes[] | []
 }
 
 export interface IResponCategory {
-  data: IDetailCategory[] | []
   pagination: IPagination
+  data: IDetailCategory[] | []
 }

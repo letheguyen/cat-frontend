@@ -1,19 +1,20 @@
+import { useRouter } from 'next/router'
 import React, { memo, useEffect, useState } from 'react'
 
-import { ButtonPrimary, HeadingTitle, NoDataPage, Paginate } from '@/components'
+import { useStore } from '@/store'
 import FitlImage from '@/components/fitlImage'
+import { getCategorys, deleteCategorys } from '@/services'
 import { LIMIT_PAGE, MODAL_TYPE, PATH_NAME } from '@/constants'
 import { IDetailCategory, IPagination, IResponCategory } from '@/interfaces'
-import { getCategorys, deleteCategorys } from '@/services'
-import { useStore } from '@/store'
-import { useRouter } from 'next/router'
+import { ButtonPrimary, HeadingTitle, NoDataPage, Paginate } from '@/components'
+import { Box, Text } from '@chakra-ui/react'
 
 const Categorys = () => {
   const { push } = useRouter()
-  const { setLoading, setDataModal } = useStore()
-  const [dataCategorys, setDataCategory] = useState<IDetailCategory[] | null>()
-  const [dataPaginate, setDataPaginate] = useState<IPagination>()
   const [page, setPage] = useState(1)
+  const { setLoading, setDataModal } = useStore()
+  const [dataPaginate, setDataPaginate] = useState<IPagination>()
+  const [dataCategorys, setDataCategory] = useState<IDetailCategory[] | null>()
 
   const handleGetCategory = async () => {
     const data: IResponCategory | null = await getCategorys({
@@ -63,58 +64,65 @@ const Categorys = () => {
   }, [dataCategorys])
 
   return (
-    <div className="h-full">
+    <Box className="h-full">
       <HeadingTitle title="Categorys" />
-      <div className="grid grid-cols-4 gap-4 mt-3 max-2xl:grid-cols-3 max-lg:grid-cols-2">
+      <Box className="grid grid-cols-4 gap-4 mt-3 max-2xl:grid-cols-3 max-lg:grid-cols-2">
         {dataCategorys?.map((category) => (
-          <div
+          <Box
             key={category._id}
-            className="border border-[var(--border-input-base)] rounded-lg p-4 transition-all ease-linear hover:shadow-lg hover:shadow-[var(--shadow-item)] hover:cursor-pointer hover:-translate-y-1"
+            border="borderInputBase"
+            className="border rounded-lg p-4 shadow transition-all ease-linear hover:shadow-lg hover:cursor-pointer hover:-translate-y-1"
           >
-            <div key={category._id}>
+            <Box key={category._id}>
               <FitlImage height="60%" url={category.background} />
-              <div className="flex gap-3 items-center py-3">
+              <Box className="flex gap-3 items-center py-3">
                 <FitlImage
+                  width="12%"
                   url={category.avatar}
-                  width="10%"
-                  className="hover:scale-110 shadow-lg shadow-[var(--shadow-item)] rounded-full border-2 border-[var(--primary-color)]"
+                  className="hover:scale-110 shadow-lg shadow-itemsShadow rounded-full border border-primaryColor"
                 />
-                <p className="text-heading line-clamp-1">{category.title}</p>
-              </div>
-              <span className="text-des line-clamp-3 mb-3">
+                <Text className="text-heading line-clamp-1">
+                  {category.title}
+                </Text>
+              </Box>
+              <Text as="span" className="text-des line-clamp-3 mb-3">
                 {category.description}
-              </span>
-              <p>Product: 0</p>
+              </Text>
+              <Text>Product: 0</Text>
 
-              <div className="flex gap-4 mt-1">
+              <Text className="flex gap-4 mt-1">
                 <ButtonPrimary
-                  onClick={() => push(`${PATH_NAME.categorysEdit}/${category._id}`)}
-                  className="!rounded-md w-full !min-w-max cursor-wait"
                   type="button"
                   title="Update"
+                  onClick={() =>
+                    push(`${PATH_NAME.categorysEdit}/${category._id}`)
+                  }
+                  className="!rounded-md w-full !min-w-max cursor-wait"
                 />
                 <ButtonPrimary
-                  onClick={() => deleteCategory(category._id)}
-                  className="!rounded-md w-full !min-w-max !bg-[var(--bg-delete)]"
-                  type="button"
                   title="Delete"
+                  type="button"
+                  onClick={() => deleteCategory(category._id)}
+                  className="!rounded-md w-full !min-w-max !bg-bgDelete"
                 />
-              </div>
-            </div>
-          </div>
+              </Text>
+            </Box>
+          </Box>
         ))}
-      </div>
+      </Box>
 
-      {dataCategorys && dataCategorys.length === 0 ? <NoDataPage /> : ''}
+      {dataCategorys && dataCategorys.length && (
+        <NoDataPage className="-mt-20" />
+      )}
 
       {dataPaginate && (
         <Paginate
-          totalPage={dataPaginate.totalPage}
-          limit={dataPaginate.limit}
           onChange={setPage}
+          limit={dataPaginate.limit}
+          totalPage={dataPaginate.totalPage}
         />
       )}
-    </div>
+    </Box>
   )
 }
 

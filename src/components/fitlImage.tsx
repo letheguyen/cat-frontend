@@ -2,21 +2,11 @@ import clsx from 'clsx'
 import React, { memo, useEffect, useState } from 'react'
 
 import { IFitlImage } from '@/interfaces'
+import { Box } from '@chakra-ui/react'
 import noImage from 'public/noImage.png'
-import { fetch } from '@/services'
-import axios from 'axios'
-import Image from 'next/image'
 
 const FitlImage: React.FC<IFitlImage> = (props) => {
   const [image, setImage] = useState(noImage.src)
-
-  // const handleCheckImage = async (url: string) => {
-  //   await axios
-  //     .get(url)
-  //     .then(() => {
-  //       setImage(url)
-  //     })
-  // }
 
   useEffect(() => {
     if (!props.url) return
@@ -32,22 +22,22 @@ const FitlImage: React.FC<IFitlImage> = (props) => {
   }
 
   return (
-    <div
-      style={stylesWidth}
-      className={clsx(
-        props.className,
-        'overflow-hidden transition-all ease-linear hover:cursor-pointer'
+    <Box
+    className={clsx(
+      props.className,
+      'overflow-hidden transition-all ease-linear hover:cursor-pointer'
       )}
+      style={stylesWidth}
     >
-      <div
+      <Box
         style={{
-          backgroundImage: 'url(' + image + ')',
-          backgroundPosition: 'center',
           ...stylesHeight,
+          backgroundPosition: 'center',
+          backgroundImage: 'url(' + image + ')',
         }}
         className="bg-cover"
-      ></div>
-    </div>
+      ></Box>
+    </Box>
   )
 }
 

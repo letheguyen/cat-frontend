@@ -1,25 +1,22 @@
 import { ReactNode } from "react"
 import { modalType } from "./store"
-
 export interface IModalType {
+  onOk?: () => void,
+  showModal?: boolean,
+  onClose?: () => void,
   messageModal: null | string
   modalKey: modalType | null,
-  showModal?: boolean,
-  onOk?: () => void,
-  onClose?: () => void,
 }
-
 export interface IPropsRootModal {
   children?: ReactNode
 }
-
 export interface IModal {
-  className?:string,
   width?: string,
   height?: string,
-  noButtonFooter?: boolean,
+  className?:string,
   children: ReactNode,
+  textBtnClose?: string,
   noIconClose?: boolean,
   textBtnAccept?: string,
-  textBtnClose?: string,
+  noButtonFooter?: boolean,
 }

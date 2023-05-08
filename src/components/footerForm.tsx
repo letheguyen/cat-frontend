@@ -1,52 +1,59 @@
 import React, { memo } from 'react'
 import { useRouter } from 'next/router'
 import { APP_NAME, PATH_NAME } from '@/constants'
+import { Text } from '@chakra-ui/react'
 
 const FooterForm = () => {
   const { push, pathname } = useRouter()
 
-  console.log(pathname)
-
   return (
     <>
-      <p className="text-[var(--des-color)] mt-12 text-center">
+      <Text color="desColor" className="mt-12 text-center">
         Let's explore
-        <span
+        <Text
+          as="span"
+          color="primaryColor"
           onClick={() => push(PATH_NAME.home)}
-          className="text-[var(--primary-color)] underline cursor-pointer"
+          className="underline cursor-pointer"
         >
           {' '}
           {APP_NAME}{' '}
-        </span>
+        </Text>
         now.
-        <span
+        <Text
+          as="span"
+          color="primaryColor"
           onClick={() => push(PATH_NAME.home)}
-          className="ml-1 text-[var(--primary-color)] underline cursor-pointer"
+          className="ml-1 underline cursor-pointer"
         >
           Home
-        </span>
-      </p>
+        </Text>
+      </Text>
 
       {pathname === PATH_NAME.signIn ? (
-        <p className="text-[var(--des-color)] text-center">
+        <Text color="desColor" className="text-center">
           You don't have an account
-          <span
+          <Text
+            as="span"
+            color="primaryColor"
             onClick={() => push(PATH_NAME.signUp)}
-            className="ml-1 text-[var(--primary-color)] underline cursor-pointer"
+            className="ml-1 underline cursor-pointer"
           >
             Sign up
-          </span>
-        </p>
+          </Text>
+        </Text>
       ) : (
-        <p className="text-[var(--des-color)] text-center">
+        <Text color="desColor" className="text-center">
           Do you already have an account
-          <span
+          <Text
+            as="span"
+            color="primaryColor"
             onClick={() => push(PATH_NAME.signIn)}
-            className="ml-1 text-[var(--primary-color)] underline cursor-pointer"
+            className="ml-1 underline cursor-pointer"
           >
             Sign in
-          </span>
-        </p>
+          </Text>
+        </Text>
       )}
     </>
   )

@@ -1,9 +1,9 @@
-import React, { memo, useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
-import { useForm, useFieldArray } from 'react-hook-form'
+import { Box, Text } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
+import React, { memo, useEffect, useState } from 'react'
+import { useForm, useFieldArray } from 'react-hook-form'
 
-import { CloseIcon, DeleteIcon } from '@/icons'
 import {
   CODE_ERROR,
   ERROR_DATA,
@@ -11,26 +11,21 @@ import {
   PATH_NAME,
   TYPE_FILE_SUPPORT,
 } from '@/constants'
-import { ButtonPrimary, HeadingTitle } from '@/components'
+import { useStore } from '@/store'
+import { CloseIcon, DeleteIcon } from '@/icons'
 import { schemaCreateCategory } from '@/schema'
-import {
-  IDataCreateCategory,
-  IDataPostCreateCategory,
-  IDetailCategory,
-} from '@/interfaces'
+import { ButtonPrimary, HeadingTitle } from '@/components'
+import { IDataCreateCategory, IDataPostCreateCategory } from '@/interfaces'
 import { handleGetUrlImage as saveImage } from '@/utils'
+import { createCategory, getDetailCategory } from '@/services'
 
 import noImage from '/public/noImage.png'
-import { useStore } from '@/store'
-import { createCategory, getDetailCategory } from '@/services'
-import { string } from 'yup'
 
 const EditCreateCategory = () => {
-  const { push, back, pathname, query } = useRouter()
+  const { push, back, query } = useRouter()
   const { setLoading, setDataModal, closeModal } = useStore()
   const [avatarPewview, setAvatarPewview] = useState<File | string>()
   const [backgroudPewview, setBackgroudPewview] = useState<File | string>()
-  // const [dataCategory, setDataCategory] = useState<IDetailCategory>()
 
   const {
     register,
@@ -38,7 +33,6 @@ const EditCreateCategory = () => {
     handleSubmit,
     setValue,
     resetField,
-    reset,
     watch,
     control,
     formState: { errors },
@@ -135,7 +129,6 @@ const EditCreateCategory = () => {
   }
 
   const handleShowImagePiewView = (data: undefined | File | string) => {
-    console.log(typeof data)
     switch (typeof data) {
       case 'string':
         return data
@@ -168,50 +161,56 @@ const EditCreateCategory = () => {
   return (
     <form className="m-auto" onSubmit={handleSubmit(onSubmit)}>
       <HeadingTitle title="Update Category" />
-      <div className="flex flex-col mt-4">
-        <p>
+      <Box className="flex flex-col mt-4">
+        <Text>
           Title
-          <span className="text-[var(--color-field-required)] -mt-1">*</span>
-        </p>
+          <Text as="span" color="colorFieldRequired" className="-mt-1">
+            *
+          </Text>
+        </Text>
         <input
-          placeholder="Enter title"
-          className="input-base"
           type="text"
           {...register('title')}
+          className="input-base"
+          placeholder="Enter title"
         />
-        <span className="text-[var(--color-message-error)]">
+        <Text as="span" color="colorMessageError">
           {errors.title?.message}
-        </span>
-      </div>
+        </Text>
+      </Box>
 
-      <div className="flex flex-col mt-4">
-        <p>
+      <Box className="flex flex-col mt-4">
+        <Text>
           Description
-          <span className="text-[var(--color-field-required)] -mt-1">*</span>
-        </p>
+          <Text as="span" color="colorFieldRequired" className="-mt-1">
+            *
+          </Text>
+        </Text>
         <textarea
           rows={8}
           cols={50}
-          placeholder="Enter description"
-          className="input-base !h-auto"
           {...register('description')}
+          className="input-base !h-auto"
+          placeholder="Enter description"
         />
-        <span className="text-[var(--des-color)]">
+        <Text as="span" color="desColor">
           Description of catalog information up to 1.000 characters.
-        </span>
-        <span className="text-[var(--color-message-error)]">
+        </Text>
+        <Text as="span" color="colorMessageError">
           {errors.description?.message}
-        </span>
-      </div>
+        </Text>
+      </Box>
 
-      <div className="flex gap-4">
-        <div className="flex flex-col mt-4 w-1/4">
-          <p>
+      <Box className="flex gap-4">
+        <Box className="flex flex-col mt-4 w-1/4">
+          <Text>
             Avatar
-            <span className="text-[var(--color-field-required)] -mt-1">*</span>
-          </p>
+            <Text as="span" color="colorFieldRequired" className="-mt-1">
+              *
+            </Text>
+          </Text>
 
-          <div className="w-full flex items-center">
+          <Box className="w-full flexItem">
             <input
               multiple={false}
               type="file"
@@ -220,128 +219,135 @@ const EditCreateCategory = () => {
             />
             {avatarPewview && (
               <DeleteIcon
-                onClick={() => handleClearValueImage('AVATAR')}
                 width="30"
-                className="pl-1 cursor-pointer opacity-60 hover:-translate-y-[2px] hover:text-[var(--primary-color)] hover:opacity-100"
+                onClick={() => handleClearValueImage('AVATAR')}
+                className="pl-1 cursor-pointer opacity-60 hover:-translate-y-1 hover:text-primaryColor hover:opacity-100"
               />
             )}
-          </div>
-          <div
-            className="mt-3 w-full pt-[100%] bg-cover cursor-pointer overflow-hidden border border-[var(--border-input-base)] relative rounded-md"
+          </Box>
+          <Box
+            borderColor="borderInputBase"
+            className="mt-3 w-full pt-[100%] bg-cover cursor-pointer overflow-hidden border relative rounded-md"
             style={{
               backgroundImage:
                 'url(' + handleShowImagePiewView(avatarPewview) + ')',
               backgroundPosition: 'center',
             }}
-          ></div>
+          ></Box>
 
-          <span className="text-[var(--color-message-error)]">
+          <Text as="span" color="colorMessageError">
             {errors.avatar?.message}
-          </span>
-        </div>
+          </Text>
+        </Box>
 
-        <div className="flex flex-col mt-4 flex-1">
-          <p>
+        <Box className="flex flex-col mt-4 flex-1">
+          <Text>
             Backgroud
-            <span className="text-[var(--color-field-required)] -mt-1">*</span>
-          </p>
-          <div className="w-full flex items-center">
+            <Text as="span" color="colorFieldRequired" className="-mt-1">
+              *
+            </Text>
+          </Text>
+
+          <Box className="w-full flex items-center">
             <input
               type="file"
               multiple={false}
-              accept={TYPE_FILE_SUPPORT.toString()}
               {...register('background')}
+              accept={TYPE_FILE_SUPPORT.toString()}
             />
             {backgroudPewview && (
               <DeleteIcon
                 onClick={() => handleClearValueImage('BACKGROUND')}
                 width="30"
-                className="pl-1 cursor-pointer opacity-60 hover:-translate-y-[2px] hover:text-[var(--primary-color)] hover:opacity-100"
+                className="pl-1 cursor-pointer opacity-60 hover:-translate-y-1 hover:text-primaryColor hover:opacity-100"
               />
             )}
-          </div>
+          </Box>
 
-          <div
-            className="mt-3 w-full h-full  bg-cover cursor-pointer overflow-hidden border border-[var(--border-input-base)] relative rounded-md"
+          <Box
+            borderColor="borderInputBase"
+            className="mt-3 w-full h-full bg-cover cursor-pointer overflow-hidden border relative rounded-md"
             style={{
               backgroundImage:
                 'url(' + handleShowImagePiewView(backgroudPewview) + ')',
               backgroundPosition: 'center',
             }}
-          ></div>
-          <span className="text-[var(--color-message-error)]">
-            {errors.background?.message}
-          </span>
-        </div>
-      </div>
+          ></Box>
 
-      <div className="mt-6">
-        <p className="">Attribute</p>
-        <span className="text-[var(--des-color)]">
+          <Text as="span" color="colorMessageError">
+            {errors.background?.message}
+          </Text>
+        </Box>
+      </Box>
+
+      <Box className="mt-6">
+        <Text className="">Attribute</Text>
+        <Text as="span" color="desColor">
           Enter an additional description for the catalog of goods.
           <br /> Information includes 2 key and value values, a valid
           description is a description that includes all 2 specified information
           fields.
-        </span>
+        </Text>
         {fields.map((_, i) => (
-          <div key={i} className="flex gap-4 mt-3">
-            <div className="w-96">
-              <p>Key</p>
+          <Box key={i} className="flex gap-4 mt-3">
+            <Box className="w-96">
+              <Text>Key</Text>
               <input
-                className="input-base w-full"
                 placeholder="Enter key"
+                className="input-base w-full"
                 {...register(`attribute.${i}.key`)}
               />
-              <span className="text-[var(--color-message-error)]">
+              <Text as="span" color="colorMessageError">
                 {errors.attribute?.[i]?.key?.message}
-              </span>
-            </div>
+              </Text>
+            </Box>
 
-            <div className="flex-1">
-              <p>Value</p>
-              <div className="flex flex-1 items-center">
+            <Box className="flex-1">
+              <Text>Value</Text>
+              <Box className="flex flex-1 items-center">
                 <input
                   className="input-base w-full"
                   placeholder="Enter value"
                   {...register(`attribute.${i}.value`)}
                 />
                 <CloseIcon
-                  onClick={() => remove(i)}
                   width="24"
                   height="24"
+                  onClick={() => remove(i)}
                   color="var(--primary-color)"
                   className="rotate-90 w-12 mr-2 cursor-pointer ml-2 max-sm:w-6 max-sm:mt-0 transition-all ease-in hover:cursor-pointer hover:scale-110 "
                 />
-              </div>
-              <span className="text-[var(--color-message-error)]">
+              </Box>
+              <Text as="span" color="colorMessageError">
                 {errors.attribute?.[i]?.value?.message}
-              </span>
-            </div>
-          </div>
+              </Text>
+            </Box>
+          </Box>
         ))}
-        <ButtonPrimary
-          onClick={appendAttribute}
-          className="!rounded-md mt-6 m-auto"
-          type="button"
-          title="+ Add new attribute"
-        />
-      </div>
 
-      <div className="flex gap-4 mt-3">
         <ButtonPrimary
-          className="!rounded-md mt-6"
+          type="button"
+          onClick={appendAttribute}
+          title="+ Add new attribute"
+          className="!rounded-md mt-6 m-auto"
+        />
+      </Box>
+
+      <Box className="flex gap-4 mt-3">
+        <ButtonPrimary
           type="submit"
           title="Update"
+          className="!rounded-md mt-6"
         />
 
         <ButtonPrimary
-          onClick={back}
-          className="!rounded-md mt-6"
-          type="button"
           title="Back"
+          type="button"
+          onClick={back}
           buttonType="close"
+          className="!rounded-md mt-6"
         />
-      </div>
+      </Box>
     </form>
   )
 }
