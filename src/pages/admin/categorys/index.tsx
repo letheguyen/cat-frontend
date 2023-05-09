@@ -4,7 +4,7 @@ import React, { memo, useEffect, useState } from 'react'
 import { useStore } from '@/store'
 import FitlImage from '@/components/fitlImage'
 import { getCategorys, deleteCategorys } from '@/services'
-import { LIMIT_PAGE, MODAL_TYPE, PATH_NAME } from '@/constants'
+import { ButtonsType, LIMIT_PAGE, MODAL_TYPE, PATH_NAME } from '@/constants'
 import { IDetailCategory, IPagination, IResponCategory } from '@/interfaces'
 import { ButtonPrimary, HeadingTitle, NoDataPage, Paginate } from '@/components'
 import { Box, Text } from '@chakra-ui/react'
@@ -70,7 +70,7 @@ const Categorys = () => {
         {dataCategorys?.map((category) => (
           <Box
             key={category._id}
-            border="borderColorInput"
+            border="borderItemColor"
             className="border rounded-lg p-4 shadow transition-all ease-linear hover:shadow-lg hover:cursor-pointer hover:-translate-y-1"
           >
             <Box key={category._id}>
@@ -79,7 +79,7 @@ const Categorys = () => {
                 <FitlImage
                   width="12%"
                   url={category.avatar}
-                  className="hover:scale-110 shadow-lg shadow-itemsShadow rounded-full border border-primaryColor"
+                  className="hover:scale-110 shadow-lg shadow-colorShadowItem rounded-full border border-colorPrimary"
                 />
                 <Text className="text-heading line-clamp-1">
                   {category.title}
@@ -97,13 +97,13 @@ const Categorys = () => {
                   onClick={() =>
                     push(`${PATH_NAME.categorysEdit}/${category._id}`)
                   }
-                  className="!rounded-md w-full !min-w-max cursor-wait"
+                  className=""
                 />
                 <ButtonPrimary
                   title="Delete"
                   type="button"
                   onClick={() => deleteCategory(category._id)}
-                  className="!rounded-md w-full !min-w-max !bg-bgDelete"
+                  buttonType='error'
                 />
               </Text>
             </Box>

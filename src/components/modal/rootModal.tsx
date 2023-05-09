@@ -56,7 +56,7 @@ const RootModal: React.FC<IModal> = ({
             width="30"
             height="30"
             onClick={closeModal}
-            className="ml-auto text-primaryColor p-1 mr-2 opacity-60 transition-all ease-in drop-shadow-lg shadow-black hover:opacity-100 hover:cursor-pointer hover:rotate-2 hover:scale-125 z-50"
+            className="ml-auto text-colorPrimary p-1 mr-2 opacity-60 transition-all ease-in drop-shadow-lg shadow-black hover:opacity-100 hover:cursor-pointer hover:rotate-2 hover:scale-125 z-50"
           />
         )}
 

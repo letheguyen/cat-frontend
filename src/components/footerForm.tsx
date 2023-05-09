@@ -8,11 +8,11 @@ const FooterForm = () => {
 
   return (
     <>
-      <Text color="textDescribeColor" className="mt-12 text-center">
+      <Text color="colorTextDescribe" className="mt-12 text-center">
         Let's explore
         <Text
           as="span"
-          color="primaryColor"
+          color="colorPrimary"
           onClick={() => push(PATH_NAME.home)}
           className="underline cursor-pointer"
         >
@@ -22,7 +22,7 @@ const FooterForm = () => {
         now.
         <Text
           as="span"
-          color="primaryColor"
+          color="colorPrimary"
           onClick={() => push(PATH_NAME.home)}
           className="ml-1 underline cursor-pointer"
         >
@@ -31,11 +31,11 @@ const FooterForm = () => {
       </Text>
 
       {pathname === PATH_NAME.signIn ? (
-        <Text color="textDescribeColor" className="text-center">
+        <Text color="colorTextDescribe" className="text-center">
           You don't have an account
           <Text
             as="span"
-            color="primaryColor"
+            color="colorPrimary"
             onClick={() => push(PATH_NAME.signUp)}
             className="ml-1 underline cursor-pointer"
           >
@@ -43,11 +43,11 @@ const FooterForm = () => {
           </Text>
         </Text>
       ) : (
-        <Text color="textDescribeColor" className="text-center">
+        <Text color="colorTextDescribe" className="text-center">
           Do you already have an account
           <Text
             as="span"
-            color="primaryColor"
+            color="colorPrimary"
             onClick={() => push(PATH_NAME.signIn)}
             className="ml-1 underline cursor-pointer"
           >

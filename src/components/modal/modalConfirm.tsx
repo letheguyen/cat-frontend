@@ -20,7 +20,7 @@ const ModalError = () => {
         <Text
           as="h3"
           fontSize="headingTitle"
-          className="block font-semibold text-primaryColor capitalize text-center drop-shadow-lg shadow-black"
+          className="block font-semibold text-colorPrimary capitalize text-center drop-shadow-lg shadow-black"
         >
           {messageModal}
         </Text>

@@ -21,7 +21,7 @@ const Paginate: React.FC<IPaginationsPage> = ({
           containerClassName={'custom-paginate'}
           pageCount={Math.ceil(totalPage / limit)}
           onPageChange={(page) => onChangePage(page.selected)}
-          activeClassName={'bg-primaryColor rounded-md text-white'}
+          activeClassName={'bg-colorPrimary rounded-md text-white'}
         />
       )}
     </>

@@ -6,19 +6,24 @@ export const themeChakarUi = extendTheme({
     body: 'Fredoka',
   },
   colors: {
-    colorScroll: '#666666',
-    textDescribeColor: '#727272',
-    backgroundBodyColor: '#d2e4df42',
-    borderColorInput: '#5f5f5f31',
-    
-    bgMenuLayoutAdmin: '#13858121',
-    shadowItem: '#1385812c',
-    primaryColor: '#138582f1',
-    bgColorRefuse: '#5757578f',
-    bgModal: '#f7f7f7',
+    //  Color
+    colorTextApp: '#1d1d1d',
+    colorPrimary: '#138582f1',
+    colorScrollApp: '#666666',
+    colorShadowItem: '#1385812c',
+    colorTextDescribe: '#727272',
     colorMessageError: '#ec0000cc',
     colorFieldRequired: '#ff2222f1',
-    bgDelete: '#d55858',
+
+    // Background
+    backgroundModal: '#f7f7f7',
+    backgroundReject: '#5757578f',
+    backgroundMenuApp: '#13858121',
+    backgroundColorError: '#d55858',
+    backgroundBodyColor: '#d2e4df42',
+
+    // Border
+    borderItemColor: '#5f5f5f31',
   },
   fontSizes: {
     headingTitle: '28px',
@@ -27,8 +32,26 @@ export const themeChakarUi = extendTheme({
 
 export const extendTailwind = {
   colors: {
-    primaryColor: '#138582f1',
-    itemsShadow: '#1385812c',
-    bgDelete: '#d55858',
+    //  Color
+    colorTextApp: '#1d1d1d',
+    colorPrimary: '#138582f1',
+    colorScrollApp: '#666666',
+    colorShadowItem: '#1385812c',
+    colorTextDescribe: '#727272',
+    colorMessageError: '#ec0000cc',
+    colorFieldRequired: '#ff2222f1',
+
+    // Background
+    backgroundModal: '#f7f7f7',
+    backgroundReject: '#5757578f',
+    backgroundMenuApp: '#13858121',
+    backgroundColorError: '#d55858',
+    backgroundBodyColor: '#d2e4df42',
+
+    // Border
+    borderItemColor: '#5f5f5f31',
+  },
+  minWidth: {
+    btn: '120px',
   },
 }

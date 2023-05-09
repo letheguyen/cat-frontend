@@ -13,7 +13,7 @@ const NoDataPage: React.FC<IDataNoPage> = ({className}) => {
         <Image width={250} src={imageConfirm} alt="Image Error" />
         <Text
           as="h3"
-          color="textDescribeColor"
+          color="colorTextDescribe"
           fontSize="headingTitle"
           className="font-bold opacity-70 text-center"
         >

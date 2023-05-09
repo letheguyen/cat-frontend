@@ -165,7 +165,7 @@ const CreateCategory = () => {
           className="input-base !h-auto"
           {...register('description')}
         />
-        <Text as="span" color="textDescribeColor">
+        <Text as="span" color="colorTextDescribe">
           Description of catalog information up to 1.000 characters.
         </Text>
         <Text as="span" color="colorMessageError">
@@ -193,12 +193,12 @@ const CreateCategory = () => {
               <DeleteIcon
                 onClick={() => handleClearValueImage('AVATAR')}
                 width="30"
-                className="pl-1 cursor-pointer opacity-60 hover:-translate-y-1 hover:text-primaryColor hover:opacity-100"
+                className="pl-1 cursor-pointer opacity-60 hover:-translate-y-1 hover:text-colorPrimary hover:opacity-100"
               />
             )}
           </Box>
           <Box
-            borderColor="borderColorInput"
+            borderColor="borderItemColor"
             className="mt-3 w-full pt-[100%] bg-cover cursor-pointer overflow-hidden border relative rounded-md"
             style={{
               backgroundImage: avatarPewview
@@ -232,13 +232,13 @@ const CreateCategory = () => {
               <DeleteIcon
                 onClick={() => handleClearValueImage('BACKGROUND')}
                 width="30"
-                className="pl-1 cursor-pointer opacity-60 hover:-translate-y-1 hover:text-primaryColor hover:opacity-100"
+                className="pl-1 cursor-pointer opacity-60 hover:-translate-y-1 hover:text-colorPrimary hover:opacity-100"
               />
             )}
           </Box>
 
           <Box
-            borderColor="borderColorInput"
+            borderColor="borderItemColor"
             className="mt-3 w-full h-full bg-cover cursor-pointer overflow-hidden border relative rounded-md"
             style={{
               backgroundImage: backgroudPewview
@@ -255,7 +255,7 @@ const CreateCategory = () => {
 
       <Box className="mt-6">
         <Text className="">Attribute</Text>
-        <Text as="span" color="textDescribeColor">
+        <Text as="span" color="colorTextDescribe">
           Enter an additional description for the catalog of goods.
           <br /> Information includes 2 key and value values, a valid
           description is a description that includes all 2 specified information
@@ -287,7 +287,7 @@ const CreateCategory = () => {
                   width="24"
                   height="24"
                   onClick={() => remove(i)}
-                  className="text-primaryColor rotate-90 w-12 mr-2 cursor-pointer ml-2 max-sm:w-6 max-sm:mt-0 transition-all ease-in hover:cursor-pointer hover:scale-110 "
+                  className="text-colorPrimary rotate-90 w-12 mr-2 cursor-pointer ml-2 max-sm:w-6 max-sm:mt-0 transition-all ease-in hover:cursor-pointer hover:scale-110 "
                 />
               </Box>
               <Text as="span" color="colorMessageError">
