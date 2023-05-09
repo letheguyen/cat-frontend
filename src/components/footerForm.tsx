@@ -8,7 +8,7 @@ const FooterForm = () => {
 
   return (
     <>
-      <Text color="desColor" className="mt-12 text-center">
+      <Text color="textDescribeColor" className="mt-12 text-center">
         Let's explore
         <Text
           as="span"
@@ -31,7 +31,7 @@ const FooterForm = () => {
       </Text>
 
       {pathname === PATH_NAME.signIn ? (
-        <Text color="desColor" className="text-center">
+        <Text color="textDescribeColor" className="text-center">
           You don't have an account
           <Text
             as="span"
@@ -43,7 +43,7 @@ const FooterForm = () => {
           </Text>
         </Text>
       ) : (
-        <Text color="desColor" className="text-center">
+        <Text color="textDescribeColor" className="text-center">
           Do you already have an account
           <Text
             as="span"

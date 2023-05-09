@@ -171,7 +171,7 @@ const SignUp = () => {
   }, [])
 
   return (
-    <div className="main-content pt-4 mb-12">
+    <div className="main-content pt-4 flexItem-center min-h-screen">
       <form className="max-w-xl m-auto" onSubmit={handleSubmit(onSubmit)}>
         <p className="text-5xl sm:hidden text-[var(--primary-color)]">
           Sign Up
@@ -268,114 +268,6 @@ const SignUp = () => {
           </div>
         </div>
 
-        <div className="grid w-full gap-4 grid-cols-2 flex-wrap">
-          <div className="flex flex-col mt-4 w-full">
-            <p>Provinces</p>
-
-            <div className="w-full max-w-xs relative">
-              <select
-                disabled={!provinces}
-                className={clsx('input-base w-full')}
-                {...register('provinces')}
-              >
-                {provinces &&
-                  provinces?.length > 0 &&
-                  provinces?.map((province) => (
-                    <option
-                      key={province.code}
-                      value={JSON.stringify(province)}
-                    >
-                      {province.name}
-                    </option>
-                  ))}
-              </select>
-              {!provinces && (
-                <div className="affter-no-data input-base">No data</div>
-              )}
-            </div>
-
-            <span className="text-[var(--color-message-error)]">
-              {errors.provinces?.message}
-            </span>
-          </div>
-
-          <div className="flex flex-col mt-4 w-full">
-            <p>Districts</p>
-
-            <div className="w-full max-w-xs relative">
-              <select
-                disabled={!districts}
-                className={clsx('input-base w-full')}
-                {...register('districts')}
-              >
-                {districts &&
-                  districts?.length > 0 &&
-                  districts?.map((district) => (
-                    <option
-                      key={district.code}
-                      value={JSON.stringify(district)}
-                    >
-                      {district.name}
-                    </option>
-                  ))}
-              </select>
-              {!districts && (
-                <div className="affter-no-data input-base">
-                  {defaultDistricts}
-                </div>
-              )}
-            </div>
-
-            <span className="text-[var(--color-message-error)]">
-              {errors.districts?.message}
-            </span>
-          </div>
-
-          <div className="flex flex-col">
-            <p>Wards</p>
-
-            <div className="w-full max-w-xs relative">
-              <select
-                disabled={!wards}
-                className={clsx('input-base w-full')}
-                {...register('wards')}
-              >
-                {wards &&
-                  wards?.length > 0 &&
-                  wards?.map((ward) => (
-                    <option key={ward.code} value={JSON.stringify(ward)}>
-                      {ward.name}
-                    </option>
-                  ))}
-              </select>
-              {!wards && (
-                <div className="affter-no-data input-base">{defaultWards}</div>
-              )}
-            </div>
-
-            <span className="text-[var(--color-message-error)]">
-              {errors.wards?.message}
-            </span>
-          </div>
-        </div>
-
-        <div className="flex flex-col mt-4">
-          <p>Address details</p>
-          <textarea
-            rows={4}
-            cols={50}
-            placeholder="Enter address detail"
-            className="input-base !h-auto"
-            {...register('addressDetail')}
-          />
-          <span className="text-[var(--des-color)]">
-            Enter your address details here.
-          </span>
-          <span className="text-[var(--color-message-error)]">
-            {errors.addressDetail?.message}
-          </span>
-        </div>
-
         <div className="grid w-full gap-4 grid-cols-2 flex-wrap max-sm:grid-cols-1">
           <div className="flex flex-col mt-4">
             <p>Avatar</p>
@@ -439,7 +331,7 @@ const SignUp = () => {
           </div>
         </div>
 
-        <div className="flex gap-4 mt-3">
+        <div className="flexItem-center gap-4 mt-3">
           <ButtonPrimary
             className="!rounded-md mt-6"
             type="submit"

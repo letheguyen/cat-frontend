@@ -193,7 +193,7 @@ const EditCreateCategory = () => {
           className="input-base !h-auto"
           placeholder="Enter description"
         />
-        <Text as="span" color="desColor">
+        <Text as="span" color="textDescribeColor">
           Description of catalog information up to 1.000 characters.
         </Text>
         <Text as="span" color="colorMessageError">
@@ -226,7 +226,7 @@ const EditCreateCategory = () => {
             )}
           </Box>
           <Box
-            borderColor="borderInputBase"
+            borderColor="borderColorInput"
             className="mt-3 w-full pt-[100%] bg-cover cursor-pointer overflow-hidden border relative rounded-md"
             style={{
               backgroundImage:
@@ -265,7 +265,7 @@ const EditCreateCategory = () => {
           </Box>
 
           <Box
-            borderColor="borderInputBase"
+            borderColor="borderColorInput"
             className="mt-3 w-full h-full bg-cover cursor-pointer overflow-hidden border relative rounded-md"
             style={{
               backgroundImage:
@@ -282,7 +282,7 @@ const EditCreateCategory = () => {
 
       <Box className="mt-6">
         <Text className="">Attribute</Text>
-        <Text as="span" color="desColor">
+        <Text as="span" color="textDescribeColor">
           Enter an additional description for the catalog of goods.
           <br /> Information includes 2 key and value values, a valid
           description is a description that includes all 2 specified information
@@ -314,8 +314,7 @@ const EditCreateCategory = () => {
                   width="24"
                   height="24"
                   onClick={() => remove(i)}
-                  color="var(--primary-color)"
-                  className="rotate-90 w-12 mr-2 cursor-pointer ml-2 max-sm:w-6 max-sm:mt-0 transition-all ease-in hover:cursor-pointer hover:scale-110 "
+                  className="text-primaryColor rotate-90 w-12 mr-2 cursor-pointer ml-2 max-sm:w-6 max-sm:mt-0 transition-all ease-in hover:cursor-pointer hover:scale-110 "
                 />
               </Box>
               <Text as="span" color="colorMessageError">

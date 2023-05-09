@@ -6,7 +6,6 @@ export const getAllUsers = async () => {
   try {
     return await fetch.get(API_URL.users)
   } catch (error) {
-    console.log('Get all users error :', error)
     return null
   }
 }

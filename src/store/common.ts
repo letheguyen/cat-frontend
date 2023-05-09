@@ -12,26 +12,26 @@ export const commonSlice: StateCreator<ICommonState> = (set) => ({
   },
 
   // Modal
-  messageModal: null,
-  showModal: false,
   modalKey: null,
   onOk: undefined,
+  showModal: false,
+  messageModal: null,
   onClose: undefined,
   setDataModal(data) {
     set(() => ({
-      messageModal: data.messageModal,
       showModal: true,
-      modalKey: data.modalKey,
       onOk: data.onOk,
       onClose: data.onClose,
+      modalKey: data.modalKey,
+      messageModal: data.messageModal,
     }))
   },
   closeModal() {
     set(() => ({
-      messageModal: null,
-      showModal: false,
       modalKey: null,
       onOk: undefined,
+      showModal: false,
+      messageModal: null,
       onClose: undefined,
     }))
   },

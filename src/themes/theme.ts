@@ -1,17 +1,16 @@
 import { extendTheme } from '@chakra-ui/react'
 
-export const theme = extendTheme({
+export const themeChakarUi = extendTheme({
   fonts: {
     heading: 'Fredoka',
     body: 'Fredoka',
   },
   colors: {
     colorScroll: '#666666',
-    textBaseColor: '#1d1d1d',
-    titleColor: '#181818',
-    desColor: '#727272',
-    bgColor: '#d2e4df42',
-    borderInputBase: '#5f5f5f31',
+    textDescribeColor: '#727272',
+    backgroundBodyColor: '#d2e4df42',
+    borderColorInput: '#5f5f5f31',
+    
     bgMenuLayoutAdmin: '#13858121',
     shadowItem: '#1385812c',
     primaryColor: '#138582f1',
@@ -22,7 +21,14 @@ export const theme = extendTheme({
     bgDelete: '#d55858',
   },
   fontSizes: {
-    headingTitle: '28px'
+    headingTitle: '28px',
   },
 })
- 
+
+export const extendTailwind = {
+  colors: {
+    primaryColor: '#138582f1',
+    itemsShadow: '#1385812c',
+    bgDelete: '#d55858',
+  },
+}

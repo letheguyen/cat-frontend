@@ -9,16 +9,16 @@ export const DeleteIcon = ({
   height = '25px',
 }: IIcon) => (
   <svg
-    onClick={onClick}
-    xmlns="http://www.w3.org/2000/svg"
-    width={width}
-    height={height}
-    viewBox="0 0 24 24"
     fill="none"
-    stroke={color ? color : 'currentColor'}
+    width={width}
     strokeWidth="2"
+    height={height}
+    onClick={onClick}
+    viewBox="0 0 24 24"
     strokeLinecap="round"
     strokeLinejoin="round"
+    xmlns="http://www.w3.org/2000/svg"
+    stroke={color ? color : 'currentColor'}
     className={clsx('ai ai-TrashCan', className)}
   >
     <path d="M4 6h16l-1.58 14.22A2 2 0 0 1 16.432 22H7.568a2 2 0 0 1-1.988-1.78L4 6z" />
@@ -30,22 +30,22 @@ export const DeleteIcon = ({
 )
 
 export const PlusIcon = ({
+  onClick,
   className = '',
   width = '25px',
   height = '25px',
-  onClick,
 }: IIcon) => (
   <svg
-    onClick={onClick}
-    xmlns="http://www.w3.org/2000/svg"
-    height={height}
-    width={width}
-    viewBox="0 0 24 24"
     fill="none"
-    stroke="currentColor"
+    width={width}
+    height={height}
     strokeWidth="2"
+    onClick={onClick}
+    viewBox="0 0 24 24"
+    stroke="currentColor"
     strokeLinecap="round"
     strokeLinejoin="round"
+    xmlns="http://www.w3.org/2000/svg"
     className={clsx('ai ai-Plus', className)}
   >
     <path d="M12 20v-8m0 0V4m0 8h8m-8 0H4" />
@@ -59,16 +59,16 @@ export const DashboardIcon = ({
   onClick,
 }: IIcon) => (
   <svg
-    onClick={onClick}
-    xmlns="http://www.w3.org/2000/svg"
-    height={height}
-    width={width}
-    viewBox="0 0 24 24"
     fill="none"
-    stroke="currentColor"
+    width={width}
     strokeWidth="2"
+    height={height}
+    onClick={onClick}
+    viewBox="0 0 24 24"
+    stroke="currentColor"
     strokeLinecap="round"
     strokeLinejoin="round"
+    xmlns="http://www.w3.org/2000/svg"
     className={clsx('ai ai-AlignBottom', className)}
   >
     <path d="M21 22H3" />
@@ -84,16 +84,16 @@ export const CategoryIcon = ({
   onClick,
 }: IIcon) => (
   <svg
-    onClick={onClick}
-    xmlns="http://www.w3.org/2000/svg"
-    height={height}
-    width={width}
-    viewBox="0 0 24 24"
     fill="none"
-    stroke="currentColor"
+    width={width}
+    height={height}
     strokeWidth="2"
+    onClick={onClick}
+    viewBox="0 0 24 24"
+    stroke="currentColor"
     strokeLinecap="round"
     strokeLinejoin="round"
+    xmlns="http://www.w3.org/2000/svg"
     className={clsx('ai ai-Clipboard', className)}
   >
     <path d="M15.5 4H18a2 2 0 0 1 2 2v13a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2.5" />
@@ -110,16 +110,16 @@ export const CategorysIcon = ({
   onClick,
 }: IIcon) => (
   <svg
-    onClick={onClick}
-    xmlns="http://www.w3.org/2000/svg"
-    height={height}
-    width={width}
-    viewBox="0 0 24 24"
     fill="none"
-    stroke="currentColor"
+    width={width}
+    height={height}
     strokeWidth="2"
+    onClick={onClick}
+    viewBox="0 0 24 24"
+    stroke="currentColor"
     strokeLinecap="round"
     strokeLinejoin="round"
+    xmlns="http://www.w3.org/2000/svg"
     className={clsx('ai ai-Reciept', className)}
   >
     <path d="M19 21H7a4 4 0 0 1-4-4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v13c0 1.657.343 3 2 3z" />
