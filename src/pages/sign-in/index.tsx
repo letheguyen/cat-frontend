@@ -73,14 +73,14 @@ const SignUp = () => {
   }, [watch('email'), watch('password')])
 
   return (
-    <Box className="main-content flex justify-center items-center h-screen overflow-hidden">
+    <Box className="flex justify-center items-center h-screen overflow-hidden">
       <form className="w-96 m-auto " onSubmit={handleSubmit(onSubmit)}>
-        <Text className="text-5xl sm:hidden text-primaryColor">Sign In</Text>
+        <Text className="text-5xl sm:hidden text-colorPrimary">Sign In</Text>
 
         <Box className="flex flex-col mt-4">
           <Text>
             E-mail
-            <Text as="span" className="text-primaryColor -mt-1">
+            <Text as="span" className="text-colorPrimary -mt-1">
               *
             </Text>
           </Text>
@@ -90,7 +90,7 @@ const SignUp = () => {
             type="text"
             {...register('email')}
           />
-          <Text as="span" className="text-primaryColor">
+          <Text as="span" className="text-colorPrimary">
             {errors.email?.message}
           </Text>
         </Box>
@@ -98,7 +98,7 @@ const SignUp = () => {
         <Box className="flex flex-col mt-4">
           <Text>
             Password
-            <Text as="span" className="text-primaryColor -mt-1">
+            <Text as="span" className="text-colorPrimary -mt-1">
               *
             </Text>
           </Text>
@@ -108,7 +108,7 @@ const SignUp = () => {
             type="text"
             {...register('password')}
           />
-          <Text className="text-primaryColor">{errors.password?.message}</Text>
+          <Text className="text-colorPrimary">{errors.password?.message}</Text>
         </Box>
 
         <Box className="grid grid-cols-2 gap-4">

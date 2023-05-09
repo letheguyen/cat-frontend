@@ -171,7 +171,7 @@ const SignUp = () => {
   }, [])
 
   return (
-    <div className="main-content pt-4 flexItem-center min-h-screen">
+    <div className="pt-4 flexItem-center min-h-screen">
       <form className="max-w-xl m-auto" onSubmit={handleSubmit(onSubmit)}>
         <p className="text-5xl sm:hidden text-[var(--primary-color)]">
           Sign Up

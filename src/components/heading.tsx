@@ -7,9 +7,9 @@ const HeadingTitle: React.FC<IHeadingTitle> = (props) => {
   return (
     <Box className={clsx('py-6', props.className)}>
       <Text
-        color="primaryColor"
+        color="colorPrimary"
         fontSize="headingTitle"
-        className="pl-8 relative after:content-[''] after:absolute after:h-full after:w-1.5 after:top-0 after:left-0 after:bg-primaryColor"
+        className="pl-8 relative after:content-[''] after:absolute after:h-full after:w-1.5 after:top-0 after:left-0 after:bg-colorPrimary"
       >
         {props.title}
       </Text>

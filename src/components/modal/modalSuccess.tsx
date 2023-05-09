@@ -12,7 +12,7 @@ const ModalSuccess = () => {
   return (
     <RootModal width="340px" height="280px" noIconClose noButtonFooter>
       <div>
-        <Text fontSize='headingTitle' className="block font-semibold text-primaryColor capitalize text-center drop-shadow-lg shadow-black">
+        <Text fontSize='headingTitle' className="block font-semibold text-colorPrimary capitalize text-center drop-shadow-lg shadow-black">
           {messageModal}
         </Text>
 

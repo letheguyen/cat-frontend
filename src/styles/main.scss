@@ -5,38 +5,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Rokkitt:wght@100;200;300;400;500;600;700&display=swap');
 
-:root {
-
-  // Color
-
-  // Border
-
-  // Background
-
-  --heightHeadingTitle: '80px';
-  --color-scroll: #666666;
-  --text-base-color: #1d1d1d;
-  --title-color: #181818;
-  --des-color: #727272;
-  --bg-color: #d2e4df42;
-  --border-input-base: #5f5f5f31;
-  --bg-menu-layout-admin: #13858121;
-  --shadow-item: #1385812c;
-  --primary-color: #138582f1;
-  --bg-color-refuse: #5757578f;
-  --bg-modal: #f7f7f7;
-  --color-message-error: #ec0000cc;
-  --color-field-required: #ff2222f1;
-  --bg-delete: #d55858;
-  --a: #d2e4df42;
-}
-
-body {
-  font-size: 16px;
-  color: var(--text-base-color);
-  font-family: 'Fredoka', sans-serif;
-}
-
 h1,
 h2,
 h3,
@@ -47,104 +15,79 @@ p,
 a {
   font-size: 18px;
   font-weight: 500;
-  color: var(--title-color);
   font-family: 'Rokkitt', serif;
 }
 
-.main {
-  &-content {
-    @apply w-4/6 mx-auto;
-  }
-  &-layout-admin {
-    @apply w-full m-auto;
-  }
+body {
+  font-size: 16px;
+  font-family: 'Fredoka', sans-serif;
+  font-weight: 400;
 }
 
-%btn {
-  @apply disabled:opacity-60 shadow-lg min-w-[120px] rounded-full border-[.5px] border-white cursor-pointer text-white leading-10 text-center max-w-xs text-lg font-medium transition-all ease-in drop-shadow-lg hover:cursor-pointer hover:scale-110 z-50;
+.custom-paginate li {
+  @apply py-0;
 }
 
-.btn {
-  &-primary {
-    @apply bg-primaryColor;
-    @extend %btn;
-  }
+.custom-paginate {
+  @apply flex gap-3 mt-12;
+}
 
-  &-close {
-    @apply bg-[var(--bg-color-refuse)];
-    @extend %btn;
-  }
+.positionsCenter {
+  @apply absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2;
 }
 
 .affter-no-data {
   @apply absolute w-full h-full left-0 top-0 leading-10 bg-slate-300/50;
 }
 
+.custom-paginate li a {
+  @apply py-1 px-4 bg-slate-400/20 rounded-md hover:bg-colorShadowItem transition-all ease-in;
+}
+
 .input-base {
-  @apply border border-[var(--border-input-base)] bg-transparent h-10 rounded-md pl-3 pr-4 outline-none -mt-1 focus:border-[var(--primary-color)] focus:shadow-lg;
+  @apply border border-borderItemColor bg-transparent h-10 rounded-md pl-3 pr-4 outline-none -mt-1 focus:border-colorPrimary focus:shadow-lg;
 }
 
-.input-file-custom {
-  @apply absolute w-full h-full overflow-hidden after:content-[''] after:absolute after:bg-black after:top-0 after:left-0 after:w-full after:h-full;
-}
-
-.text {
-  &-heading {
-    @apply text-2xl;
-  }
-  &-title {
-    @apply text-[22px];
-  }
-  &-des {
-    @apply text-base;
-  }
-}
-
-.custom-paginate {
-  @apply flex gap-3 mt-12;
-  li {
-    @apply py-0;
-    a {
-      @apply py-1 px-4 bg-slate-400/20 rounded-md hover:bg-[var(--shadow-item)] transition-all ease-in;
-    }
-  }
-}
 
 %flexCenter {
   @apply flex items-center;
 }
 
-%positionsCenter {
-  @apply absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2;
+%btn {
+  @apply border border-white text-white text-lg text-center font-medium shadow-lg drop-shadow-lg rounded-full;
+  @apply min-w-btn disabled:opacity-60 hover:cursor-pointer z-50 transition-all ease-in;
 }
 
 .flexItem {
   @extend %flexCenter;
-
   &-center {
     @extend %flexCenter;
     @apply justify-center;
   }
-
   &-between {
     @extend %flexCenter;
     @apply justify-between;
   }
-
   &-around {
     @extend %flexCenter;
     @apply justify-around;
   }
 }
 
-.positionsCenter {
-  @extend %positionsCenter;
+.btn {
+  &-primary {
+    @apply bg-colorPrimary;
+    @extend %btn;
+  }
+  &-close {
+    @apply bg-backgroundReject;
+    @extend %btn;
+  }
+  &-error {
+    @apply bg-backgroundColorError;
+    @extend %btn;
+  }
 }
-
-
-
-
-
 
 
 
