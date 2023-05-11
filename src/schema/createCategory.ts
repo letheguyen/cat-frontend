@@ -1,5 +1,4 @@
 import * as yup from 'yup'
-import { specialCharacter } from './regex'
 
 export const schemaCreateCategory = yup.object().shape({
   title: yup
@@ -15,14 +14,15 @@ export const schemaCreateCategory = yup.object().shape({
   avatar: yup
     .mixed()
     .test('required', 'Avatar must be required', (value: any) => {
+      console.log(value)
       const fileChange: FileList = value
       if (fileChange?.[0]) return true
       return false
     })
     .test('fileSize', 'Maximum file size of 5MB is allowed', (value: any) => {
+      console.log(value)
       const fileChange: FileList = value
       if (fileChange?.[0]) {
-        console.log(fileChange?.[0].size < 5000000)
         return fileChange?.[0].size < 5000000
       }
       return true
@@ -37,7 +37,6 @@ export const schemaCreateCategory = yup.object().shape({
     .test('fileSize', 'Maximum file size of 5MB is allowed', (value: any) => {
       const fileChange: FileList = value
       if (fileChange?.[0]) {
-        console.log(fileChange?.[0].size < 5000000)
         return fileChange?.[0].size < 5000000
       }
       return true
@@ -57,3 +56,5 @@ export const schemaCreateCategory = yup.object().shape({
     })
   ),
 })
+
+

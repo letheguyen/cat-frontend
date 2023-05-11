@@ -1,6 +1,7 @@
 import clsx from 'clsx'
 import React, { memo } from 'react'
 import { IHeadingTitle } from '@/interfaces'
+
 import { Box, Text } from '@chakra-ui/react'
 
 const HeadingTitle: React.FC<IHeadingTitle> = (props) => {

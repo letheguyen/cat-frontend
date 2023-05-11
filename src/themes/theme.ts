@@ -1,8 +1,10 @@
 import { extendTheme } from '@chakra-ui/react'
 
+// Config theme chakar Ui
 export const themeChakarUi = extendTheme({
   fonts: {
-    heading: 'Fredoka',
+    // Fonts style
+    heading: 'Rokkitt',
     body: 'Fredoka',
   },
   colors: {
@@ -17,6 +19,7 @@ export const themeChakarUi = extendTheme({
 
     // Background
     backgroundModal: '#f7f7f7',
+    backgroundCategory: '#fff',
     backgroundReject: '#5757578f',
     backgroundMenuApp: '#13858121',
     backgroundColorError: '#d55858',
@@ -26,10 +29,21 @@ export const themeChakarUi = extendTheme({
     borderItemColor: '#5f5f5f31',
   },
   fontSizes: {
+    // Font size
     headingTitle: '28px',
+    messageTitle: '20px',
   },
+  sizes: {
+    // Size layout
+    'maxLayoutAdmin': '1380px'
+  },
+  radii: {
+    // radius
+    category: '6px'
+  }
 })
 
+// Config theme Tailwind
 export const extendTailwind = {
   colors: {
     //  Color
@@ -43,6 +57,7 @@ export const extendTailwind = {
 
     // Background
     backgroundModal: '#f7f7f7',
+    backgroundCategory: '#fff',
     backgroundReject: '#5757578f',
     backgroundMenuApp: '#13858121',
     backgroundColorError: '#d55858',
@@ -51,7 +66,37 @@ export const extendTailwind = {
     // Border
     borderItemColor: '#5f5f5f31',
   },
+  fontFamily: {
+    // Font style
+    heading: ['Rokkitt', 'serif'],
+    body: ['Fredoka', 'sans-serif'],
+  },
+  borderRadius: {
+    // Border radius
+    'category': '6px'
+  },
   minWidth: {
+    // Width min
     btn: '120px',
   },
+  margin: {
+    // margin
+    '2px': '2px'
+  },
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

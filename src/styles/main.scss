@@ -48,18 +48,28 @@ body {
   @apply border border-borderItemColor bg-transparent h-10 rounded-md pl-3 pr-4 outline-none -mt-1 focus:border-colorPrimary focus:shadow-lg;
 }
 
+.heading-modal {
+  @apply block font-normal text-colorPrimary normal-case text-center drop-shadow-lg shadow-black;
+}
+
+.icon-close-modal {
+  @apply ml-auto text-colorPrimary p-1 mr-2 opacity-60 transition-all ease-in drop-shadow-lg shadow-black;
+  @apply hover:opacity-100 hover:cursor-pointer hover:rotate-2 hover:scale-125 z-50;
+  @apply absolute top-2 right-1;
+}
 
 %flexCenter {
   @apply flex items-center;
 }
 
 %btn {
-  @apply border border-white text-white text-lg text-center font-medium shadow-lg drop-shadow-lg rounded-full;
-  @apply min-w-btn disabled:opacity-60 hover:cursor-pointer z-50 transition-all ease-in;
+  @apply min-w-btn disabled:opacity-60 hover:cursor-pointer z-50 transition-all ease-in hover:scale-110 px-4;
+  @apply border border-white text-white text-lg text-center font-medium shadow-lg drop-shadow-lg rounded-full font-body;
 }
 
 .flexItem {
   @extend %flexCenter;
+  
   &-center {
     @extend %flexCenter;
     @apply justify-center;

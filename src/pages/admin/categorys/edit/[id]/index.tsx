@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router'
 import { Box, Text } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
-import React, { memo, useEffect, useState } from 'react'
+import React, { memo, useEffect, useLayoutEffect, useState } from 'react'
 import { useForm, useFieldArray } from 'react-hook-form'
 
 import {
@@ -24,6 +24,8 @@ import noImage from '/public/noImage.png'
 const EditCreateCategory = () => {
   const { push, back, query } = useRouter()
   const { setLoading, setDataModal, closeModal } = useStore()
+  const [isRequiredAvatar, setIsRequiredAvatar] = useState(true)
+  const [isRequiredBackground, setIsRequireBackground] = useState(true)
   const [avatarPewview, setAvatarPewview] = useState<File | string>()
   const [backgroudPewview, setBackgroudPewview] = useState<File | string>()
 
@@ -34,55 +36,87 @@ const EditCreateCategory = () => {
     setValue,
     resetField,
     watch,
+    clearErrors,
     control,
     formState: { errors },
   } = useForm<IDataCreateCategory>({
     resolver: yupResolver(schemaCreateCategory),
   })
 
+  // Array atrribute
   const { fields, append, remove } = useFieldArray({
     control,
     name: 'attribute',
   })
 
-  const onSubmit = async (data: IDataCreateCategory) => {
+  // Handle submit
+  const onSubmit = async () => {
+    
+
+    console.log(errors)
+  }
+
+  // handle edit file
+  const handleEdit = async (data: IDataCreateCategory) => {
     setLoading(true)
-    const { isError: isErr, imageURl: url } = await saveImage(data.avatar[0])
-    const { isError, imageURl } = await saveImage(data.background[0])
 
-    if (url && imageURl) {
-      const dataCreateCategory: IDataPostCreateCategory = {
-        ...data,
-        avatar: url,
-        background: imageURl,
-      }
-      const res = await createCategory(dataCreateCategory)
-      setLoading(false)
+    // upload file
+    const { isError: isErr, imageURl: url } = await saveImage(data.avatar?.[0])
+    const { isError, imageURl } = await saveImage(data.background?.[0])
 
-      if (res.errorCode === CODE_ERROR.SUCCESS) {
-        setDataModal({
-          messageModal: 'Create category ' + ERROR_DATA[res.errorCode],
-          modalKey: MODAL_TYPE.commonSuccess,
-        })
-
-        setTimeout(() => {
-          closeModal()
-          push(PATH_NAME.categorys)
-        }, 3000)
-      } else {
-        setDataModal({
-          messageModal: 'Category ' + ERROR_DATA[res.errorCode],
-          modalKey: MODAL_TYPE.commonError,
-        })
-      }
-    }
-
+    // Upload file error
     if (isErr || isError) {
       setLoading(false)
       handleUploadFailure()
     }
+
+    // Upload success
+    if (!isErr && !isError) {
+      // Data edit category
+      const dataCreateCategory: IDataPostCreateCategory = {
+        ...data,
+        avatar: url ? url : (avatarPewview as string),
+        background: imageURl ? imageURl : (backgroudPewview as string),
+      }
+
+      console.log(dataCreateCategory)
+
+      // const res = await createCategory(dataCreateCategory)
+
+      // if (res.errorCode === CODE_ERROR.SUCCESS) {
+      //   setDataModal({
+      //     messageModal: 'Create category ' + ERROR_DATA[res.errorCode],
+      //     modalKey: MODAL_TYPE.commonSuccess,
+      //   })
+
+      //   setTimeout(() => {
+      //     closeModal()
+      //     // push(PATH_NAME.categorys)
+      //   }, 3000)
+      // } else {
+      //   setDataModal({
+      //     messageModal: 'Category ' + ERROR_DATA[res.errorCode],
+      //     modalKey: MODAL_TYPE.commonError,
+      //   })
+      // }
+    }
+
+    setLoading(false)
   }
 
+  // Handle check error
+  const checkError = () => {
+    const typeErrorAvatar = errors.avatar?.type
+    const typeErrorBackground = errors.background?.type
+    if (typeErrorAvatar === 'required' && avatarPewview) {
+      clearErrors('avatar')
+    }
+    if (typeErrorBackground === 'required' && backgroudPewview) {
+      clearErrors('background')
+    }
+  }
+
+  // Clear imgae
   const handleClearValueImage = (type: string) => {
     if (type === 'AVATAR') {
       setAvatarPewview(undefined)
@@ -93,6 +127,7 @@ const EditCreateCategory = () => {
     }
   }
 
+  // Show modal upload error
   const handleUploadFailure = () => {
     setDataModal({
       messageModal: 'Upload image failure',
@@ -100,13 +135,10 @@ const EditCreateCategory = () => {
     })
   }
 
-  const appendAttribute = () => {
-    append({
-      key: '',
-      value: '',
-    })
-  }
+  // add new atrribute
+  const appendAttribute = () => append({ key: '', value: '' })
 
+  // Get data detail category
   const getCategory = async (id: string) => {
     setLoading(true)
     const res = await getDetailCategory(id)
@@ -141,16 +173,15 @@ const EditCreateCategory = () => {
 
   useEffect(() => {
     const file = getValues('avatar')?.item(0)
-    if (file) {
-      setAvatarPewview(file)
-    }
+    if (!file) return
+    setAvatarPewview(file)
   }, [watch('avatar')])
 
   useEffect(() => {
+
     const file = getValues('background')?.item(0)
-    if (file) {
-      setBackgroudPewview(file)
-    }
+    if (!file) return
+    setBackgroudPewview(file)
   }, [watch('background')])
 
   useEffect(() => {
@@ -159,7 +190,7 @@ const EditCreateCategory = () => {
   }, [query?.id])
 
   return (
-    <form className="m-auto" onSubmit={handleSubmit(onSubmit)}>
+    <form className="m-auto" onSubmit={handleSubmit(onSubmit, onSubmit)}>
       <HeadingTitle title="Update Category" />
       <Box className="flex flex-col mt-4">
         <Text>

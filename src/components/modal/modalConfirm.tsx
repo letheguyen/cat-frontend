@@ -18,9 +18,10 @@ const ModalError = () => {
     >
       <Box>
         <Text
-          as="h3"
+          as="span"
+          lineHeight="30px"
           fontSize="headingTitle"
-          className="block font-semibold text-colorPrimary capitalize text-center drop-shadow-lg shadow-black"
+          className="heading-modal"
         >
           {messageModal}
         </Text>
@@ -29,7 +30,7 @@ const ModalError = () => {
           width={100}
           alt="Image Error"
           src={imageConfirm}
-          className="m-auto mt-10"
+          className="m-auto mt-6"
         />
       </Box>
     </RootModal>

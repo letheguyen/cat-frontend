@@ -1,10 +1,10 @@
-import { useStore } from '@/store'
-import Image from 'next/image'
 import React from 'react'
-
-import errorImage from '/public/imageError.gif'
-import RootModal from './rootModal'
+import Image from 'next/image'
 import { Text } from '@chakra-ui/react'
+
+import { useStore } from '@/store'
+import RootModal from './rootModal'
+import errorImage from '/public/imageError.gif'
 
 const ModalError = () => {
   const { messageModal } = useStore()
@@ -13,9 +13,10 @@ const ModalError = () => {
     <RootModal width="350px" height="310px">
       <div>
         <Text
-          as="h3"
-          fontSize="headingTitle"
-          className="block font-semibold text-colorPrimary capitalize text-center drop-shadow-lg shadow-black"
+           as="span"
+           lineHeight="30px"
+           fontSize="headingTitle"
+           className="heading-modal"
         >
           {messageModal}
         </Text>

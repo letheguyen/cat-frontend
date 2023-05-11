@@ -2,8 +2,8 @@ import clsx from 'clsx'
 import React from 'react'
 import { Box } from '@chakra-ui/react'
 
-import { IPropsButtons } from '@/interfaces'
 import { ButtonsType } from '@/constants'
+import { IPropsButtons } from '@/interfaces'
 
 export const ButtonPrimary: React.FC<IPropsButtons> = ({
   title,
@@ -12,13 +12,13 @@ export const ButtonPrimary: React.FC<IPropsButtons> = ({
   type = 'button',
   disabled = false,
   buttonType = 'primary',
-  textColor = 'text-white',
+  styleText = 'text-lg leading-9',
 }) => {
 
   const styleButton = {
-    [ButtonsType.primary as string]: 'btn-primary',
-    [ButtonsType.close as string]: 'btn-close',
     [ButtonsType.error as string]: 'btn-error',
+    [ButtonsType.close as string]: 'btn-close',
+    [ButtonsType.primary as string]: 'btn-primary',
   }
 
   return (
@@ -28,7 +28,7 @@ export const ButtonPrimary: React.FC<IPropsButtons> = ({
       disabled={disabled}
       className={clsx(styleButton[buttonType], className)}
     >
-      <Box className={clsx('text-lg drop-shadow-lg shadow-colorShadowItem', textColor)}>
+      <Box className={clsx('text-white -mt-2px drop-shadow-lg shadow-colorShadowItem', styleText)}>
         {title}
       </Box>
     </button>

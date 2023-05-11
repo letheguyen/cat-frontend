@@ -1,4 +1,5 @@
 import { useRouter } from 'next/router'
+import { Box, Text } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
 import React, { memo, useEffect, useState } from 'react'
 import { useForm, useFieldArray } from 'react-hook-form'
@@ -19,7 +20,6 @@ import { handleGetUrlImage as saveImage } from '@/utils'
 import { ButtonPrimary, HeadingTitle } from '@/components'
 
 import noImage from '/public/noImage.png'
-import { Box, Text } from '@chakra-ui/react'
 
 const CreateCategory = () => {
   const { push } = useRouter()

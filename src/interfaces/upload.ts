@@ -1,4 +1,4 @@
 export interface IUpload {
-  isError: boolean,
+  isError: boolean | null,
   imageURl: undefined | string,
 }

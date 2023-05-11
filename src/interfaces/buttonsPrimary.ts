@@ -5,7 +5,7 @@ export type IButtonType = ValueOf<typeof ButtonsType>
 export interface IPropsButtons {
   title: string
   disabled?: boolean
-  textColor?: string
+  styleText?: string
   className?: string
   onClick?: () => void
   type?: 'button' | 'submit'

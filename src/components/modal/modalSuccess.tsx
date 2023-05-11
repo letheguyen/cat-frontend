@@ -1,10 +1,10 @@
-import { useStore } from '@/store'
-import Image from 'next/image'
 import React from 'react'
-
-import successImage from '/public/success.png'
-import RootModal from './rootModal'
+import Image from 'next/image'
 import { Text } from '@chakra-ui/react'
+
+import { useStore } from '@/store'
+import RootModal from './rootModal'
+import successImage from '/public/success.png'
 
 const ModalSuccess = () => {
   const { messageModal } = useStore()
@@ -12,7 +12,12 @@ const ModalSuccess = () => {
   return (
     <RootModal width="340px" height="280px" noIconClose noButtonFooter>
       <div>
-        <Text fontSize='headingTitle' className="block font-semibold text-colorPrimary capitalize text-center drop-shadow-lg shadow-black">
+        <Text
+          as="span"
+          lineHeight="30px"
+          fontSize="headingTitle"
+          className="heading-modal"
+        >
           {messageModal}
         </Text>
 

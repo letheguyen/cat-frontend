@@ -1,13 +1,13 @@
 import { useRouter } from 'next/router'
+import { Box, Text } from '@chakra-ui/react'
 import React, { memo, useEffect, useState } from 'react'
 
 import { useStore } from '@/store'
 import FitlImage from '@/components/fitlImage'
 import { getCategorys, deleteCategorys } from '@/services'
-import { ButtonsType, LIMIT_PAGE, MODAL_TYPE, PATH_NAME } from '@/constants'
+import { LIMIT_PAGE, MODAL_TYPE, PATH_NAME } from '@/constants'
 import { IDetailCategory, IPagination, IResponCategory } from '@/interfaces'
 import { ButtonPrimary, HeadingTitle, NoDataPage, Paginate } from '@/components'
-import { Box, Text } from '@chakra-ui/react'
 
 const Categorys = () => {
   const { push } = useRouter()
@@ -60,7 +60,7 @@ const Categorys = () => {
     if (!dataCategorys) return
     setTimeout(() => {
       setLoading(null)
-    }, 600)
+    }, 600) 
   }, [dataCategorys])
 
   return (
@@ -70,8 +70,9 @@ const Categorys = () => {
         {dataCategorys?.map((category) => (
           <Box
             key={category._id}
-            border="borderItemColor"
-            className="border rounded-lg p-4 shadow transition-all ease-linear hover:shadow-lg hover:cursor-pointer hover:-translate-y-1"
+            bg='backgroundCategory'
+            borderRadius='category'
+            className="border border-borderItemColor rounded-lg p-4 shadow transition-all ease-linear hover:shadow-lg hover:cursor-pointer hover:-translate-y-1"
           >
             <Box key={category._id}>
               <FitlImage height="60%" url={category.background} />
@@ -90,20 +91,21 @@ const Categorys = () => {
               </Text>
               <Text>Product: 0</Text>
 
-              <Text className="flex gap-4 mt-1">
+              <Text className="grid grid-cols-2 gap-3 mt-1">
                 <ButtonPrimary
                   type="button"
                   title="Update"
                   onClick={() =>
                     push(`${PATH_NAME.categorysEdit}/${category._id}`)
                   }
-                  className=""
+                  className="!min-w-max !rounded-md"
                 />
                 <ButtonPrimary
                   title="Delete"
                   type="button"
                   onClick={() => deleteCategory(category._id)}
                   buttonType='error'
+                  className='!min-w-max !rounded-md'
                 />
               </Text>
             </Box>
@@ -111,7 +113,7 @@ const Categorys = () => {
         ))}
       </Box>
 
-      {dataCategorys && dataCategorys.length && (
+      {dataCategorys && !dataCategorys.length && (
         <NoDataPage className="-mt-20" />
       )}
 
