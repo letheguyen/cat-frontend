@@ -13,15 +13,21 @@ h5,
 h6,
 p,
 a {
-  font-size: 18px;
-  font-weight: 500;
-  font-family: 'Rokkitt', serif;
+  @apply text-lg font-medium font-heading;
 }
 
 body {
-  font-size: 16px;
-  font-family: 'Fredoka', sans-serif;
-  font-weight: 400;
+  @apply text-base font-normal font-body;
+
+  ::-webkit-scrollbar {
+    @apply rounded-none w-1 h-2;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-backgroundColorScrollApp rounded-full;
+  }
+  ::-webkit-scrollbar-track {
+    @apply rounded-none bg-transparent;
+  }
 }
 
 .custom-paginate li {
@@ -44,27 +50,36 @@ body {
   @apply py-1 px-4 bg-slate-400/20 rounded-md hover:bg-colorShadowItem transition-all ease-in;
 }
 
-.input-base {
-  @apply border border-borderItemColor bg-transparent h-10 rounded-md pl-3 pr-4 outline-none -mt-1 focus:border-colorPrimary focus:shadow-lg;
-}
-
 .heading-modal {
-  @apply block font-normal text-colorPrimary normal-case text-center drop-shadow-lg shadow-black;
+  @apply block font-normal text-colorPrimary lowercase text-center drop-shadow-lg shadow-black;
 }
 
 .icon-close-modal {
-  @apply ml-auto text-colorPrimary p-1 mr-2 opacity-60 transition-all ease-in drop-shadow-lg shadow-black;
-  @apply hover:opacity-100 hover:cursor-pointer hover:rotate-2 hover:scale-125 z-50;
   @apply absolute top-2 right-1;
+  @apply hover:opacity-100 hover:cursor-pointer hover:rotate-2 hover:scale-125 z-50;
+  @apply ml-auto text-colorPrimary p-1 mr-2 opacity-60 transition-all ease-in drop-shadow-lg shadow-black;
 }
 
 %flexCenter {
   @apply flex items-center;
 }
 
+%input {
+  @apply border border-borderItemColor bg-transparent h-10 rounded-md pl-3 pr-4 outline-none -mt-1 focus:border-colorPrimary focus:shadow-lg;
+}
+
 %btn {
   @apply min-w-btn disabled:opacity-60 hover:cursor-pointer z-50 transition-all ease-in hover:scale-110 px-4;
   @apply border border-white text-white text-lg text-center font-medium shadow-lg drop-shadow-lg rounded-full font-body;
+}
+
+textarea {
+  @extend %input;
+  @apply py-3;
+}
+
+.input-base {
+  @extend %input;
 }
 
 .flexItem {

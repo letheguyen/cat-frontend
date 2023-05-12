@@ -50,7 +50,7 @@ const LayoutAdminSite: React.FC<ILayoutApp> = ({ children }) => {
     },
     {
       id: 3,
-      href: PATH_NAME.categorys,
+      href: PATH_NAME.categorys+'?page=1',
       content: (
         <>
           <CategorysIcon width="30" height="22" className="mr-1" />
@@ -103,7 +103,7 @@ const LayoutAdminSite: React.FC<ILayoutApp> = ({ children }) => {
                 key={item.id}
                 href={item.href}
                 className={clsx(
-                  'text-[22px] flex hover:opacity-100 items-center',
+                  'text-sizeMenuAdmin flex transition-all ease-in hover:opacity-100 items-center',
                   item.href === pathname
                     ? 'opacity-100 text-colorPrimary'
                     : 'opacity-60'

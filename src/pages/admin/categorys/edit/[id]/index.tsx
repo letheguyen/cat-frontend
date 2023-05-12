@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router'
 import { Box, Text } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
-import React, { memo, useEffect, useLayoutEffect, useState } from 'react'
+import React, { memo, useEffect, useState } from 'react'
 import { useForm, useFieldArray } from 'react-hook-form'
 
 import {
@@ -13,21 +13,19 @@ import {
 } from '@/constants'
 import { useStore } from '@/store'
 import { CloseIcon, DeleteIcon } from '@/icons'
-import { schemaCreateCategory } from '@/schema'
-import { ButtonPrimary, HeadingTitle } from '@/components'
-import { IDataCreateCategory, IDataPostCreateCategory } from '@/interfaces'
+import { schemaEditCategory } from '@/schema'
+import { IDataPostCreateCategory } from '@/interfaces'
 import { handleGetUrlImage as saveImage } from '@/utils'
-import { createCategory, getDetailCategory } from '@/services'
+import { getDetailCategory, updateCategorys } from '@/services'
+import { ButtonPrimary, HeadingTitle, FitlImage } from '@/components'
 
 import noImage from '/public/noImage.png'
 
 const EditCreateCategory = () => {
   const { push, back, query } = useRouter()
   const { setLoading, setDataModal, closeModal } = useStore()
-  const [isRequiredAvatar, setIsRequiredAvatar] = useState(true)
-  const [isRequiredBackground, setIsRequireBackground] = useState(true)
-  const [avatarPewview, setAvatarPewview] = useState<File | string>()
-  const [backgroudPewview, setBackgroudPewview] = useState<File | string>()
+  const [avatarPewview, setAvatarPewview] = useState<File | string | null>()
+  const [backgroudView, setBackgroudView] = useState<File | string | null>()
 
   const {
     register,
@@ -39,8 +37,8 @@ const EditCreateCategory = () => {
     clearErrors,
     control,
     formState: { errors },
-  } = useForm<IDataCreateCategory>({
-    resolver: yupResolver(schemaCreateCategory),
+  } = useForm<IDataPostCreateCategory>({
+    resolver: yupResolver(schemaEditCategory),
   })
 
   // Array atrribute
@@ -49,15 +47,8 @@ const EditCreateCategory = () => {
     name: 'attribute',
   })
 
-  // Handle submit
-  const onSubmit = async () => {
-    
-
-    console.log(errors)
-  }
-
   // handle edit file
-  const handleEdit = async (data: IDataCreateCategory) => {
+  const onSubmit = async (data: IDataPostCreateCategory) => {
     setLoading(true)
 
     // upload file
@@ -76,44 +67,29 @@ const EditCreateCategory = () => {
       const dataCreateCategory: IDataPostCreateCategory = {
         ...data,
         avatar: url ? url : (avatarPewview as string),
-        background: imageURl ? imageURl : (backgroudPewview as string),
+        background: imageURl ? imageURl : (backgroudView as string),
       }
 
-      console.log(dataCreateCategory)
+      // Call API update
+      const res = await updateCategorys(query.id as string, dataCreateCategory)
 
-      // const res = await createCategory(dataCreateCategory)
-
-      // if (res.errorCode === CODE_ERROR.SUCCESS) {
-      //   setDataModal({
-      //     messageModal: 'Create category ' + ERROR_DATA[res.errorCode],
-      //     modalKey: MODAL_TYPE.commonSuccess,
-      //   })
-
-      //   setTimeout(() => {
-      //     closeModal()
-      //     // push(PATH_NAME.categorys)
-      //   }, 3000)
-      // } else {
-      //   setDataModal({
-      //     messageModal: 'Category ' + ERROR_DATA[res.errorCode],
-      //     modalKey: MODAL_TYPE.commonError,
-      //   })
-      // }
+      if (res.errorCode === CODE_ERROR.SUCCESS) {
+        setDataModal({
+          messageModal: 'Create category ' + ERROR_DATA[res.errorCode],
+          modalKey: MODAL_TYPE.commonSuccess,
+        })
+        push(PATH_NAME.categorys)
+        setTimeout(() => {
+          closeModal()
+        }, 3000)
+      } else {
+        setDataModal({
+          messageModal: 'Category ' + ERROR_DATA[res.errorCode],
+          modalKey: MODAL_TYPE.commonError,
+        })
+      }
     }
-
     setLoading(false)
-  }
-
-  // Handle check error
-  const checkError = () => {
-    const typeErrorAvatar = errors.avatar?.type
-    const typeErrorBackground = errors.background?.type
-    if (typeErrorAvatar === 'required' && avatarPewview) {
-      clearErrors('avatar')
-    }
-    if (typeErrorBackground === 'required' && backgroudPewview) {
-      clearErrors('background')
-    }
   }
 
   // Clear imgae
@@ -122,7 +98,7 @@ const EditCreateCategory = () => {
       setAvatarPewview(undefined)
       resetField('avatar')
     } else {
-      setBackgroudPewview(undefined)
+      setBackgroudView(undefined)
       resetField('background')
     }
   }
@@ -142,11 +118,10 @@ const EditCreateCategory = () => {
   const getCategory = async (id: string) => {
     setLoading(true)
     const res = await getDetailCategory(id)
-
     if (res) {
-      setBackgroudPewview(res.background)
-      setAvatarPewview(res.avatar)
       setValue('title', res.title)
+      setValue('avatar', res.avatar)
+      setValue('background', res.background)
       setValue('description', res.description)
       setValue('attribute', res.attribute)
     } else {
@@ -160,28 +135,35 @@ const EditCreateCategory = () => {
     }, 600)
   }
 
-  const handleShowImagePiewView = (data: undefined | File | string) => {
+  const handleShowImagePiewView = (data: undefined | null | File | string) => {
     switch (typeof data) {
       case 'string':
         return data
       case 'undefined':
         return noImage.src
       default:
-        return URL.createObjectURL(data)
+        if (data) {
+          return URL.createObjectURL(data)
+        }
     }
   }
 
   useEffect(() => {
-    const file = getValues('avatar')?.item(0)
-    if (!file) return
-    setAvatarPewview(file)
+    const file = getValues('avatar')
+    if (file instanceof FileList) {
+      setAvatarPewview(file?.item(0))
+    } else {
+      setAvatarPewview(file)
+    }
   }, [watch('avatar')])
 
   useEffect(() => {
-
-    const file = getValues('background')?.item(0)
-    if (!file) return
-    setBackgroudPewview(file)
+    const file = getValues('background')
+    if (file instanceof FileList) {
+      setBackgroudView(file?.item(0))
+    } else {
+      setBackgroudView(file)
+    }
   }, [watch('background')])
 
   useEffect(() => {
@@ -190,7 +172,7 @@ const EditCreateCategory = () => {
   }, [query?.id])
 
   return (
-    <form className="m-auto" onSubmit={handleSubmit(onSubmit, onSubmit)}>
+    <form className="m-auto" onSubmit={handleSubmit(onSubmit)}>
       <HeadingTitle title="Update Category" />
       <Box className="flex flex-col mt-4">
         <Text>
@@ -256,22 +238,18 @@ const EditCreateCategory = () => {
               />
             )}
           </Box>
-          <Box
-            borderColor="borderItemColor"
-            className="mt-3 w-full pt-[100%] bg-cover cursor-pointer overflow-hidden border relative rounded-md"
-            style={{
-              backgroundImage:
-                'url(' + handleShowImagePiewView(avatarPewview) + ')',
-              backgroundPosition: 'center',
-            }}
-          ></Box>
+
+          <FitlImage
+            url={avatarPewview}
+            className="rounded-md border border-borderItemColor mt-3"
+          />
 
           <Text as="span" color="colorMessageError">
             {errors.avatar?.message}
           </Text>
         </Box>
 
-        <Box className="flex flex-col mt-4 flex-1">
+        <Box className="flex flex-col mt-4 w-full">
           <Text>
             Backgroud
             <Text as="span" color="colorFieldRequired" className="-mt-1">
@@ -286,7 +264,7 @@ const EditCreateCategory = () => {
               {...register('background')}
               accept={TYPE_FILE_SUPPORT.toString()}
             />
-            {backgroudPewview && (
+            {backgroudView && (
               <DeleteIcon
                 onClick={() => handleClearValueImage('BACKGROUND')}
                 width="30"
@@ -295,15 +273,11 @@ const EditCreateCategory = () => {
             )}
           </Box>
 
-          <Box
-            borderColor="borderItemColor"
-            className="mt-3 w-full h-full bg-cover cursor-pointer overflow-hidden border relative rounded-md"
-            style={{
-              backgroundImage:
-                'url(' + handleShowImagePiewView(backgroudPewview) + ')',
-              backgroundPosition: 'center',
-            }}
-          ></Box>
+          <FitlImage
+            height="34%"
+            url={backgroudView}
+            className="rounded-md border border-borderItemColor mt-3"
+          />
 
           <Text as="span" color="colorMessageError">
             {errors.background?.message}

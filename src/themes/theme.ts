@@ -24,6 +24,7 @@ export const themeChakarUi = extendTheme({
     backgroundMenuApp: '#13858121',
     backgroundColorError: '#d55858',
     backgroundBodyColor: '#d2e4df42',
+    backgroundColorScrollApp: '#afafaf',
 
     // Border
     borderItemColor: '#5f5f5f31',
@@ -32,15 +33,16 @@ export const themeChakarUi = extendTheme({
     // Font size
     headingTitle: '28px',
     messageTitle: '20px',
+    sizeMenuAdmin: '22px',
   },
   sizes: {
     // Size layout
-    'maxLayoutAdmin': '1380px'
+    maxLayoutAdmin: '1380px',
   },
   radii: {
     // radius
-    category: '6px'
-  }
+    category: '6px',
+  },
 })
 
 // Config theme Tailwind
@@ -62,6 +64,7 @@ export const extendTailwind = {
     backgroundMenuApp: '#13858121',
     backgroundColorError: '#d55858',
     backgroundBodyColor: '#d2e4df42',
+    backgroundColorScrollApp: '#afafaf',
 
     // Border
     borderItemColor: '#5f5f5f31',
@@ -73,30 +76,20 @@ export const extendTailwind = {
   },
   borderRadius: {
     // Border radius
-    'category': '6px'
+    category: '6px',
+  },
+  fontSize: {
+    sizeMenuAdmin: '22px',
   },
   minWidth: {
     // Width min
     btn: '120px',
   },
+  boxShadow: {
+    'fourDirections': '0 0 6px rgba(0, 0, 0, 0.3)',
+  },
   margin: {
     // margin
-    '2px': '2px'
+    '2px': '2px',
   },
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

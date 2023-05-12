@@ -25,7 +25,7 @@ export interface IHeadingTitle {
   className?: string
 }
 export interface IFitlImage {
-  url?: string 
+  url?: string | File | null
   width?: string,
   height?: string,
   className?: string,
@@ -38,7 +38,6 @@ export interface IPagination {
 export interface IPaginationsPage {
   limit: number
   totalPage: number
-  onChange: (page: number) => void
 }
 export interface IThemesProvider {
   children: React.ReactElement
@@ -46,7 +45,9 @@ export interface IThemesProvider {
 export interface IDataNoPage {
   className?: string
 }
-
+export interface IParamsCookies {
+  page?: string | number
+}
 
 
 

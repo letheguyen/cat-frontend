@@ -17,8 +17,8 @@ export interface IDataCreateCategory {
 }
 export interface IDataPostCreateCategory {
   title: string
-  avatar: string
-  background: string
+  avatar: string | FileList
+  background: string | FileList
   description: string
   attribute: IAtrributes[] | []
 }

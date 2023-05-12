@@ -9,16 +9,16 @@ import { LIMIT_PAGE, MODAL_TYPE, PATH_NAME } from '@/constants'
 import { IDetailCategory, IPagination, IResponCategory } from '@/interfaces'
 import { ButtonPrimary, HeadingTitle, NoDataPage, Paginate } from '@/components'
 
+
 const Categorys = () => {
-  const { push } = useRouter()
-  const [page, setPage] = useState(1)
+  const { push, query } = useRouter()
   const { setLoading, setDataModal } = useStore()
   const [dataPaginate, setDataPaginate] = useState<IPagination>()
   const [dataCategorys, setDataCategory] = useState<IDetailCategory[] | null>()
 
-  const handleGetCategory = async () => {
+  const handleGetCategory = async (page: number) => {
     const data: IResponCategory | null = await getCategorys({
-      page,
+      page: page || 1,
       limit: LIMIT_PAGE,
     })
     setDataCategory(data?.data)
@@ -38,7 +38,7 @@ const Categorys = () => {
     const res = await deleteCategorys(id)
     setLoading(null)
     if (res) {
-      await handleGetCategory()
+      await handleGetCategory(Number(query?.page))
       setDataModal({
         messageModal: 'Delete success',
         modalKey: MODAL_TYPE.commonSuccess,
@@ -52,15 +52,18 @@ const Categorys = () => {
   }
 
   useEffect(() => {
+    const page = query?.page as string | undefined
     setLoading(true)
-    handleGetCategory()
-  }, [page])
+    if (page) {
+      handleGetCategory(Number(page))
+    }
+  }, [query?.page])
 
   useEffect(() => {
     if (!dataCategorys) return
     setTimeout(() => {
       setLoading(null)
-    }, 600) 
+    }, 600)
   }, [dataCategorys])
 
   return (
@@ -70,8 +73,8 @@ const Categorys = () => {
         {dataCategorys?.map((category) => (
           <Box
             key={category._id}
-            bg='backgroundCategory'
-            borderRadius='category'
+            bg="backgroundCategory"
+            borderRadius="category"
             className="border border-borderItemColor rounded-lg p-4 shadow transition-all ease-linear hover:shadow-lg hover:cursor-pointer hover:-translate-y-1"
           >
             <Box key={category._id}>
@@ -80,7 +83,7 @@ const Categorys = () => {
                 <FitlImage
                   width="12%"
                   url={category.avatar}
-                  className="hover:scale-110 shadow-lg shadow-colorShadowItem rounded-full border border-colorPrimary"
+                  className="hover:scale-110 shadow-fourDirections rounded-full border border-colorPrimary"
                 />
                 <Text className="text-heading line-clamp-1">
                   {category.title}
@@ -104,8 +107,8 @@ const Categorys = () => {
                   title="Delete"
                   type="button"
                   onClick={() => deleteCategory(category._id)}
-                  buttonType='error'
-                  className='!min-w-max !rounded-md'
+                  buttonType="error"
+                  className="!min-w-max !rounded-md"
                 />
               </Text>
             </Box>
@@ -119,7 +122,6 @@ const Categorys = () => {
 
       {dataPaginate && (
         <Paginate
-          onChange={setPage}
           limit={dataPaginate.limit}
           totalPage={dataPaginate.totalPage}
         />
