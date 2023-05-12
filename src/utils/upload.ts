@@ -1,12 +1,12 @@
 import { IUpload } from '@/interfaces'
 import { uploadFile } from '@/services'
 
-export const handleGetUrlImage = async (file: File | undefined) => {
+export const handleGetUrlImage = async (file: File | undefined | string) => {
   const dataResponse: IUpload = {
     isError: null,
     imageURl: undefined,
   }
-  if (file) {
+  if (file instanceof File) {
     const formData = new FormData()
     formData.append('file', file)
     const imageUrl = (await uploadFile(formData)) as string | undefined

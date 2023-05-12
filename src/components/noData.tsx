@@ -8,7 +8,7 @@ import imageConfirm from '/public/imageConfirm.gif'
 
 const NoDataPage: React.FC<IDataNoPage> = ({className}) => {
   return (
-    <Box pt="100%" position="relative" className={clsx("w-full", className)}>
+    <Box pt="50%" position="relative" className={clsx("w-full", className)}>
       <Box position="absolute" className='positionsCenter'>
         <Image width={250} src={imageConfirm} alt="Image Error" />
         <Text

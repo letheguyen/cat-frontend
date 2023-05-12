@@ -2,19 +2,24 @@ import React, { memo } from 'react'
 import ReactPaginate from 'react-paginate'
 
 import { IPaginationsPage } from '@/interfaces'
+import { useRouter } from 'next/router'
 
 const Paginate: React.FC<IPaginationsPage> = ({
   limit,
-  onChange,
   totalPage,
 }) => {
+  const { push, asPath, pathname } = useRouter()
+
   const onChangePage = (page: number) => {
-    onChange?.(page + 1)
+    push({
+      pathname,
+      query: { page: page + 1 },
+    })
   }
 
   return (
     <>
-      {totalPage / limit >= 2 && (
+      {totalPage / limit > 1 && (
         <ReactPaginate
           nextLabel={'>>'}
           previousLabel={'<<'}

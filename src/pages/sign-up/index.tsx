@@ -173,14 +173,14 @@ const SignUp = () => {
   return (
     <div className="pt-4 flexItem-center min-h-screen">
       <form className="max-w-xl m-auto" onSubmit={handleSubmit(onSubmit)}>
-        <p className="text-5xl sm:hidden text-[var(--primary-color)]">
+        <p className="text-5xl sm:hidden text-colorFieldRequired">
           Sign Up
         </p>
         <div className="grid w-full gap-4 grid-cols-2 flex-wrap">
           <div className="flex flex-col mt-4">
             <p>
               User name
-              <span className="text-[var(--color-field-required)] -mt-1">
+              <span className="text-colorFieldRequired -mt-1">
                 *
               </span>
             </p>
@@ -190,7 +190,7 @@ const SignUp = () => {
               type="text"
               {...register('userName')}
             />
-            <span className="text-[var(--color-message-error)]">
+            <span className="text-colorFieldRequired">
               {errors.userName?.message}
             </span>
           </div>
@@ -198,7 +198,7 @@ const SignUp = () => {
           <div className="flex flex-col mt-4">
             <p>
               Phone number
-              <span className="text-[var(--color-field-required)] -mt-1">
+              <span className="text-colorFieldRequired -mt-1">
                 *
               </span>
             </p>
@@ -208,7 +208,7 @@ const SignUp = () => {
               type="text"
               {...register('phone')}
             />
-            <span className="text-[var(--color-message-error)]">
+            <span className="text-colorFieldRequired">
               {errors.phone?.message}
             </span>
           </div>
@@ -217,7 +217,7 @@ const SignUp = () => {
         <div className="flex flex-col mt-4">
           <p>
             E-mail
-            <span className="text-[var(--color-field-required)] -mt-1">*</span>
+            <span className="text-colorFieldRequired -mt-1">*</span>
           </p>
           <input
             placeholder="Enter email"
@@ -225,7 +225,7 @@ const SignUp = () => {
             type="text"
             {...register('email')}
           />
-          <span className="text-[var(--color-message-error)]">
+          <span className="text-colorFieldRequired">
             {errors.email?.message}
           </span>
         </div>
@@ -234,7 +234,7 @@ const SignUp = () => {
           <div className="flex flex-col mt-4">
             <p>
               Password
-              <span className="text-[var(--color-field-required)] -mt-1">
+              <span className="text-colorFieldRequired -mt-1">
                 *
               </span>
             </p>
@@ -244,7 +244,7 @@ const SignUp = () => {
               type="text"
               {...register('password')}
             />
-            <span className="text-[var(--color-message-error)]">
+            <span className="text-colorFieldRequired">
               {errors.password?.message}
             </span>
           </div>
@@ -252,7 +252,7 @@ const SignUp = () => {
           <div className="flex flex-col mt-4">
             <p>
               Age
-              <span className="text-[var(--color-field-required)] -mt-1">
+              <span className="text-colorFieldRequired -mt-1">
                 *
               </span>
             </p>
@@ -262,7 +262,7 @@ const SignUp = () => {
               type="number"
               {...register('age')}
             />
-            <span className="text-[var(--color-message-error)]">
+            <span className="text-colorFieldRequired">
               {errors.age?.message}
             </span>
           </div>
@@ -282,12 +282,12 @@ const SignUp = () => {
                 <DeleteIcon
                   onClick={() => handleClearValueImage('AVATAR')}
                   width="30"
-                  className="pl-1 cursor-pointer opacity-60 hover:-translate-y-[2px] hover:text-[var(--primary-color)] hover:opacity-100"
+                  className="pl-1 cursor-pointer opacity-60 hover:-translate-y-1 hover:text-colorPrimary hover:opacity-100"
                 />
               )}
             </div>
             <div
-              className="mt-3 w-40 h-40 bg-cover cursor-pointer overflow-hidden border border-[var(--border-input-base)] relative rounded-md"
+              className="mt-3 w-40 h-40 bg-cover cursor-pointer overflow-hidden border border-colorPrimary relative rounded-md"
               style={{
                 backgroundImage: avatarPewview
                   ? 'url(' + URL.createObjectURL(avatarPewview) + ')'
@@ -295,7 +295,7 @@ const SignUp = () => {
                 backgroundPosition: 'center',
               }}
             ></div>
-            <span className="text-[var(--color-message-error)]">
+            <span className="text-colorFieldRequired">
               {errors.avatar?.message}
             </span>
           </div>
@@ -312,12 +312,12 @@ const SignUp = () => {
                 <DeleteIcon
                   onClick={() => handleClearValueImage('BACKGROUND')}
                   width="30"
-                  className="pl-1 cursor-pointer opacity-60 hover:-translate-y-[2px] hover:text-[var(--primary-color)] hover:opacity-100"
+                  className="pl-1 cursor-pointer opacity-60 hover:-translate-y-1 hover:text-colorPrimary hover:opacity-100"
                 />
               )}
             </div>
             <div
-              className="mt-3 w-full h-40  bg-cover cursor-pointer overflow-hidden border border-[var(--border-input-base)] relative rounded-md"
+              className="mt-3 w-full h-40  bg-cover cursor-pointer overflow-hidden border border-borderItemColor relative rounded-md"
               style={{
                 backgroundImage: backgroudPewview
                   ? 'url(' + URL.createObjectURL(backgroudPewview) + ')'
@@ -325,7 +325,7 @@ const SignUp = () => {
                 backgroundPosition: 'center',
               }}
             ></div>
-            <span className="text-[var(--color-message-error)]">
+            <span className="text-colorFieldRequired">
               {errors.background?.message}
             </span>
           </div>
