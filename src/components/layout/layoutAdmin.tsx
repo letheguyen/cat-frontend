@@ -71,7 +71,7 @@ const LayoutAdminSite: React.FC<ILayoutApp> = ({ children }) => {
   ]
 
   return (
-    <>
+    <Box>
       <Tabs>
         <TabList
           bg="white"
@@ -92,7 +92,7 @@ const LayoutAdminSite: React.FC<ILayoutApp> = ({ children }) => {
         </TabList>
       </Tabs>
 
-      <Box className="flex gap-7 px-4 ">
+      <Box maxW="maxLayoutAdmin" margin="auto" className="flex gap-7 px-4">
         <Box
           bg="backgroundMenuApp"
           className="w-1/4 max-w-sm top-0 pt-16 pl-4 min-h-screen"
@@ -117,7 +117,7 @@ const LayoutAdminSite: React.FC<ILayoutApp> = ({ children }) => {
 
         <Box className="pt-16 pb-7 flex-1">{children}</Box>
       </Box>
-    </>
+    </Box>
   )
 }
 

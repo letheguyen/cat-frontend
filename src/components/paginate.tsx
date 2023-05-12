@@ -1,11 +1,12 @@
-import { IPaginationsPage } from '@/interfaces'
 import React, { memo } from 'react'
 import ReactPaginate from 'react-paginate'
 
+import { IPaginationsPage } from '@/interfaces'
+
 const Paginate: React.FC<IPaginationsPage> = ({
+  limit,
   onChange,
   totalPage,
-  limit,
 }) => {
   const onChangePage = (page: number) => {
     onChange?.(page + 1)

@@ -1,6 +1,7 @@
 import clsx from 'clsx'
 import Cookies from 'js-cookie'
 import { useEffect } from 'react'
+import { Box } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import type { AppProps } from 'next/app'
 
@@ -56,11 +57,11 @@ const App = ({ Component, pageProps }: AppProps) => {
 
   return (
     <ThemesProvider>
-      <>
+      <Box bg='backgroundBodyColor'>
         <RootModal />
         <Loading loading={!!loading} />
         {getLayout(<Component {...pageProps} />)}
-      </>
+      </Box>
     </ThemesProvider>
   )
 }

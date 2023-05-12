@@ -1,7 +1,8 @@
 import React, { memo } from 'react'
 import { useRouter } from 'next/router'
-import { APP_NAME, PATH_NAME } from '@/constants'
 import { Text } from '@chakra-ui/react'
+
+import { APP_NAME, PATH_NAME } from '@/constants'
 
 const FooterForm = () => {
   const { push, pathname } = useRouter()

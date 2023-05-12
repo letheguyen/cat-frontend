@@ -2,9 +2,9 @@ import clsx from 'clsx'
 import Image from 'next/image'
 import React, { memo } from 'react'
 
-import imageConfirm from '/public/imageConfirm.gif'
-import { Box, Text } from '@chakra-ui/react'
 import { IDataNoPage } from '@/interfaces'
+import { Box, Text } from '@chakra-ui/react'
+import imageConfirm from '/public/imageConfirm.gif'
 
 const NoDataPage: React.FC<IDataNoPage> = ({className}) => {
   return (
@@ -13,8 +13,8 @@ const NoDataPage: React.FC<IDataNoPage> = ({className}) => {
         <Image width={250} src={imageConfirm} alt="Image Error" />
         <Text
           as="h3"
-          color="colorTextDescribe"
           fontSize="headingTitle"
+          color="colorTextDescribe"
           className="font-bold opacity-70 text-center"
         >
           No Data
