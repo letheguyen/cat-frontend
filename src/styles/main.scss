@@ -2,8 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Rokkitt:wght@100;200;300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Twinkle+Star&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Tilt+Neon&display=swap');
 
 h1,
 h2,
@@ -13,11 +13,11 @@ h5,
 h6,
 p,
 a {
-  @apply text-lg font-medium font-heading;
+  @apply text-lg font-heading font-bold opacity-95;
 }
 
 body {
-  @apply text-base font-normal font-body;
+  @apply text-base font-light font-body opacity-90;
 
   ::-webkit-scrollbar {
     @apply rounded-none w-1 h-2;

@@ -1,8 +1,8 @@
-import clsx from 'clsx'
 import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
+import { Box, Text } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import {
   CODE_ERROR,
@@ -11,52 +11,40 @@ import {
   PATH_NAME,
   TYPE_FILE_SUPPORT,
 } from '@/constants'
-import { schemaSignUp } from '@/schema'
-import { IProvinces, TypeFormSignUp } from '@/interfaces'
-import { ButtonPrimary, FooterForm } from '@/components'
-import { getProvinces, signUp, getDistricts, getWards } from '@/services'
 import { useStore } from '@/store'
-import { handleGetUrlImage as saveImage } from '@/utils'
+import { signUp } from '@/services'
 import { DeleteIcon } from '@/icons'
-import noImage from '/public/noImage.png'
+import { schemaSignUp } from '@/schema'
+import { handleGetUrlImage as saveImage } from '@/utils'
+import { TypeFormSignUp } from '@/interfaces'
+import { ButtonPrimary, FitlImage, FooterForm } from '@/components'
 
 const SignUp = () => {
   const {
+    watch,
+    setValue,
     register,
     getValues,
     handleSubmit,
-    setValue,
-    watch,
     formState: { errors },
   } = useForm<TypeFormSignUp>({
     resolver: yupResolver(schemaSignUp),
   })
   const { push } = useRouter()
-  const { setLoading, setDataModal, closeModal } = useStore()
-  const [provinces, setProvinces] = useState<IProvinces[] | null>(null)
-  const [districts, setDistricts] = useState<IProvinces[] | null>(null)
-  const [wards, setWards] = useState<IProvinces[] | null>(null)
-  const [defaultDistricts, setDefaultDistricts] = useState('No data')
-  const [defaultWards, setDefaultWards] = useState('No data')
   const [avatarPewview, setAvatarPewview] = useState<File>()
+  const { setLoading, setDataModal, closeModal } = useStore()
   const [backgroudPewview, setBackgroudPewview] = useState<File>()
 
   const onSubmit = async (data: TypeFormSignUp) => {
     setLoading(true)
-    const wards = handleGetDataAddress(data?.wards)
-    const provinces = handleGetDataAddress(data?.provinces)
-    const districts = handleGetDataAddress(data?.districts)
 
-    const { isError: isErr, imageURl: url } = await saveImage(data.avatar?.[0])
     const { isError, imageURl } = await saveImage(data.background?.[0])
+    const { isError: isErr, imageURl: url } = await saveImage(data.avatar?.[0])
 
     let dataSignUp: any = {
       ...data,
       avatar: url,
-      background: imageURl,
-      provinces,
-      districts,
-      wards,
+      background: imageURl
     }
 
     if (isErr || isError) {
@@ -94,45 +82,11 @@ const SignUp = () => {
     }, 300)
   }
 
-  const handleGetDataAddress = (data: string | undefined) => {
-    if (!data) return undefined
-    const showData: IProvinces = JSON.parse(data)
-    return showData?.name
-  }
-
   const handleUploadFailure = () => {
     setDataModal({
       messageModal: 'Upload image failure',
       modalKey: MODAL_TYPE.commonError,
     })
-  }
-
-  const handleGetDataDistricts = async () => {
-    const valueProvinces = getValues('provinces')
-    if (valueProvinces) {
-      setValue('districts', undefined)
-      setValue('wards', undefined)
-      setDefaultDistricts('Loading...')
-      const dataProvinces: IProvinces = JSON.parse(valueProvinces)
-      const districts: IProvinces[] | null = await getDistricts(
-        dataProvinces.code
-      )
-      setWards(null)
-      setDistricts(districts)
-      setDefaultDistricts('No data')
-    }
-  }
-
-  const handleGetDataWards = async () => {
-    const valueDistricts = getValues('districts')
-    if (valueDistricts) {
-      setValue('wards', undefined)
-      setDefaultWards('Loading...')
-      const dataDistricts: IProvinces = JSON.parse(valueDistricts)
-      const wards: IProvinces[] | null = await getWards(dataDistricts.code)
-      setWards(wards)
-      setDefaultWards('No data')
-    }
   }
 
   const handleClearValueImage = (type: string) => {
@@ -146,14 +100,6 @@ const SignUp = () => {
   }
 
   useEffect(() => {
-    handleGetDataDistricts()
-  }, [watch('provinces')])
-
-  useEffect(() => {
-    handleGetDataWards()
-  }, [watch('districts')])
-
-  useEffect(() => {
     const file = getValues('avatar')?.item(0)
     if (!file) return
     setAvatarPewview(file)
@@ -165,114 +111,99 @@ const SignUp = () => {
     setBackgroudPewview(file)
   }, [watch('background')])
 
-  useMemo(async () => {
-    const provincesData: IProvinces[] | null = await getProvinces()
-    setProvinces(provincesData)
-  }, [])
-
   return (
-    <div className="pt-4 flexItem-center min-h-screen">
+    <Box className="pt-4 flexItem-center min-h-screen">
       <form className="max-w-xl m-auto" onSubmit={handleSubmit(onSubmit)}>
-        <p className="text-5xl sm:hidden text-colorFieldRequired">
-          Sign Up
-        </p>
-        <div className="grid w-full gap-4 grid-cols-2 flex-wrap">
-          <div className="flex flex-col mt-4">
-            <p>
+        <Text className="text-5xl sm:hidden text-colorFieldRequired">Sign Up</Text>
+        <Box className="grid w-full gap-4 grid-cols-2 flex-wrap">
+          <Box className="flex flex-col mt-4">
+            <Text>
               User name
-              <span className="text-colorFieldRequired -mt-1">
-                *
-              </span>
-            </p>
+              <Text as='span' className="text-colorFieldRequired -mt-1">*</Text>
+            </Text>
             <input
               placeholder="Enter user name"
               className="input-base"
               type="text"
               {...register('userName')}
             />
-            <span className="text-colorFieldRequired">
+            <Text as='span' className="text-colorFieldRequired">
               {errors.userName?.message}
-            </span>
-          </div>
+            </Text>
+          </Box>
 
-          <div className="flex flex-col mt-4">
-            <p>
+          <Box className="flex flex-col mt-4">
+            <Text>
               Phone number
-              <span className="text-colorFieldRequired -mt-1">
-                *
-              </span>
-            </p>
+              <Text as='span' className="text-colorFieldRequired -mt-1">*</Text>
+            </Text>
             <input
               placeholder="Phone number"
               className="input-base"
               type="text"
               {...register('phone')}
             />
-            <span className="text-colorFieldRequired">
+            <Text as='span' className="text-colorFieldRequired">
               {errors.phone?.message}
-            </span>
-          </div>
-        </div>
+            </Text>
+          </Box>
+        </Box>
 
-        <div className="flex flex-col mt-4">
-          <p>
+        <Box className="flex flex-col mt-4">
+          <Text>
             E-mail
-            <span className="text-colorFieldRequired -mt-1">*</span>
-          </p>
+            <Text as='span' className="text-colorFieldRequired -mt-1">*</Text>
+          </Text>
           <input
             placeholder="Enter email"
             className="input-base"
             type="text"
             {...register('email')}
           />
-          <span className="text-colorFieldRequired">
+          <Text as='span' className="text-colorFieldRequired">
             {errors.email?.message}
-          </span>
-        </div>
+          </Text>
+        </Box>
 
-        <div className="grid w-full gap-4 grid-cols-2 flex-wrap">
-          <div className="flex flex-col mt-4">
-            <p>
+        <Box className="grid w-full gap-4 grid-cols-2 flex-wrap">
+          <Box className="flex flex-col mt-4">
+            <Text>
               Password
-              <span className="text-colorFieldRequired -mt-1">
-                *
-              </span>
-            </p>
+              <Text as='span' className="text-colorFieldRequired -mt-1">*</Text>
+            </Text>
             <input
               placeholder="Enter password"
               className="input-base"
               type="text"
               {...register('password')}
             />
-            <span className="text-colorFieldRequired">
+            <Text as='span' className="text-colorFieldRequired">
               {errors.password?.message}
-            </span>
-          </div>
+            </Text>
+          </Box>
 
-          <div className="flex flex-col mt-4">
-            <p>
+          <Box className="flex flex-col mt-4">
+            <Text>
               Age
-              <span className="text-colorFieldRequired -mt-1">
-                *
-              </span>
-            </p>
+              <Text as='span' className="text-colorFieldRequired -mt-1">*</Text>
+            </Text>
             <input
               placeholder="Enter age"
               className="input-base"
               type="number"
               {...register('age')}
             />
-            <span className="text-colorFieldRequired">
+            <Text as='span' className="text-colorFieldRequired">
               {errors.age?.message}
-            </span>
-          </div>
-        </div>
+            </Text>
+          </Box>
+        </Box>
 
-        <div className="grid w-full gap-4 grid-cols-2 flex-wrap max-sm:grid-cols-1">
-          <div className="flex flex-col mt-4">
-            <p>Avatar</p>
+        <Box className="grid w-full gap-4 grid-cols-2 flex-wrap max-sm:grid-cols-1">
+          <Box className="flex flex-col mt-4">
+            <Text as='span'>Avatar</Text>
 
-            <div className="w-full flex items-center">
+            <Box className="w-full flexItem">
               <input
                 type="file"
                 accept={TYPE_FILE_SUPPORT.toString()}
@@ -285,24 +216,22 @@ const SignUp = () => {
                   className="pl-1 cursor-pointer opacity-60 hover:-translate-y-1 hover:text-colorPrimary hover:opacity-100"
                 />
               )}
-            </div>
-            <div
-              className="mt-3 w-40 h-40 bg-cover cursor-pointer overflow-hidden border border-colorPrimary relative rounded-md"
-              style={{
-                backgroundImage: avatarPewview
-                  ? 'url(' + URL.createObjectURL(avatarPewview) + ')'
-                  : 'url(' + noImage.src + ')',
-                backgroundPosition: 'center',
-              }}
-            ></div>
-            <span className="text-colorFieldRequired">
+            </Box>
+          
+            <FitlImage
+              height="140px"
+              width='140px'
+              url={avatarPewview}
+              className="rounded-md border border-borderItemColor mt-3"
+            />
+            <Text as='span' className="text-colorFieldRequired">
               {errors.avatar?.message}
-            </span>
-          </div>
+            </Text>
+          </Box>
 
-          <div className="flex flex-col mt-4">
-            <p>Backgroud</p>
-            <div className="w-full flex items-center">
+          <Box className="flex flex-col mt-4">
+            <Text>Backgroud</Text>
+            <Box className="w-full flexItem">
               <input
                 type="file"
                 accept={TYPE_FILE_SUPPORT.toString()}
@@ -315,23 +244,20 @@ const SignUp = () => {
                   className="pl-1 cursor-pointer opacity-60 hover:-translate-y-1 hover:text-colorPrimary hover:opacity-100"
                 />
               )}
-            </div>
-            <div
-              className="mt-3 w-full h-40  bg-cover cursor-pointer overflow-hidden border border-borderItemColor relative rounded-md"
-              style={{
-                backgroundImage: backgroudPewview
-                  ? 'url(' + URL.createObjectURL(backgroudPewview) + ')'
-                  : 'url(' + noImage.src + ')',
-                backgroundPosition: 'center',
-              }}
-            ></div>
-            <span className="text-colorFieldRequired">
-              {errors.background?.message}
-            </span>
-          </div>
-        </div>
+            </Box>
 
-        <div className="flexItem-center gap-4 mt-3">
+            <FitlImage
+              height="140px"
+              url={backgroudPewview}
+              className="rounded-md border border-borderItemColor mt-3"
+            />
+            <Text as='span' className="text-colorFieldRequired">
+              {errors.background?.message}
+            </Text>
+          </Box>
+        </Box>
+
+        <Box className="flexItem-center gap-4 mt-3">
           <ButtonPrimary
             className="!rounded-md mt-6"
             type="submit"
@@ -345,10 +271,10 @@ const SignUp = () => {
             title="Back"
             buttonType="close"
           />
-        </div>
+        </Box>
         <FooterForm />
       </form>
-    </div>
+    </Box>
   )
 }
 
