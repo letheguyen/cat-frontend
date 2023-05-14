@@ -4,8 +4,8 @@ import { extendTheme } from '@chakra-ui/react'
 export const themeChakarUi = extendTheme({
   fonts: {
     // Fonts style
-    heading: 'Rokkitt',
-    body: 'Fredoka',
+    heading: 'Twinkle Star',
+    body: 'Tilt Neon',
   },
   colors: {
     //  Color
@@ -71,8 +71,8 @@ export const extendTailwind = {
   },
   fontFamily: {
     // Font style
-    heading: ['Rokkitt', 'serif'],
-    body: ['Fredoka', 'sans-serif'],
+    heading: ['Twinkle Star', 'cursive'],
+    body: [ 'Tilt Neon', 'cursive'],
   },
   borderRadius: {
     // Border radius

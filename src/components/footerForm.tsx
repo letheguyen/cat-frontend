@@ -9,48 +9,52 @@ const FooterForm = () => {
 
   return (
     <>
-      <Text color="colorTextDescribe" className="mt-12 text-center">
+      <Text
+        as="span"
+        color="colorTextDescribe"
+        className="mt-12 text-center inline-block w-full"
+      >
         Let's explore
         <Text
-          as="span"
           color="colorPrimary"
           onClick={() => push(PATH_NAME.home)}
-          className="underline cursor-pointer"
+          className="underline cursor-pointer inline"
         >
           {' '}
           {APP_NAME}{' '}
         </Text>
         now.
         <Text
-          as="span"
           color="colorPrimary"
           onClick={() => push(PATH_NAME.home)}
-          className="ml-1 underline cursor-pointer"
+          className="ml-1 underline cursor-pointer inline"
         >
           Home
         </Text>
       </Text>
 
       {pathname === PATH_NAME.signIn ? (
-        <Text color="colorTextDescribe" className="text-center">
+        <Text
+          as="span"
+          color="colorTextDescribe"
+          className="text-center inline-block w-full"
+        >
           You don't have an account
           <Text
-            as="span"
             color="colorPrimary"
             onClick={() => push(PATH_NAME.signUp)}
-            className="ml-1 underline cursor-pointer"
+            className="ml-1 underline cursor-pointer inline"
           >
             Sign up
           </Text>
         </Text>
       ) : (
-        <Text color="colorTextDescribe" className="text-center">
+        <Text as="span" color="colorTextDescribe" className="text-center inline-block w-full">
           Do you already have an account
           <Text
-            as="span"
             color="colorPrimary"
             onClick={() => push(PATH_NAME.signIn)}
-            className="ml-1 underline cursor-pointer"
+            className="ml-1 underline cursor-pointer inline"
           >
             Sign in
           </Text>

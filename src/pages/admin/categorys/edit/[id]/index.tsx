@@ -22,8 +22,9 @@ import { ButtonPrimary, HeadingTitle, FitlImage } from '@/components'
 import noImage from '/public/noImage.png'
 
 const EditCreateCategory = () => {
-  const { push, back, query } = useRouter()
+  const { back, query } = useRouter()
   const { setLoading, setDataModal, closeModal } = useStore()
+  const [titleOld, setTitleOld] = useState('')
   const [avatarPewview, setAvatarPewview] = useState<File | string | null>()
   const [backgroudView, setBackgroudView] = useState<File | string | null>()
 
@@ -64,21 +65,26 @@ const EditCreateCategory = () => {
     // Upload success
     if (!isErr && !isError) {
       // Data edit category
-      const dataCreateCategory: IDataPostCreateCategory = {
+      const dataUpdateCategory: IDataPostCreateCategory = {
         ...data,
         avatar: url ? url : (avatarPewview as string),
         background: imageURl ? imageURl : (backgroudView as string),
       }
 
+      if (dataUpdateCategory.title === titleOld) {
+        delete dataUpdateCategory.title
+      }
+
       // Call API update
-      const res = await updateCategorys(query.id as string, dataCreateCategory)
+      const res = await updateCategorys(query.id as string, dataUpdateCategory)
 
       if (res.errorCode === CODE_ERROR.SUCCESS) {
         setDataModal({
-          messageModal: 'Create category ' + ERROR_DATA[res.errorCode],
+          messageModal: 'Update category ' + ERROR_DATA[res.errorCode],
           modalKey: MODAL_TYPE.commonSuccess,
         })
-        push(PATH_NAME.categorys)
+
+        back()
         setTimeout(() => {
           closeModal()
         }, 3000)
@@ -124,6 +130,7 @@ const EditCreateCategory = () => {
       setValue('background', res.background)
       setValue('description', res.description)
       setValue('attribute', res.attribute)
+      setTitleOld(res.title)
     } else {
       setDataModal({
         messageModal: 'Category not found',

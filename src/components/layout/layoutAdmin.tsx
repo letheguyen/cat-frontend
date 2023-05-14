@@ -70,6 +70,8 @@ const LayoutAdminSite: React.FC<ILayoutApp> = ({ children }) => {
     },
   ]
 
+  console.log(pathname)
+
   return (
     <Box>
       <Tabs>
@@ -104,7 +106,7 @@ const LayoutAdminSite: React.FC<ILayoutApp> = ({ children }) => {
                 href={item.href}
                 className={clsx(
                   'text-sizeMenuAdmin flex transition-all ease-in hover:opacity-100 items-center',
-                  item.href === pathname
+                  item.href.split('?').includes(pathname)
                     ? 'opacity-100 text-colorPrimary'
                     : 'opacity-60'
                 )}
