@@ -1,7 +1,9 @@
 export const ADMIN_PATH = {
   admin: '/admin',
+  product: '/admin/product',
   categorys: '/admin/categorys',
   categorysEdit: '/admin/categorys/edit',
+  createProduct: '/admin/create-product',
   categoryCreate: '/admin/create-category',
 } as const
 
