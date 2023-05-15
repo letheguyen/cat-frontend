@@ -129,3 +129,29 @@ export const CategorysIcon = ({
     <path d="M10 15H7" />
   </svg>
 )
+
+export const ProductIcon = ({
+  width = '25px',
+  className = '',
+  height = '25px',
+  onClick,
+}: IIcon) => (
+  <svg
+    fill="none"
+    width={width}
+    height={height}
+    strokeWidth="2"
+    onClick={onClick}
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    xmlns="http://www.w3.org/2000/svg"
+    className={clsx('ai ai-ShippingBoxV2', className)}
+  >
+    <path d="M11.029 2.54a2 2 0 0 1 1.942 0l7.515 4.174a1 1 0 0 1 .514.874v8.235a2 2 0 0 1-1.029 1.748l-7 3.89a2 2 0 0 1-1.942 0l-7-3.89A2 2 0 0 1 3 15.824V7.588a1 1 0 0 1 .514-.874L11.03 2.54z" />
+    <path d="M7.5 4.5l9 5V13" />
+    <path d="M6 12.328L9 14" />
+    <path d="M3 7l9 5m0 0l9-5m-9 5v9.5" />
+  </svg>
+)

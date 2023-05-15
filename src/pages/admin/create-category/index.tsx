@@ -76,7 +76,7 @@ const CreateCategory = () => {
 
         setTimeout(() => {
           closeModal()
-          push(PATH_NAME.categorys)
+          push({ pathname: PATH_NAME.categorys, query: { page: 1 } })
         }, 3000)
       } else {
         setDataModal({

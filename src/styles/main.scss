@@ -22,9 +22,11 @@ body {
   ::-webkit-scrollbar {
     @apply rounded-none w-1 h-2;
   }
+
   ::-webkit-scrollbar-thumb {
     @apply bg-backgroundColorScrollApp rounded-full;
   }
+
   ::-webkit-scrollbar-track {
     @apply rounded-none bg-transparent;
   }
@@ -65,7 +67,7 @@ body {
 }
 
 %input {
-  @apply border border-borderItemColor bg-transparent h-10 rounded-md pl-3 pr-4 outline-none -mt-1 focus:border-colorPrimary focus:shadow-lg;
+  @apply border border-borderItemColor bg-transparent h-10 rounded-md pl-3 pr-4 outline-none -mt-0 focus:border-colorPrimary focus:shadow-lg;
 }
 
 %btn {
@@ -80,19 +82,28 @@ textarea {
 
 .input-base {
   @extend %input;
+
+  &-select {
+    @extend %input;
+    option {
+      @apply block leading-10;
+    }
+  }
 }
 
 .flexItem {
   @extend %flexCenter;
-  
+
   &-center {
     @extend %flexCenter;
     @apply justify-center;
   }
+
   &-between {
     @extend %flexCenter;
     @apply justify-between;
   }
+
   &-around {
     @extend %flexCenter;
     @apply justify-around;
@@ -104,24 +115,14 @@ textarea {
     @apply bg-colorPrimary;
     @extend %btn;
   }
+
   &-close {
     @apply bg-backgroundReject;
     @extend %btn;
   }
+
   &-error {
     @apply bg-backgroundColorError;
     @extend %btn;
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-

@@ -89,7 +89,7 @@ const Categorys = () => {
                   {category.title}
                 </Text>
               </Box>
-              <Text as="span" className="text-des line-clamp-3 mb-3">
+              <Text as="span" className="text-des line-clamp-3 mb-3 h-heightDescribeCategory overflow-hidden">
                 {category.description}
               </Text>
               <Text>Product: 0</Text>
@@ -117,7 +117,7 @@ const Categorys = () => {
       </Box>
 
       {dataCategorys && !dataCategorys.length && (
-        <NoDataPage className="-mt-20" />
+        <NoDataPage height='85%' className="-mt-20" />
       )}
 
       {dataPaginate && (

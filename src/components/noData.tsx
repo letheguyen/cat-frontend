@@ -6,9 +6,12 @@ import { IDataNoPage } from '@/interfaces'
 import { Box, Text } from '@chakra-ui/react'
 import imageConfirm from '/public/imageConfirm.gif'
 
-const NoDataPage: React.FC<IDataNoPage> = ({className}) => {
+const NoDataPage: React.FC<IDataNoPage> = ({ className, height = '100%' }) => {
+  
+
+
   return (
-    <Box pt="50%" position="relative" className={clsx("w-full", className)}>
+    <Box pt={height} position="relative" className={clsx("w-full", className)}>
       <Box position="absolute" className='positionsCenter'>
         <Image width={250} src={imageConfirm} alt="Image Error" />
         <Text

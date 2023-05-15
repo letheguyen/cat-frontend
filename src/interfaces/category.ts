@@ -24,8 +24,8 @@ export interface IDataPostCreateCategory {
 }
 
 export interface IParamsGetCategorys {
-  page: number
-  limit: number
+  page?: number
+  limit?: number
 }
 
 export interface IAtrributes {

@@ -44,6 +44,7 @@ export interface IThemesProvider {
 }
 export interface IDataNoPage {
   className?: string
+  height?: string
 }
 export interface IParamsCookies {
   page?: string | number

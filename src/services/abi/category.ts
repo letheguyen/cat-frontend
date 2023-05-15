@@ -21,11 +21,11 @@ export const createCategory = async (
   }
 }
 
-export const getCategorys = async (params: IParamsGetCategorys) => {
+export const getCategorys = async (params?: IParamsGetCategorys) => {
   try {
-    return (await fetch.get(
-      `${API_URL.categorys}?page=${params.page}&limit=${params.limit}`
-    )) as IResponCategory
+    return (await fetch.get(API_URL.categorys, {
+      params: { ...params },
+    })) as IResponCategory
   } catch (error) {
     return null
   }
@@ -47,9 +47,15 @@ export const deleteCategorys = async (id: string) => {
   }
 }
 
-export const updateCategorys = async (id: string, data: IDataPostCreateCategory) => {
+export const updateCategorys = async (
+  id: string,
+  data: IDataPostCreateCategory
+) => {
   try {
-    return (await fetch.put(API_URL.categorys + '/' + id, data)) as IResponsFetch
+    return (await fetch.put(
+      API_URL.categorys + '/' + id,
+      data
+    )) as IResponsFetch
   } catch (error) {
     return error as IResponsFetch
   }
