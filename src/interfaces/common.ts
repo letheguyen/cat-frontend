@@ -26,9 +26,9 @@ export interface IHeadingTitle {
 }
 export interface IFitlImage {
   url?: string | File | null
-  width?: string,
-  height?: string,
-  className?: string,
+  width?: string
+  height?: string
+  className?: string
 }
 export interface IPagination {
   page: number
@@ -49,9 +49,3 @@ export interface IDataNoPage {
 export interface IParamsCookies {
   page?: string | number
 }
-
-
-
-
-
-

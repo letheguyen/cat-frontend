@@ -70,12 +70,15 @@ const SignUp = () => {
       if (!disabled) return
       setDisabled(true)
     }
+    // eslint-disable-next-line
   }, [watch('email'), watch('password')])
 
   return (
     <Box className="flex justify-center items-center h-screen">
       <form className="w-96 m-auto " onSubmit={handleSubmit(onSubmit)}>
-        <Text className="text-5xl sm:hidden text-colorFieldRequired">Sign In</Text>
+        <Text className="text-5xl sm:hidden text-colorFieldRequired">
+          Sign In
+        </Text>
 
         <Box className="flex flex-col mt-4">
           <Text>
@@ -92,7 +95,7 @@ const SignUp = () => {
           />
           <Text as="span" className="text-colorFieldRequired">
             {errors.email?.message}
-          </Text> 
+          </Text>
         </Box>
 
         <Box className="flex flex-col mt-4">
@@ -108,7 +111,9 @@ const SignUp = () => {
             type="text"
             {...register('password')}
           />
-          <Text as='span' className="text-colorFieldRequired">{errors.password?.message}</Text>
+          <Text as="span" className="text-colorFieldRequired">
+            {errors.password?.message}
+          </Text>
         </Box>
 
         <Box className="grid grid-cols-2 gap-4">

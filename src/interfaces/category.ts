@@ -1,4 +1,4 @@
-import { IPagination } from "./common"
+import { IPagination } from './common'
 
 export interface TypeFormCreateCategory {
   title: string

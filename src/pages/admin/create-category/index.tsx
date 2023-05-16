@@ -17,7 +17,7 @@ import { createCategory } from '@/services'
 import { CloseIcon, DeleteIcon } from '@/icons'
 import { schemaCreateCategory } from '@/schema'
 import { handleGetUrlImage as saveImage } from '@/utils'
-import { ButtonPrimary, HeadingTitle } from '@/components'
+import { ButtonPrimary, FitlImage, HeadingTitle } from '@/components'
 
 import noImage from '/public/noImage.png'
 
@@ -56,6 +56,7 @@ const CreateCategory = () => {
 
   const onSubmit = async (data: IDataCreateCategory) => {
     setLoading(true)
+
     const { isError: isErr, imageURl: url } = await saveImage(data.avatar[0])
     const { isError, imageURl } = await saveImage(data.background[0])
 
@@ -121,6 +122,7 @@ const CreateCategory = () => {
     if (file) {
       setAvatarPewview(file)
     }
+    // eslint-disable-next-line
   }, [watch('avatar')])
 
   useEffect(() => {
@@ -128,6 +130,7 @@ const CreateCategory = () => {
     if (file) {
       setBackgroudPewview(file)
     }
+    // eslint-disable-next-line
   }, [watch('background')])
 
   return (
@@ -197,16 +200,11 @@ const CreateCategory = () => {
               />
             )}
           </Box>
-          <Box
-            borderColor="borderItemColor"
-            className="mt-3 w-full pt-[100%] bg-cover cursor-pointer overflow-hidden border relative rounded-md"
-            style={{
-              backgroundImage: avatarPewview
-                ? 'url(' + URL.createObjectURL(avatarPewview) + ')'
-                : 'url(' + noImage.src + ')',
-              backgroundPosition: 'center',
-            }}
-          ></Box>
+
+          <FitlImage
+            url={avatarPewview}
+            className="rounded-md border border-borderItemColor mt-3"
+          />
 
           <Text as="span" color="colorMessageError">
             {errors.avatar?.message}
@@ -237,16 +235,12 @@ const CreateCategory = () => {
             )}
           </Box>
 
-          <Box
-            borderColor="borderItemColor"
-            className="mt-3 w-full h-full bg-cover cursor-pointer overflow-hidden border relative rounded-md"
-            style={{
-              backgroundImage: backgroudPewview
-                ? 'url(' + URL.createObjectURL(backgroudPewview) + ')'
-                : 'url(' + noImage.src + ')',
-              backgroundPosition: 'center',
-            }}
-          ></Box>
+          <FitlImage
+            height="34%"
+            url={backgroudPewview}
+            className="rounded-md border border-borderItemColor mt-3"
+          />
+
           <Text as="span" color="colorMessageError">
             {errors.background?.message}
           </Text>
@@ -287,7 +281,7 @@ const CreateCategory = () => {
                   width="24"
                   height="24"
                   onClick={() => remove(i)}
-                  className="text-colorPrimary rotate-90 w-12 mr-2 cursor-pointer ml-2 max-sm:w-6 max-sm:mt-0 transition-all ease-in hover:cursor-pointer hover:scale-110 "
+                  className="iconClose mr-2"
                 />
               </Box>
               <Text as="span" color="colorMessageError">
@@ -304,7 +298,7 @@ const CreateCategory = () => {
         />
       </Box>
 
-      <div className="flex gap-4 mt-3">
+      <Box className="flex gap-4 mt-3">
         <ButtonPrimary
           className="!rounded-md mt-6"
           type="submit"
@@ -318,7 +312,7 @@ const CreateCategory = () => {
           title="Back"
           buttonType="close"
         />
-      </div>
+      </Box>
     </form>
   )
 }

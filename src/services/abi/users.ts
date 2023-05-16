@@ -20,9 +20,8 @@ export const signUp = async (data: DataPostSignUp) => {
 
 export const signIn = async (data: ISignInData) => {
   try {
-    return (await fetch.post(API_URL.signIn, data))
+    return await fetch.post(API_URL.signIn, data)
   } catch (error) {
     return error
   }
 }
-

@@ -72,7 +72,7 @@ export const extendTailwind = {
   fontFamily: {
     // Font style
     heading: ['Twinkle Star', 'cursive'],
-    body: [ 'Tilt Neon', 'cursive'],
+    body: ['Tilt Neon', 'cursive'],
   },
   borderRadius: {
     // Border radius
@@ -86,10 +86,10 @@ export const extendTailwind = {
     btn: '120px',
   },
   height: {
-    heightDescribeCategory: '70px'
+    heightDescribeCategory: '70px',
   },
   boxShadow: {
-    'fourDirections': '0 0 6px rgba(0, 0, 0, 0.3)',
+    fourDirections: '0 0 6px rgba(0, 0, 0, 0.3)',
   },
   margin: {
     // margin

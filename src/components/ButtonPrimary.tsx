@@ -14,11 +14,11 @@ export const ButtonPrimary: React.FC<IPropsButtons> = ({
   buttonType = 'primary',
   styleText = 'text-lg leading-9',
 }) => {
-
   const styleButton = {
     [ButtonsType.error as string]: 'btn-error',
     [ButtonsType.close as string]: 'btn-close',
     [ButtonsType.primary as string]: 'btn-primary',
+    [ButtonsType.dotted as string]: 'btn-dotted',
   }
 
   return (
@@ -28,7 +28,12 @@ export const ButtonPrimary: React.FC<IPropsButtons> = ({
       disabled={disabled}
       className={clsx(styleButton[buttonType], className)}
     >
-      <Box className={clsx('text-white -mt-2px drop-shadow-lg shadow-colorShadowItem', styleText)}>
+      <Box
+        className={clsx(
+          'text-white -mt-2px drop-shadow-lg shadow-colorShadowItem',
+          styleText
+        )}
+      >
         {title}
       </Box>
     </button>

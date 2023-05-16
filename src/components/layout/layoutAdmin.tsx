@@ -8,7 +8,12 @@ import { Box, Tab, TabList, Tabs, Text } from '@chakra-ui/react'
 import { useStore } from '@/store'
 import { ILayoutApp } from '@/interfaces'
 import { PATH_NAME, USER_PATH } from '@/constants'
-import { CategoryIcon, CategorysIcon, DashboardIcon, ProductIcon } from '@/icons'
+import {
+  CategoryIcon,
+  CategorysIcon,
+  DashboardIcon,
+  ProductIcon,
+} from '@/icons'
 import defaultAvatar from '/public/defaultAvatar.jpg'
 
 const LayoutAdminSite: React.FC<ILayoutApp> = ({ children }) => {
@@ -74,7 +79,7 @@ const LayoutAdminSite: React.FC<ILayoutApp> = ({ children }) => {
       content: (
         <>
           <ProductIcon width="30" height="22" className="mr-1" />
-          Create product
+          Create Product
         </>
       ),
     },

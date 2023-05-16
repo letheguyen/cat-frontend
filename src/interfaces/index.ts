@@ -6,8 +6,5 @@ export * from './upload'
 export * from './signIn'
 export * from './category'
 export * from './provinces'
-export * from './buttonsPrimary'
-
-
-
-
+export * from './button'
+export * from './product'

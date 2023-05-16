@@ -13,10 +13,10 @@ const ModalError = () => {
     <RootModal width="350px" height="310px">
       <div>
         <Text
-           as="span"
-           lineHeight="30px"
-           fontSize="headingTitle"
-           className="heading-modal"
+          as="span"
+          lineHeight="30px"
+          fontSize="headingTitle"
+          className="heading-modal"
         >
           {messageModal}
         </Text>

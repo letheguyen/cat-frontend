@@ -9,7 +9,6 @@ import { LIMIT_PAGE, MODAL_TYPE, PATH_NAME } from '@/constants'
 import { IDetailCategory, IPagination, IResponCategory } from '@/interfaces'
 import { ButtonPrimary, HeadingTitle, NoDataPage, Paginate } from '@/components'
 
-
 const Categorys = () => {
   const { push, query } = useRouter()
   const { setLoading, setDataModal } = useStore()
@@ -57,6 +56,7 @@ const Categorys = () => {
     if (page) {
       handleGetCategory(Number(page))
     }
+    // eslint-disable-next-line
   }, [query?.page])
 
   useEffect(() => {
@@ -64,6 +64,7 @@ const Categorys = () => {
     setTimeout(() => {
       setLoading(null)
     }, 600)
+    // eslint-disable-next-line
   }, [dataCategorys])
 
   return (
@@ -89,7 +90,10 @@ const Categorys = () => {
                   {category.title}
                 </Text>
               </Box>
-              <Text as="span" className="text-des line-clamp-3 mb-3 h-heightDescribeCategory overflow-hidden">
+              <Text
+                as="span"
+                className="text-des line-clamp-3 mb-3 h-heightDescribeCategory overflow-hidden"
+              >
                 {category.description}
               </Text>
               <Text>Product: 0</Text>
@@ -117,7 +121,7 @@ const Categorys = () => {
       </Box>
 
       {dataCategorys && !dataCategorys.length && (
-        <NoDataPage height='85%' className="-mt-20" />
+        <NoDataPage height="85%" className="-mt-20" />
       )}
 
       {dataPaginate && (

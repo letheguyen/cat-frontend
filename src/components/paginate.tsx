@@ -4,10 +4,7 @@ import ReactPaginate from 'react-paginate'
 import { IPaginationsPage } from '@/interfaces'
 import { useRouter } from 'next/router'
 
-const Paginate: React.FC<IPaginationsPage> = ({
-  limit,
-  totalPage,
-}) => {
+const Paginate: React.FC<IPaginationsPage> = ({ limit, totalPage }) => {
   const { push, asPath, pathname } = useRouter()
 
   const onChangePage = (page: number) => {

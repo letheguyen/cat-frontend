@@ -8,7 +8,6 @@ import {
   CODE_ERROR,
   ERROR_DATA,
   MODAL_TYPE,
-  PATH_NAME,
   TYPE_FILE_SUPPORT,
 } from '@/constants'
 import { useStore } from '@/store'
@@ -23,8 +22,8 @@ import noImage from '/public/noImage.png'
 
 const EditCreateCategory = () => {
   const { back, query } = useRouter()
-  const { setLoading, setDataModal, closeModal } = useStore()
   const [titleOld, setTitleOld] = useState('')
+  const { setLoading, setDataModal, closeModal } = useStore()
   const [avatarPewview, setAvatarPewview] = useState<File | string | null>()
   const [backgroudView, setBackgroudView] = useState<File | string | null>()
 
@@ -35,7 +34,6 @@ const EditCreateCategory = () => {
     setValue,
     resetField,
     watch,
-    clearErrors,
     control,
     formState: { errors },
   } = useForm<IDataPostCreateCategory>({
@@ -142,19 +140,6 @@ const EditCreateCategory = () => {
     }, 600)
   }
 
-  const handleShowImagePiewView = (data: undefined | null | File | string) => {
-    switch (typeof data) {
-      case 'string':
-        return data
-      case 'undefined':
-        return noImage.src
-      default:
-        if (data) {
-          return URL.createObjectURL(data)
-        }
-    }
-  }
-
   useEffect(() => {
     const file = getValues('avatar')
     if (file instanceof FileList) {
@@ -162,6 +147,7 @@ const EditCreateCategory = () => {
     } else {
       setAvatarPewview(file)
     }
+    // eslint-disable-next-line
   }, [watch('avatar')])
 
   useEffect(() => {
@@ -171,11 +157,13 @@ const EditCreateCategory = () => {
     } else {
       setBackgroudView(file)
     }
+    // eslint-disable-next-line
   }, [watch('background')])
 
   useEffect(() => {
     if (!query?.id) return
     getCategory(query.id as string)
+    // eslint-disable-next-line
   }, [query?.id])
 
   return (
@@ -300,6 +288,8 @@ const EditCreateCategory = () => {
           description is a description that includes all 2 specified information
           fields.
         </Text>
+
+        {fields.length === 0 && <Box></Box>}
         {fields.map((_, i) => (
           <Box key={i} className="flex gap-4 mt-3">
             <Box className="w-96">

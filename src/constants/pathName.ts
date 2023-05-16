@@ -17,12 +17,12 @@ export const PUBLIC_PATH = {
 } as const
 
 export const USER_PATH = {
-  user: '/user/'
+  user: '/user/',
 } as const
 
 export const PATH_NAME = {
   ...PUBLIC_PATH,
   ...SIGN_IN_UP,
   ...ADMIN_PATH,
-  ...USER_PATH
+  ...USER_PATH,
 } as const

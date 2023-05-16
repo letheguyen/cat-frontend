@@ -44,7 +44,7 @@ const SignUp = () => {
     let dataSignUp: any = {
       ...data,
       avatar: url,
-      background: imageURl
+      background: imageURl,
     }
 
     if (isErr || isError) {
@@ -103,23 +103,29 @@ const SignUp = () => {
     const file = getValues('avatar')?.item(0)
     if (!file) return
     setAvatarPewview(file)
+    // eslint-disable-next-line
   }, [watch('avatar')])
 
   useEffect(() => {
     const file = getValues('background')?.item(0)
     if (!file) return
     setBackgroudPewview(file)
+    // eslint-disable-next-line
   }, [watch('background')])
 
   return (
     <Box className="pt-4 flexItem-center min-h-screen">
       <form className="max-w-xl m-auto" onSubmit={handleSubmit(onSubmit)}>
-        <Text className="text-5xl sm:hidden text-colorFieldRequired">Sign Up</Text>
+        <Text className="text-5xl sm:hidden text-colorFieldRequired">
+          Sign Up
+        </Text>
         <Box className="grid w-full gap-4 grid-cols-2 flex-wrap">
           <Box className="flex flex-col mt-4">
             <Text>
               User name
-              <Text as='span' className="text-colorFieldRequired -mt-1">*</Text>
+              <Text as="span" className="text-colorFieldRequired -mt-1">
+                *
+              </Text>
             </Text>
             <input
               placeholder="Enter user name"
@@ -127,7 +133,7 @@ const SignUp = () => {
               type="text"
               {...register('userName')}
             />
-            <Text as='span' className="text-colorFieldRequired">
+            <Text as="span" className="text-colorFieldRequired">
               {errors.userName?.message}
             </Text>
           </Box>
@@ -135,7 +141,9 @@ const SignUp = () => {
           <Box className="flex flex-col mt-4">
             <Text>
               Phone number
-              <Text as='span' className="text-colorFieldRequired -mt-1">*</Text>
+              <Text as="span" className="text-colorFieldRequired -mt-1">
+                *
+              </Text>
             </Text>
             <input
               placeholder="Phone number"
@@ -143,7 +151,7 @@ const SignUp = () => {
               type="text"
               {...register('phone')}
             />
-            <Text as='span' className="text-colorFieldRequired">
+            <Text as="span" className="text-colorFieldRequired">
               {errors.phone?.message}
             </Text>
           </Box>
@@ -152,7 +160,9 @@ const SignUp = () => {
         <Box className="flex flex-col mt-4">
           <Text>
             E-mail
-            <Text as='span' className="text-colorFieldRequired -mt-1">*</Text>
+            <Text as="span" className="text-colorFieldRequired -mt-1">
+              *
+            </Text>
           </Text>
           <input
             placeholder="Enter email"
@@ -160,7 +170,7 @@ const SignUp = () => {
             type="text"
             {...register('email')}
           />
-          <Text as='span' className="text-colorFieldRequired">
+          <Text as="span" className="text-colorFieldRequired">
             {errors.email?.message}
           </Text>
         </Box>
@@ -169,7 +179,9 @@ const SignUp = () => {
           <Box className="flex flex-col mt-4">
             <Text>
               Password
-              <Text as='span' className="text-colorFieldRequired -mt-1">*</Text>
+              <Text as="span" className="text-colorFieldRequired -mt-1">
+                *
+              </Text>
             </Text>
             <input
               placeholder="Enter password"
@@ -177,7 +189,7 @@ const SignUp = () => {
               type="text"
               {...register('password')}
             />
-            <Text as='span' className="text-colorFieldRequired">
+            <Text as="span" className="text-colorFieldRequired">
               {errors.password?.message}
             </Text>
           </Box>
@@ -185,7 +197,9 @@ const SignUp = () => {
           <Box className="flex flex-col mt-4">
             <Text>
               Age
-              <Text as='span' className="text-colorFieldRequired -mt-1">*</Text>
+              <Text as="span" className="text-colorFieldRequired -mt-1">
+                *
+              </Text>
             </Text>
             <input
               placeholder="Enter age"
@@ -193,7 +207,7 @@ const SignUp = () => {
               type="number"
               {...register('age')}
             />
-            <Text as='span' className="text-colorFieldRequired">
+            <Text as="span" className="text-colorFieldRequired">
               {errors.age?.message}
             </Text>
           </Box>
@@ -201,7 +215,7 @@ const SignUp = () => {
 
         <Box className="grid w-full gap-4 grid-cols-2 flex-wrap max-sm:grid-cols-1">
           <Box className="flex flex-col mt-4">
-            <Text as='span'>Avatar</Text>
+            <Text as="span">Avatar</Text>
 
             <Box className="w-full flexItem">
               <input
@@ -217,14 +231,14 @@ const SignUp = () => {
                 />
               )}
             </Box>
-          
+
             <FitlImage
               height="140px"
-              width='140px'
+              width="140px"
               url={avatarPewview}
               className="rounded-md border border-borderItemColor mt-3"
             />
-            <Text as='span' className="text-colorFieldRequired">
+            <Text as="span" className="text-colorFieldRequired">
               {errors.avatar?.message}
             </Text>
           </Box>
@@ -251,7 +265,7 @@ const SignUp = () => {
               url={backgroudPewview}
               className="rounded-md border border-borderItemColor mt-3"
             />
-            <Text as='span' className="text-colorFieldRequired">
+            <Text as="span" className="text-colorFieldRequired">
               {errors.background?.message}
             </Text>
           </Box>

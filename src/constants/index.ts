@@ -5,7 +5,4 @@ export * from './common'
 export * from './apiUrl'
 export * from './pathName'
 export * from './errorData'
-
-
-
-
+export * from './product'

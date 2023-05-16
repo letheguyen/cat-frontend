@@ -53,11 +53,12 @@ const App = ({ Component, pageProps }: AppProps) => {
 
   useEffect(() => {
     handleSaveDataUser()
+    // eslint-disable-next-line
   }, [])
 
   return (
     <ThemesProvider>
-      <Box bg='backgroundBodyColor'>
+      <Box bg="backgroundBodyColor">
         <RootModal />
         <Loading loading={!!loading} />
         {getLayout(<Component {...pageProps} />)}

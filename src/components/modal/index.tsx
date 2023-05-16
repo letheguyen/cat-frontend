@@ -6,8 +6,7 @@ import { MODAL_TYPE } from '@/constants'
 import ModalSuccess from './modalSuccess'
 import ModalConfirm from './modalConfirm'
 
-
-export const RootModal = memo(() => {
+const RootModal = () => {
   const { modalKey } = useStore()
 
   const MODAL = {
@@ -17,4 +16,6 @@ export const RootModal = memo(() => {
   }
 
   return <>{modalKey && MODAL[modalKey]}</>
-})
+}
+
+export default memo(RootModal)
