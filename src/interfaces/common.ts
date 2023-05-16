@@ -2,7 +2,7 @@ import { CODE_ERROR } from '@/constants'
 import React from 'react'
 
 export type ValueOf<T> = T[keyof T]
-export type IButtonType = ValueOf<typeof CODE_ERROR>
+export type IErrorCode = ValueOf<typeof CODE_ERROR>
 export interface ILayoutApp {
   children: React.ReactElement
 }
@@ -18,7 +18,7 @@ export interface ILoadingModal {
 }
 export interface IResponsFetch {
   message: string
-  errorCode: IButtonType
+  errorCode: IErrorCode
 }
 export interface IHeadingTitle {
   title: string
