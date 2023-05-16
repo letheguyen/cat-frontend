@@ -14,13 +14,11 @@ export const schemaCreateCategory = yup.object().shape({
   avatar: yup
     .mixed()
     .test('required', 'Avatar must be required', (value: any) => {
-      console.log(value)
       const fileChange: FileList = value
       if (fileChange?.[0]) return true
       return false
     })
     .test('fileSize', 'Maximum file size of 5MB', (value: any) => {
-      console.log(value)
       const fileChange: FileList = value
       if (fileChange?.[0]) {
         return fileChange?.[0].size < 5000000
@@ -51,7 +49,7 @@ export const schemaCreateCategory = yup.object().shape({
       value: yup
         .string()
         .trim()
-        .max(350, 'Key cannot be longer than 350 characters')
+        .max(350, 'Value cannot be longer than 350 characters')
         .required('Value must be required'),
     })
   ),
@@ -118,7 +116,7 @@ export const schemaEditCategory = yup.object().shape({
       value: yup
         .string()
         .trim()
-        .max(350, 'Key cannot be longer than 350 characters')
+        .max(350, 'Value cannot be longer than 350 characters')
         .required('Value must be required'),
     })
   ),

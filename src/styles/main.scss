@@ -40,6 +40,10 @@ body {
   @apply flex gap-3 mt-12;
 }
 
+.iconClose {
+  @apply text-colorPrimary rotate-90 w-12 cursor-pointer ml-auto max-sm:w-6 max-sm:mt-0 transition-all ease-in hover:cursor-pointer hover:rotate-180 hover:scale-110;
+}
+
 .positionsCenter {
   @apply absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2;
 }
@@ -114,6 +118,14 @@ textarea {
   &-primary {
     @apply bg-colorPrimary;
     @extend %btn;
+  }
+
+  &-dotted {
+    @apply border border-colorPrimary border-dashed shadow-none;
+    @extend %btn;
+    div {
+      @apply text-colorPrimary bg-transparent drop-shadow-none;
+    }
   }
 
   &-close {

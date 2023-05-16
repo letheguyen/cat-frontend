@@ -14,7 +14,7 @@ const FooterForm = () => {
         color="colorTextDescribe"
         className="mt-12 text-center inline-block w-full"
       >
-        Let's explore
+        {`Let's explore`}
         <Text
           color="colorPrimary"
           onClick={() => push(PATH_NAME.home)}
@@ -39,7 +39,7 @@ const FooterForm = () => {
           color="colorTextDescribe"
           className="text-center inline-block w-full"
         >
-          You don't have an account
+          {`You don't have an account`}
           <Text
             color="colorPrimary"
             onClick={() => push(PATH_NAME.signUp)}
@@ -49,7 +49,11 @@ const FooterForm = () => {
           </Text>
         </Text>
       ) : (
-        <Text as="span" color="colorTextDescribe" className="text-center inline-block w-full">
+        <Text
+          as="span"
+          color="colorTextDescribe"
+          className="text-center inline-block w-full"
+        >
           Do you already have an account
           <Text
             color="colorPrimary"

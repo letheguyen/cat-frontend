@@ -1,4 +1,4 @@
-import Image from 'next/image' 
+import Image from 'next/image'
 import React, { memo } from 'react'
 
 import { ILoadingModal } from '@/interfaces'
@@ -9,7 +9,7 @@ const Loading: React.FC<ILoadingModal> = ({ loading }) => {
   return (
     <Modal onClose={() => {}} isOpen={loading} isCentered>
       <ModalOverlay />
-      <ModalContent bg="transparent" border='none' shadow="none" w="auto">
+      <ModalContent bg="transparent" border="none" shadow="none" w="auto">
         <ModalBody>
           <Image width={140} src={loadingImage} alt="image loading" />
         </ModalBody>

@@ -2,5 +2,4 @@ export * from './users'
 export * from './common'
 export * from './provinces'
 export * from './category'
-
-
+export * from './product'

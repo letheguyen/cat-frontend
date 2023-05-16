@@ -22,6 +22,8 @@ const FitlImage: React.FC<IFitlImage> = ({
       default:
         if (data) {
           return URL.createObjectURL(data)
+        } else {
+          return noImage.src
         }
     }
   }
