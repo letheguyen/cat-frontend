@@ -14,3 +14,11 @@ export const createProduct = async (
     return error as IResponsFetch
   }
 }
+
+export const getProduct = async () => {
+  try {
+    return await fetch.get(API_URL.product)
+  } catch (error) {
+    return null
+  }
+}

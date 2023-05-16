@@ -1,6 +1,6 @@
 export const ADMIN_PATH = {
   admin: '/admin',
-  product: '/admin/product',
+  products: '/admin/products',
   categorys: '/admin/categorys',
   categorysEdit: '/admin/categorys/edit',
   createProduct: '/admin/create-product',

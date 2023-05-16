@@ -135,7 +135,7 @@ const CreateCategory = () => {
 
   return (
     <form className="m-auto" onSubmit={handleSubmit(onSubmit)}>
-      <HeadingTitle title="Create Product Category" />
+      <HeadingTitle title="Create Category" />
       <Box className="flex flex-col mt-4">
         <Text>
           Title
