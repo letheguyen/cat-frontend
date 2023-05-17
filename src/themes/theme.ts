@@ -87,6 +87,7 @@ export const extendTailwind = {
   },
   height: {
     heightDescribeCategory: '70px',
+    line: '2px',
   },
   boxShadow: {
     fourDirections: '0 0 6px rgba(0, 0, 0, 0.3)',

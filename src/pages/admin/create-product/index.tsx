@@ -25,7 +25,8 @@ const dataImagesDefault = {
   detailSizeType: [
     {
       sizeAndType: '',
-      quantity: 1,
+      quantity: 0,
+      price: 0,
     },
   ],
 }
@@ -142,7 +143,8 @@ const CreateProduct = () => {
       ...getValues().images[index].detailSizeType,
       {
         sizeAndType: '',
-        quantity: 1,
+        quantity: 0,
+        price: 0,
       },
     ])
     // eslint-disable-next-line
@@ -152,6 +154,8 @@ const CreateProduct = () => {
     handleGetAllCategory()
     // eslint-disable-next-line
   }, [])
+
+  console.log(errors)
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="transition-all ease-in">
@@ -331,6 +335,7 @@ const CreateProduct = () => {
 
             {fieldImage.detailSizeType.map((_, i) => (
               <Box key={i}>
+                <Box className={clsx(i > 0 ? 'lineColor mt-8' : 'none')}></Box>
                 <Box className="grid grid-cols-2 gap-2 mt-3">
                   <Box className="w-full">
                     <Text>
@@ -382,13 +387,36 @@ const CreateProduct = () => {
                     </Box>
                   </Box>
                 </Box>
-
                 <Box className="flex flex-col">
                   <Text as="span" color="colorMessageError">
                     {renderError(index, i)?.sizeAndType?.message}
                   </Text>
                   <Text as="span" color="colorMessageError">
                     {renderError(index, i)?.quantity?.message}
+                  </Text>
+                </Box>
+
+                <Box className="w-full">
+                  <Text>
+                    Price
+                    <Text
+                      as="span"
+                      color="colorFieldRequired"
+                      className="-mt-1"
+                    >
+                      *
+                    </Text>
+                  </Text>
+                  <input
+                    className="input-base w-full"
+                    placeholder="Ex: 100.999.987 VND"
+                    {...register(`images.${index}.detailSizeType.${i}.price`)}
+                  />
+                </Box>
+
+                <Box className="flex flex-col">
+                  <Text as="span" color="colorMessageError">
+                    {renderError(index, i)?.price?.message}
                   </Text>
                 </Box>
               </Box>

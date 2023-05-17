@@ -58,6 +58,11 @@ export const schemaCreateProduct = yup.object().shape({
             .typeError('Quantity not must be number')
             .min(1, 'Quantity should not be less than 1')
             .required('Quantity must be required'),
+          price: yup
+            .number()
+            .typeError('Price not must be number')
+            .min(0.0001, 'Price should not be less than 0.0001 VNĐ')
+            .required('Price must be required'),
         })
       ),
     })

@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router'
 import { Box, Text } from '@chakra-ui/react'
-import React, { memo, useEffect, useState } from 'react'
+import React, { memo, useCallback, useEffect, useState } from 'react'
 
 import { useStore } from '@/store'
 import FitlImage from '@/components/fitlImage'
@@ -15,24 +15,26 @@ const Categorys = () => {
   const [dataPaginate, setDataPaginate] = useState<IPagination>()
   const [dataCategorys, setDataCategory] = useState<IDetailCategory[] | null>()
 
-  const handleGetCategory = async (page: number) => {
+  const handleGetCategory = useCallback(async (page?: number) => {
     const data: IResponCategory | null = await getCategorys({
       page: page || 1,
       limit: LIMIT_PAGE,
     })
     setDataCategory(data?.data)
     setDataPaginate(data?.pagination)
-  }
+    // eslint-disable-next-line
+  }, [])
 
-  const deleteCategory = async (id: string) => {
+  const deleteCategory = useCallback(async (id: string) => {
     setDataModal({
       messageModal: 'Confirm delete',
       modalKey: MODAL_TYPE.commonConfirm,
       onOk: () => confirmDelete(id),
     })
-  }
+    // eslint-disable-next-line
+  }, [])
 
-  const confirmDelete = async (id: string) => {
+  const confirmDelete = useCallback(async (id: string) => {
     setLoading(true)
     const res = await deleteCategorys(id)
     setLoading(null)
@@ -48,22 +50,22 @@ const Categorys = () => {
         modalKey: MODAL_TYPE.commonError,
       })
     }
-  }
+    // eslint-disable-next-line
+  }, [])
 
   useEffect(() => {
-    const page = query?.page as string | undefined
     setLoading(true)
-    if (page) {
-      handleGetCategory(Number(page))
-    }
+    const page = query.page as string | undefined
+    handleGetCategory(Number(page))
     // eslint-disable-next-line
   }, [query?.page])
 
   useEffect(() => {
-    if (!dataCategorys) return
-    setTimeout(() => {
-      setLoading(null)
-    }, 600)
+    if (dataCategorys) {
+      setTimeout(() => {
+        setLoading(null)
+      }, 600)
+    }
     // eslint-disable-next-line
   }, [dataCategorys])
 

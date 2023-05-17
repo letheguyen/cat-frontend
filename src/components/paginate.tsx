@@ -1,11 +1,12 @@
-import React, { memo } from 'react'
+import React, { memo, useEffect, useState } from 'react'
 import ReactPaginate from 'react-paginate'
 
 import { IPaginationsPage } from '@/interfaces'
 import { useRouter } from 'next/router'
 
 const Paginate: React.FC<IPaginationsPage> = ({ limit, totalPage }) => {
-  const { push, asPath, pathname } = useRouter()
+  const { push, pathname, query } = useRouter()
+  const [defaultPage, setDefaultPage] = useState(1)
 
   const onChangePage = (page: number) => {
     push({
@@ -13,6 +14,11 @@ const Paginate: React.FC<IPaginationsPage> = ({ limit, totalPage }) => {
       query: { page: page + 1 },
     })
   }
+
+  useEffect(() => {
+    if (!query.page) return
+    setDefaultPage(Number(query.page))
+  }, [query.page])
 
   return (
     <>
@@ -24,6 +30,7 @@ const Paginate: React.FC<IPaginationsPage> = ({ limit, totalPage }) => {
           containerClassName={'custom-paginate'}
           pageCount={Math.ceil(totalPage / limit)}
           onPageChange={(page) => onChangePage(page.selected)}
+          forcePage={defaultPage - 1}
           activeClassName={'bg-colorPrimary rounded-md text-white'}
         />
       )}
