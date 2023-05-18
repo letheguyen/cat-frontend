@@ -70,6 +70,10 @@ body {
   @apply w-full h-line bg-gradient-to-r from-backgroundBodyColor via-colorPrimary to-backgroundBodyColor rounded-full;
 }
 
+.blockItem {
+  @apply border border-borderItemColor p-4 shadow transition-all ease-linear hover:shadow-lg hover:cursor-pointer hover:-translate-y-1;
+}
+
 %flexCenter {
   @apply flex items-center;
 }
@@ -79,7 +83,8 @@ body {
 }
 
 %btn {
-  @apply min-w-btn disabled:opacity-60 hover:cursor-pointer z-50 transition-all ease-in hover:scale-110 px-4;
+  @apply disabled:opacity-50 disabled:hover:scale-100 disabled:hover:cursor-default;
+  @apply min-w-btn hover:cursor-pointer z-50 transition-all ease-in hover:scale-110 px-4;
   @apply border border-white text-white text-lg text-center font-medium shadow-lg drop-shadow-lg rounded-full font-body;
 }
 
@@ -140,5 +145,21 @@ textarea {
   &-error {
     @apply bg-backgroundColorError;
     @extend %btn;
+  }
+}
+
+.blinking-text {
+  animation: blinking 1s infinite;
+}
+
+@keyframes blinking {
+  0% {
+    @apply opacity-100 text-backgroundColorError;
+  }
+  50% {
+    @apply opacity-80 text-colorPrimary;
+  }
+  100% {
+    @apply opacity-100 text-backgroundColorError;
   }
 }

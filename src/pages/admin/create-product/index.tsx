@@ -17,7 +17,15 @@ import { handleGetUrlImage } from '@/utils'
 import { schemaCreateProduct } from '@/schema'
 import { createProduct, getCategorys } from '@/services'
 import { ButtonPrimary, FitlImage, HeadingTitle } from '@/components'
-import { MAX_LENGTH_IAMGE, MODAL_TYPE, TYPE_FILE_SUPPORT } from '@/constants'
+import {
+  CODE_ERROR,
+  ERROR_DATA,
+  MAX_LENGTH_IAMGE,
+  MODAL_TYPE,
+  PATH_NAME,
+  TIME_CLOSE_MODAL_SUCCESS,
+  TYPE_FILE_SUPPORT,
+} from '@/constants'
 
 const dataImagesDefault = {
   image: undefined,
@@ -25,8 +33,8 @@ const dataImagesDefault = {
   detailSizeType: [
     {
       sizeAndType: '',
-      quantity: 0,
-      price: 0,
+      quantity: undefined,
+      price: undefined,
     },
   ],
 }
@@ -34,8 +42,8 @@ const dataImagesDefault = {
 const dataAttributeDefault = { key: '', value: '' }
 
 const CreateProduct = () => {
-  const { back } = useRouter()
-  const { setLoading, setDataModal } = useStore()
+  const { back, push } = useRouter()
+  const { setLoading, setDataModal, closeModal } = useStore()
   const [dataCategory, setDataCategory] = useState<IDetailCategory[] | null>()
 
   const {
@@ -72,6 +80,7 @@ const CreateProduct = () => {
     name: 'attribute',
   })
 
+  // On submit
   const onSubmit = async (data: ITypeUseFormCreateProduct) => {
     setLoading(true)
     const { images } = data
@@ -100,7 +109,24 @@ const CreateProduct = () => {
       } as IDataPostCreateProduct
 
       const res = await createProduct(newData)
-      console.log(res)
+      setLoading(false)
+
+      if (res?.errorCode === CODE_ERROR.SUCCESS) {
+        setDataModal({
+          messageModal: 'Create product ' + ERROR_DATA[res?.errorCode],
+          modalKey: MODAL_TYPE.commonSuccess,
+        })
+
+        setTimeout(() => {
+          closeModal()
+          push({ pathname: PATH_NAME.products, query: { page: 1 } })
+        }, TIME_CLOSE_MODAL_SUCCESS)
+      } else {
+        setDataModal({
+          messageModal: 'Product ' + ERROR_DATA[res?.errorCode],
+          modalKey: MODAL_TYPE.commonError,
+        })
+      }
     }
     setLoading(false)
   }
@@ -143,8 +169,8 @@ const CreateProduct = () => {
       ...getValues().images[index].detailSizeType,
       {
         sizeAndType: '',
-        quantity: 0,
-        price: 0,
+        quantity: undefined,
+        price: undefined,
       },
     ])
     // eslint-disable-next-line
@@ -371,6 +397,7 @@ const CreateProduct = () => {
 
                     <Box className="flex flex-1 items-center">
                       <input
+                        autoComplete="off"
                         className="input-base w-full"
                         placeholder="Ex: 100"
                         type="number"

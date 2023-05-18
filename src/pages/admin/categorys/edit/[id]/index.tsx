@@ -8,6 +8,7 @@ import {
   CODE_ERROR,
   ERROR_DATA,
   MODAL_TYPE,
+  TIME_CLOSE_MODAL_SUCCESS,
   TYPE_FILE_SUPPORT,
 } from '@/constants'
 import { useStore } from '@/store'
@@ -76,19 +77,19 @@ const EditCreateCategory = () => {
       // Call API update
       const res = await updateCategorys(query.id as string, dataUpdateCategory)
 
-      if (res.errorCode === CODE_ERROR.SUCCESS) {
+      if (res?.errorCode === CODE_ERROR.SUCCESS) {
         setDataModal({
-          messageModal: 'Update category ' + ERROR_DATA[res.errorCode],
+          messageModal: 'Update category ' + ERROR_DATA[res?.errorCode],
           modalKey: MODAL_TYPE.commonSuccess,
         })
 
         back()
         setTimeout(() => {
           closeModal()
-        }, 3000)
+        }, TIME_CLOSE_MODAL_SUCCESS)
       } else {
         setDataModal({
-          messageModal: 'Category ' + ERROR_DATA[res.errorCode],
+          messageModal: 'Category ' + ERROR_DATA[res?.errorCode],
           modalKey: MODAL_TYPE.commonError,
         })
       }
@@ -168,7 +169,7 @@ const EditCreateCategory = () => {
 
   return (
     <form className="m-auto" onSubmit={handleSubmit(onSubmit)}>
-      <HeadingTitle title="Update Category" />
+      <HeadingTitle title="Edit Category" />
       <Box className="flex flex-col mt-4">
         <Text>
           Title

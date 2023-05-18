@@ -29,6 +29,7 @@ export interface IFitlImage {
   width?: string
   height?: string
   className?: string
+  children?: React.ReactElement
 }
 export interface IPagination {
   page: number

@@ -121,7 +121,7 @@ const LayoutAdminSite: React.FC<ILayoutApp> = ({ children }) => {
       <Box maxW="maxLayoutAdmin" margin="auto" className="flex gap-7 px-4">
         <Box
           bg="backgroundMenuApp"
-          className="w-1/4 max-w-sm top-0 pt-16 pl-4 min-h-screen"
+          className="w-56 max-w-sm top-0 pt-16 pl-4 min-h-screen"
         >
           <Box className="sticky left-0 top-20 flex flex-col gap-4">
             {dataMenu.map((item) => (

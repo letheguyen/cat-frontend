@@ -9,6 +9,7 @@ import {
   ERROR_DATA,
   MODAL_TYPE,
   PATH_NAME,
+  TIME_CLOSE_MODAL_SUCCESS,
   TYPE_FILE_SUPPORT,
 } from '@/constants'
 import { useStore } from '@/store'
@@ -61,17 +62,17 @@ const SignUp = () => {
       const res = await signUp(newDataSignup)
       if (res?.errorCode === CODE_ERROR.SUCCESS) {
         setDataModal({
-          messageModal: 'Sign up ' + ERROR_DATA[res.errorCode],
+          messageModal: 'Sign up ' + ERROR_DATA[res?.errorCode],
           modalKey: MODAL_TYPE.commonSuccess,
         })
 
         setTimeout(() => {
           closeModal()
           push(PATH_NAME.signIn)
-        }, 2000)
+        }, TIME_CLOSE_MODAL_SUCCESS)
       } else {
         setDataModal({
-          messageModal: 'Sign up ' + ERROR_DATA[res.errorCode],
+          messageModal: 'Sign up ' + ERROR_DATA[res?.errorCode],
           modalKey: MODAL_TYPE.commonError,
         })
       }
