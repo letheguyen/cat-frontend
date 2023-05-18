@@ -49,3 +49,6 @@ export interface IDataNoPage {
 export interface IParamsCookies {
   page?: string | number
 }
+export interface IQuery {
+  page?: number
+}

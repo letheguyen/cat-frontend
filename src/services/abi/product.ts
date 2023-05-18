@@ -1,5 +1,10 @@
 import { API_URL } from '@/constants'
-import { IDataPostCreateProduct, IResponsFetch } from '@/interfaces'
+import {
+  IDataPostCreateProduct,
+  IQuery,
+  IResponProduct,
+  IResponsFetch,
+} from '@/interfaces'
 import { fetch } from '../axios'
 
 export const createProduct = async (
@@ -15,9 +20,11 @@ export const createProduct = async (
   }
 }
 
-export const getProduct = async () => {
+export const getProduct = async (params?: IQuery) => {
   try {
-    return await fetch.get(API_URL.product)
+    return (await fetch.get(API_URL.product, {
+      params: { ...params },
+    })) as IResponProduct
   } catch (error) {
     return null
   }

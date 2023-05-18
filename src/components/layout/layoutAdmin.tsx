@@ -13,6 +13,7 @@ import {
   CategorysIcon,
   DashboardIcon,
   ProductIcon,
+  ProductIconList,
 } from '@/icons'
 import defaultAvatar from '/public/defaultAvatar.jpg'
 
@@ -78,7 +79,7 @@ const LayoutAdminSite: React.FC<ILayoutApp> = ({ children }) => {
       href: PATH_NAME.products,
       content: (
         <>
-          <ProductIcon width="30" height="22" className="mr-1" />
+          <ProductIconList width="30" height="22" className="mr-1" />
           Products
         </>
       ),

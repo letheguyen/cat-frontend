@@ -66,6 +66,10 @@ body {
   @apply ml-auto text-colorPrimary p-1 mr-2 opacity-60 transition-all ease-in drop-shadow-lg shadow-black;
 }
 
+.lineColor {
+  @apply w-full h-line bg-gradient-to-r from-backgroundBodyColor via-colorPrimary to-backgroundBodyColor rounded-full;
+}
+
 %flexCenter {
   @apply flex items-center;
 }
