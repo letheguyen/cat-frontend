@@ -10,7 +10,7 @@ const ModalError = () => {
   const { messageModal } = useStore()
 
   return (
-    <RootModal width="350px" height="310px">
+    <RootModal width="350px" height="">
       <div>
         <Text
           as="span"
@@ -18,7 +18,10 @@ const ModalError = () => {
           fontSize="headingTitle"
           className="heading-modal"
         >
-          {messageModal}
+          <Text as="span" className="uppercase">
+            {messageModal?.slice(0, 1)}
+          </Text>
+          {String(messageModal)?.slice(1)}
         </Text>
 
         <Image

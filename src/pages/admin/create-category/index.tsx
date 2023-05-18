@@ -9,6 +9,7 @@ import {
   ERROR_DATA,
   MODAL_TYPE,
   PATH_NAME,
+  TIME_CLOSE_MODAL_SUCCESS,
   TYPE_FILE_SUPPORT,
 } from '@/constants'
 import { IDataCreateCategory, IDataPostCreateCategory } from '@/interfaces'
@@ -69,19 +70,19 @@ const CreateCategory = () => {
       const res = await createCategory(dataCreateCategory)
       setLoading(false)
 
-      if (res.errorCode === CODE_ERROR.SUCCESS) {
+      if (res?.errorCode === CODE_ERROR.SUCCESS) {
         setDataModal({
-          messageModal: 'Create category ' + ERROR_DATA[res.errorCode],
+          messageModal: 'Create category ' + ERROR_DATA[res?.errorCode],
           modalKey: MODAL_TYPE.commonSuccess,
         })
 
         setTimeout(() => {
           closeModal()
           push({ pathname: PATH_NAME.categorys, query: { page: 1 } })
-        }, 3000)
+        }, TIME_CLOSE_MODAL_SUCCESS)
       } else {
         setDataModal({
-          messageModal: 'Category ' + ERROR_DATA[res.errorCode],
+          messageModal: 'Category ' + ERROR_DATA[res?.errorCode],
           modalKey: MODAL_TYPE.commonError,
         })
       }

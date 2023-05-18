@@ -19,7 +19,7 @@ export const themeChakarUi = extendTheme({
 
     // Background
     backgroundModal: '#f7f7f7',
-    backgroundCategory: '#fff',
+    backgroundItem: '#fff',
     backgroundReject: '#5757578f',
     backgroundMenuApp: '#13858121',
     backgroundColorError: '#d55858',
@@ -34,6 +34,7 @@ export const themeChakarUi = extendTheme({
     headingTitle: '28px',
     messageTitle: '20px',
     sizeMenuAdmin: '22px',
+    statusHeading: '20px',
   },
   sizes: {
     // Size layout
@@ -41,7 +42,7 @@ export const themeChakarUi = extendTheme({
   },
   radii: {
     // radius
-    category: '6px',
+    item: '6px',
   },
 })
 
@@ -59,7 +60,7 @@ export const extendTailwind = {
 
     // Background
     backgroundModal: '#f7f7f7',
-    backgroundCategory: '#fff',
+    backgroundItem: '#fff',
     backgroundReject: '#5757578f',
     backgroundMenuApp: '#13858121',
     backgroundColorError: '#d55858',
@@ -76,7 +77,7 @@ export const extendTailwind = {
   },
   borderRadius: {
     // Border radius
-    category: '6px',
+    item: '6px',
   },
   fontSize: {
     sizeMenuAdmin: '22px',

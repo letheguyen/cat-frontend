@@ -1,3 +1,4 @@
+import { MAX_FILE_SIZE } from '@/constants'
 import * as yup from 'yup'
 
 export const schemaCreateCategory = yup.object().shape({
@@ -21,7 +22,7 @@ export const schemaCreateCategory = yup.object().shape({
     .test('fileSize', 'Maximum file size of 5MB', (value: any) => {
       const fileChange: FileList = value
       if (fileChange?.[0]) {
-        return fileChange?.[0].size < 5000000
+        return fileChange?.[0].size < MAX_FILE_SIZE
       }
       return true
     }),
@@ -35,7 +36,7 @@ export const schemaCreateCategory = yup.object().shape({
     .test('fileSize', 'Maximum file size of 5MB', (value: any) => {
       const fileChange: FileList = value
       if (fileChange?.[0]) {
-        return fileChange?.[0].size < 5000000
+        return fileChange?.[0].size < MAX_FILE_SIZE
       }
       return true
     }),
@@ -44,13 +45,11 @@ export const schemaCreateCategory = yup.object().shape({
       key: yup
         .string()
         .trim()
-        .max(50, 'Key cannot be longer than 50 characters')
-        .required('Key must be required'),
+        .max(50, 'Key cannot be longer than 50 characters'),
       value: yup
         .string()
         .trim()
-        .max(350, 'Value cannot be longer than 350 characters')
-        .required('Value must be required'),
+        .max(350, 'Value cannot be longer than 350 characters'),
     })
   ),
 })
@@ -80,7 +79,7 @@ export const schemaEditCategory = yup.object().shape({
     .test('fileSize', 'Maximum file size of 5MB', (value: any) => {
       const fileChange: FileList = value
       if (fileChange?.[0] && fileChange?.[0] instanceof File) {
-        return fileChange?.[0].size < 5000000
+        return fileChange?.[0].size < MAX_FILE_SIZE
       }
       return true
     }),
@@ -102,7 +101,7 @@ export const schemaEditCategory = yup.object().shape({
     .test('fileSize', 'Maximum file size of 5MB', (value: any) => {
       const fileChange: FileList = value
       if (fileChange?.[0] && fileChange?.[0] instanceof File) {
-        return fileChange?.[0].size < 5000000
+        return fileChange?.[0].size < MAX_FILE_SIZE
       }
       return true
     }),

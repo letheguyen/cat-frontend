@@ -1,4 +1,7 @@
-import { IPagination } from './common'
+import { STATUS_CATEGORY } from '@/constants'
+import { IPagination, ValueOf } from './common'
+
+export type IStatusCategory = ValueOf<typeof STATUS_CATEGORY>
 
 export interface TypeFormCreateCategory {
   title: string
@@ -40,6 +43,8 @@ export interface IDetailCategory {
   background: string
   description: string
   attribute: IAtrributes[] | []
+  productsCount: number
+  status: IStatusCategory
 }
 
 export interface IResponCategory {

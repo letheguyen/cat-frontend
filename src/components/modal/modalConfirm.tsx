@@ -23,7 +23,10 @@ const ModalError = () => {
           fontSize="headingTitle"
           className="heading-modal"
         >
-          {messageModal}
+          <Text as="span" className="uppercase">
+            {messageModal?.slice(0, 1)}
+          </Text>
+          {String(messageModal)?.slice(1)}
         </Text>
 
         <Image

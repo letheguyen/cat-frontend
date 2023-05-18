@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useState } from 'react'
+import React, { memo, useLayoutEffect, useState } from 'react'
 import ReactPaginate from 'react-paginate'
 
 import { IPaginationsPage } from '@/interfaces'
@@ -15,7 +15,7 @@ const Paginate: React.FC<IPaginationsPage> = ({ limit, totalPage }) => {
     })
   }
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!query.page) return
     setDefaultPage(Number(query.page))
   }, [query.page])

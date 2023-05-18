@@ -5,6 +5,7 @@ import {
   IParamsGetCategorys,
   IResponCategory,
   IResponsFetch,
+  IStatusCategory,
 } from '@/interfaces'
 import { fetch } from '../axios'
 
@@ -56,6 +57,19 @@ export const updateCategorys = async (
       API_URL.categorys + '/' + id,
       data
     )) as IResponsFetch
+  } catch (error) {
+    return error as IResponsFetch
+  }
+}
+
+export const updateStatusCategorys = async (
+  id: string,
+  status: IStatusCategory
+) => {
+  try {
+    return (await fetch.patch(API_URL.categorys + '/' + id, {
+      status: status,
+    })) as IResponsFetch
   } catch (error) {
     return error as IResponsFetch
   }

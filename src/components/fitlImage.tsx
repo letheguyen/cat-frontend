@@ -7,6 +7,7 @@ import noImage from 'public/noImage.png'
 
 const FitlImage: React.FC<IFitlImage> = ({
   url,
+  children,
   className,
   width = '100%',
   height = '100%',
@@ -49,8 +50,10 @@ const FitlImage: React.FC<IFitlImage> = ({
           backgroundPosition: 'center',
           backgroundImage: 'url(' + image + ')',
         }}
-        className="bg-cover"
-      ></Box>
+        className="bg-cover relative"
+      >
+        {children}
+      </Box>
     </Box>
   )
 }

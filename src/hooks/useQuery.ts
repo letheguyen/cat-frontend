@@ -1,3 +1,4 @@
+import { LIMIT_PAGE } from '@/constants'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 
@@ -11,5 +12,5 @@ export const useQuery = () => {
     }
   }, [query.page])
 
-  return { page, allData: { page } }
+  return { page, allData: { page, limit: LIMIT_PAGE } }
 }

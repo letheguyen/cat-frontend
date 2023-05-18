@@ -1,8 +1,8 @@
 import { IAtrributes } from './category'
 import { IPagination } from './common'
-export interface IResponProduct {
+export interface IResponProducts {
   pagination: IPagination
-  data: IDataPostCreateProduct[] | []
+  data: IDataProducts[] | []
 }
 export interface ITypeUseFormCreateProduct {
   category: string
@@ -12,6 +12,14 @@ export interface ITypeUseFormCreateProduct {
   attribute: IAtrributes[] | []
 }
 export interface IDataPostCreateProduct {
+  category: string
+  title: string
+  description: string
+  images: ImagesResult[]
+  attribute: IAtrributes[] | []
+}
+export interface IDataProducts {
+  _id: string
   category: string
   title: string
   description: string
@@ -30,6 +38,6 @@ export interface ImagesResult {
 }
 export interface DetailSizeType {
   sizeAndType: string
-  quantity: number
-  price: number
+  quantity: number | undefined
+  price: number | undefined
 }

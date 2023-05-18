@@ -1,6 +1,6 @@
 import React from 'react'
 import Image from 'next/image'
-import { Text } from '@chakra-ui/react'
+import { Box, Text } from '@chakra-ui/react'
 
 import { useStore } from '@/store'
 import RootModal from './rootModal'
@@ -10,24 +10,27 @@ const ModalSuccess = () => {
   const { messageModal } = useStore()
 
   return (
-    <RootModal width="340px" height="280px" noIconClose noButtonFooter>
-      <div>
+    <RootModal width="340px" height="240px" noIconClose noButtonFooter>
+      <Box className="h-full">
         <Text
           as="span"
           lineHeight="30px"
           fontSize="headingTitle"
           className="heading-modal"
         >
-          {messageModal}
+          <Text as="span" className="uppercase">
+            {messageModal?.slice(0, 1)}
+          </Text>
+          {String(messageModal)?.slice(1)}
         </Text>
 
         <Image
-          width={100}
+          width={90}
           src={successImage}
           alt="Image success"
-          className="animate-bounce m-auto mt-10"
+          className="animate-bounce m-auto mt-14"
         />
-      </div>
+      </Box>
     </RootModal>
   )
 }
