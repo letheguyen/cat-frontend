@@ -27,19 +27,13 @@ import {
   TYPE_FILE_SUPPORT,
 } from '@/constants'
 
-const dataImagesDefault = {
-  image: undefined,
-  attribute: '',
-  detailSizeType: [
-    {
-      sizeAndType: '',
-      quantity: undefined,
-      price: undefined,
-    },
-  ],
-}
-
 const dataAttributeDefault = { key: '', value: '' }
+const dataImagesDefault = { image: undefined, attribute: '' }
+const detailSizeType = {
+  sizeAndType: '',
+  quantity: undefined,
+  price: undefined,
+}
 
 const CreateProduct = () => {
   const { back, push } = useRouter()
@@ -58,6 +52,7 @@ const CreateProduct = () => {
     defaultValues: {
       images: [dataImagesDefault],
       attribute: [dataAttributeDefault],
+      detailSizeType: [detailSizeType],
     },
   })
 
@@ -69,6 +64,11 @@ const CreateProduct = () => {
   const dataImages = useWatch({
     control,
     name: 'images',
+  })
+
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: 'detailSizeType',
   })
 
   const {
@@ -135,6 +135,7 @@ const CreateProduct = () => {
     const res: IResponCategory | null = await getCategorys()
     if (!res?.data) return
     setDataCategory(res.data)
+    // eslint-disable-next-line
   }, [])
 
   const removeImage = useCallback((i: number) => {
@@ -143,36 +144,20 @@ const CreateProduct = () => {
     // eslint-disable-next-line
   }, [])
 
-  const clearAtrributeImage = useCallback((dadindex: number, i: number) => {
-    const detailSizeType = getValues().images[dadindex].detailSizeType
-    const newDetailSizeType = detailSizeType.filter((_, index) => index !== i)
-    setValue(`images.${dadindex}.detailSizeType`, newDetailSizeType)
-    // eslint-disable-next-line
-  }, [])
-
-  const renderError = (dadindex: number, i: number) => {
-    return errors.images?.[dadindex]?.detailSizeType?.[i]
-  }
-
   const handleAddAtrribute = useCallback((type?: string) => {
     switch (type) {
       case 'ATRRIBUTE':
         return addAtrribute(dataAttributeDefault)
       case 'IMAGES':
         return addNewImage(dataImagesDefault)
-    }
-    // eslint-disable-next-line
-  }, [])
 
-  const handleAppendSizeOrType = useCallback((index: number) => {
-    setValue(`images.${index}.detailSizeType`, [
-      ...getValues().images[index].detailSizeType,
-      {
-        sizeAndType: '',
-        quantity: undefined,
-        price: undefined,
-      },
-    ])
+      case 'SIZE_TYPE':
+        return append({
+          sizeAndType: '',
+          quantity: undefined,
+          price: undefined,
+        })
+    }
     // eslint-disable-next-line
   }, [])
 
@@ -180,8 +165,6 @@ const CreateProduct = () => {
     handleGetAllCategory()
     // eslint-disable-next-line
   }, [])
-
-  console.log(errors)
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="transition-all ease-in">
@@ -261,6 +244,7 @@ const CreateProduct = () => {
           Information consists of two key and value values, a valid description
           is a description consisting of two identification fields.
         </Text>
+
         {fieldAtrribute.map((atrribute, i) => (
           <Box key={atrribute.id} className="flex gap-4 mt-3">
             <Box className="w-96">
@@ -296,6 +280,7 @@ const CreateProduct = () => {
             </Box>
           </Box>
         ))}
+
         <ButtonPrimary
           type="button"
           buttonType="dotted"
@@ -305,10 +290,90 @@ const CreateProduct = () => {
         />
       </Box>
 
+      {fields.map((_, i) => (
+        <Box key={i}>
+          <Box className="grid grid-cols-3 gap-2 mt-3">
+            <Box className="w-full">
+              <Text>
+                Size or Type
+                <Text as="span" color="colorFieldRequired" className="-mt-1">
+                  *
+                </Text>
+              </Text>
+              <input
+                className="input-base w-full"
+                placeholder="Ex: XXL"
+                {...register(`detailSizeType.${i}.sizeAndType`)}
+              />
+
+              <Text as="span" color="colorMessageError">
+                {errors.detailSizeType?.[i]?.sizeAndType?.message}
+              </Text>
+            </Box>
+
+            <Box className="w-full">
+              <Text>
+                Quantity
+                <Text as="span" color="colorFieldRequired" className="-mt-1">
+                  *
+                </Text>
+              </Text>
+
+              <input
+                autoComplete="off"
+                className="input-base w-full"
+                placeholder="Ex: 100"
+                type="number"
+                {...register(`detailSizeType.${i}.quantity`)}
+              />
+
+              <Text as="span" color="colorMessageError">
+                {errors.detailSizeType?.[i]?.quantity?.message}
+              </Text>
+            </Box>
+
+            <Box className="w-full">
+              <Text>
+                Price
+                <Text as="span" color="colorFieldRequired" className="-mt-1">
+                  *
+                </Text>
+              </Text>
+              <Box className="flex flex-1 items-center">
+                <input
+                  className="input-base w-full"
+                  placeholder="Ex: 100.999.987 VND"
+                  {...register(`detailSizeType.${i}.price`)}
+                />
+
+                <CloseIcon
+                  width="16"
+                  height="16"
+                  onClick={() => i > 0 && remove(i)}
+                  className={clsx(i === 0 && 'opacity-30', 'iconClose')}
+                />
+              </Box>
+
+              <Text as="span" color="colorMessageError">
+                {errors.detailSizeType?.[i]?.price?.message}
+              </Text>
+            </Box>
+          </Box>
+        </Box>
+      ))}
+
+      <ButtonPrimary
+        type="button"
+        title="+ Add more"
+        buttonType="dotted"
+        onClick={() => handleAddAtrribute('SIZE_TYPE')}
+        className="!rounded-md mt-6 mr-auto"
+      />
+
       <HeadingTitle className="mt-6" title="Other Values" />
 
-      <Box className="grid grid-cols-3 flex-wrap gap-x-4 gap-y-20 max-xl:grid-cols-2">
-        {dataImages?.map((fieldImage, index) => (
+      <Box className="grid grid-cols-4 flex-wrap gap-x-4 gap-y-20 max-xl:grid-cols-3">
+        {dataImages?.map((_, index) => (
           <Box key={index} className="flex flex-col">
             <Box className="flexItem-between">
               <Text>
@@ -358,109 +423,11 @@ const CreateProduct = () => {
             <Text as="span" color="colorMessageError">
               {errors.images?.[index]?.attribute?.message}
             </Text>
-
-            {fieldImage.detailSizeType.map((_, i) => (
-              <Box key={i}>
-                <Box className={clsx(i > 0 ? 'lineColor mt-8' : 'none')}></Box>
-                <Box className="grid grid-cols-2 gap-2 mt-3">
-                  <Box className="w-full">
-                    <Text>
-                      Size or Type
-                      <Text
-                        as="span"
-                        color="colorFieldRequired"
-                        className="-mt-1"
-                      >
-                        *
-                      </Text>
-                    </Text>
-                    <input
-                      className="input-base w-full"
-                      placeholder="Ex: XXL"
-                      {...register(
-                        `images.${index}.detailSizeType.${i}.sizeAndType`
-                      )}
-                    />
-                  </Box>
-
-                  <Box className="w-full">
-                    <Text>
-                      Quantity
-                      <Text
-                        as="span"
-                        color="colorFieldRequired"
-                        className="-mt-1"
-                      >
-                        *
-                      </Text>
-                    </Text>
-
-                    <Box className="flex flex-1 items-center">
-                      <input
-                        autoComplete="off"
-                        className="input-base w-full"
-                        placeholder="Ex: 100"
-                        type="number"
-                        {...register(
-                          `images.${index}.detailSizeType.${i}.quantity`
-                        )}
-                      />
-                      <CloseIcon
-                        width="16"
-                        height="16"
-                        onClick={() => i > 0 && clearAtrributeImage(index, i)}
-                        className={clsx(i === 0 && 'opacity-30', 'iconClose')}
-                      />
-                    </Box>
-                  </Box>
-                </Box>
-                <Box className="flex flex-col">
-                  <Text as="span" color="colorMessageError">
-                    {renderError(index, i)?.sizeAndType?.message}
-                  </Text>
-                  <Text as="span" color="colorMessageError">
-                    {renderError(index, i)?.quantity?.message}
-                  </Text>
-                </Box>
-
-                <Box className="w-full">
-                  <Text>
-                    Price
-                    <Text
-                      as="span"
-                      color="colorFieldRequired"
-                      className="-mt-1"
-                    >
-                      *
-                    </Text>
-                  </Text>
-                  <input
-                    className="input-base w-full"
-                    placeholder="Ex: 100.999.987 VND"
-                    {...register(`images.${index}.detailSizeType.${i}.price`)}
-                  />
-                </Box>
-
-                <Box className="flex flex-col">
-                  <Text as="span" color="colorMessageError">
-                    {renderError(index, i)?.price?.message}
-                  </Text>
-                </Box>
-              </Box>
-            ))}
-
-            <ButtonPrimary
-              type="button"
-              title="+ Add more"
-              buttonType="dotted"
-              onClick={() => handleAppendSizeOrType(index)}
-              className="!rounded-md mt-6 mr-auto"
-            />
           </Box>
         ))}
       </Box>
 
-      <Box className="w-1/3 pr-2.5">
+      <Box className="w-1/4 pr-2.5 max-xl:w-1/3">
         <ButtonPrimary
           type="button"
           title="+ Add more image"
