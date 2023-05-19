@@ -45,25 +45,6 @@ export const schemaCreateProduct = yup.object().shape({
         .string()
         .trim()
         .max(50, 'Attribute cannot be longer than 50 characters'),
-      detailSizeType: yup.array().of(
-        yup.object().shape({
-          sizeAndType: yup
-            .string()
-            .trim()
-            .max(30, 'Size and type cannot be longer than 30 characters')
-            .required('Size and type must be required'),
-          quantity: yup
-            .number()
-            .typeError('Quantity not must be number')
-            .min(1, 'Quantity should not be less than 1')
-            .required('Quantity must be required'),
-          price: yup
-            .number()
-            .typeError('Price not must be number')
-            .min(0.0001, 'Price should not be less than 0.0001 VNĐ')
-            .required('Price must be required'),
-        })
-      ),
     })
   ),
   detailSizeType: yup.array().of(
@@ -78,6 +59,11 @@ export const schemaCreateProduct = yup.object().shape({
         .typeError('Quantity not must be number')
         .min(1, 'Quantity should not be less than 1')
         .required('Quantity must be required'),
+      price: yup
+        .number()
+        .typeError('Price not must be number')
+        .min(0.0001, 'Price should not be less than 0.0001 VNĐ')
+        .required('Price must be required'),
     })
   ),
 })

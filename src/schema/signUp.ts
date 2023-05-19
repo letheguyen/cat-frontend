@@ -37,7 +37,6 @@ export const schemaSignUp = yup.object().shape({
     .test('fileSize', 'Maximum file size of 5MB is allowed', (value: any) => {
       const fileChange: FileList = value
       if (fileChange?.[0]) {
-        console.log(fileChange?.[0].size < 5000000)
         return fileChange?.[0].size < 5000000
       }
       return true
@@ -47,7 +46,6 @@ export const schemaSignUp = yup.object().shape({
     .test('fileSize', 'Maximum file size of 5MB is allowed', (value: any) => {
       const fileChange: FileList = value
       if (fileChange?.[0]) {
-        console.log(fileChange?.[0].size < 5000000)
         return fileChange?.[0].size < 5000000
       }
       return true

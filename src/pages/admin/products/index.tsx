@@ -7,6 +7,7 @@ import { IDataProducts, IPagination } from '@/interfaces'
 import { getProduct } from '@/services'
 import { Box, Text } from '@chakra-ui/react'
 import { useStore } from '@/store'
+import { getMinMaxPrice } from '@/utils'
 
 const Products = () => {
   const { setDataModal, setLoading } = useStore()
@@ -54,6 +55,23 @@ const Products = () => {
             />
 
             <Text className="">{product.title}</Text>
+            <Box className="flex text-sm">
+              <Text as="span" className="text-colorPrimary">
+                {getMinMaxPrice(product.detailSizeType)?.min}đ
+              </Text>
+              <Text as="span" className="px-2 opacity-80">
+                to
+              </Text>
+              <Text as="span" className="text-colorPrimary">
+                {getMinMaxPrice(product.detailSizeType)?.max}đ
+              </Text>
+            </Box>
+            <Text as="span" className="text-sm ml-auto">
+              Đã bán :{' '}
+              <Text as="span" className="text-colorPrimary">
+                0
+              </Text>
+            </Text>
           </Box>
         ))}
       </Box>

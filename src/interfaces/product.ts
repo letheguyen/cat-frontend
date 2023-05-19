@@ -8,36 +8,42 @@ export interface ITypeUseFormCreateProduct {
   category: string
   title: string
   description: string
-  images: Images[]
   attribute: IAtrributes[] | []
+  images: Images[]
+  detailSizeType: DetailSizeType[]
 }
 export interface IDataPostCreateProduct {
   category: string
   title: string
   description: string
-  images: ImagesResult[]
   attribute: IAtrributes[] | []
+  images: ImagesResult[]
+  detailSizeType: DetailSizeType[]
 }
 export interface IDataProducts {
   _id: string
   category: string
   title: string
   description: string
-  images: ImagesResult[]
   attribute: IAtrributes[] | []
+  images: ImagesResult[]
+  detailSizeType: DetailSizeTypeRes[]
 }
 export interface Images {
   image?: FileList
   attribute: string
-  detailSizeType: DetailSizeType[]
 }
 export interface ImagesResult {
   image: string
   attribute: string
-  detailSizeType: DetailSizeType[]
 }
 export interface DetailSizeType {
   sizeAndType: string
   quantity: number | undefined
   price: number | undefined
+}
+export interface DetailSizeTypeRes {
+  sizeAndType: string
+  quantity: number
+  price: number
 }
