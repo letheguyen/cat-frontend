@@ -28,6 +28,8 @@ export interface IDataProducts {
   attribute: IAtrributes[] | []
   images: ImagesResult[]
   detailSizeType: DetailSizeTypeRes[]
+  likes: number
+  status: number
 }
 export interface Images {
   image?: FileList

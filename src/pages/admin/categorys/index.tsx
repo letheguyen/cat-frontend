@@ -144,11 +144,11 @@ const Categorys = () => {
               <FitlImage height="60%" url={category.background}>
                 {
                   <Text
-                    style={FLAG_STATUS_CATEGORY[category.status].style}
+                    style={FLAG_STATUS_CATEGORY?.[category.status]?.style}
                     fontSize="statusHeading"
                     className="positionsCenter text-white px-8 py-1"
                   >
-                    {FLAG_STATUS_CATEGORY[category.status].title}
+                    {FLAG_STATUS_CATEGORY?.[category.status]?.title}
                   </Text>
                 }
               </FitlImage>

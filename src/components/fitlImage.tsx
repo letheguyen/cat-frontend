@@ -38,7 +38,7 @@ const FitlImage: React.FC<IFitlImage> = ({
     <Box
       className={clsx(
         className,
-        'overflow-hidden transition-all ease-linear  hover:cursor-pointer'
+        'transition-all ease-linear hover:cursor-pointer'
       )}
       style={{
         width: width,

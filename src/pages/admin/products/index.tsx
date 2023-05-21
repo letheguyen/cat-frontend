@@ -1,13 +1,20 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { FitlImage, HeadingTitle, NoDataPage } from '@/components'
 import Paginate from '@/components/paginate'
-import { LIMIT_PAGE, MODAL_TYPE } from '@/constants'
+import {
+  FAVORITE_LIKES,
+  LIMIT_PAGE,
+  MODAL_TYPE,
+  STATUS_CATEGORY,
+} from '@/constants'
 import { useQuery } from '@/hooks'
 import { IDataProducts, IPagination } from '@/interfaces'
 import { getProduct } from '@/services'
 import { Box, Text } from '@chakra-ui/react'
 import { useStore } from '@/store'
 import { getMinMaxPrice } from '@/utils'
+import { TruckIcon } from '@/icons'
+import clsx from 'clsx'
 
 const Products = () => {
   const { setDataModal, setLoading } = useStore()
@@ -46,31 +53,62 @@ const Products = () => {
             key={product._id}
             bg="backgroundItem"
             borderRadius="item"
-            className="blockItem "
+            // opacity={product.status === STATUS_CATEGORY.pause ? '0.8' : ''}
+            className="blockItem"
           >
             <FitlImage
               height="100%"
               url={product.images?.[0]?.image}
-              className="border"
-            />
+              className='border'
+            >
+              <>
+                {product.likes >= FAVORITE_LIKES && (
+                  <Box className="favoriteLabel">Yêu thích +</Box>
+                )}
+                {product.status === STATUS_CATEGORY.pause && (
+                  <Box className="bg-black bg-opacity-80 text-white positionsCenter whitespace-nowrap py-2 px-3">
+                    Ngừng kinh doanh
+                  </Box>
+                )}
+              </>
+            </FitlImage>
 
-            <Text className="">{product.title}</Text>
+            <Text as="span" className="line-clamp-2 leading-5 h-10 mb-2 mt-1">
+              {product.title}
+            </Text>
             <Box className="flex text-sm">
+              <Text as="span" className="mr-1">
+                Giá :
+              </Text>
               <Text as="span" className="text-colorPrimary">
                 {getMinMaxPrice(product.detailSizeType)?.min}đ
               </Text>
-              <Text as="span" className="px-2 opacity-80">
+              <Text as="span" className="px-1 opacity-80">
                 to
               </Text>
               <Text as="span" className="text-colorPrimary">
                 {getMinMaxPrice(product.detailSizeType)?.max}đ
               </Text>
             </Box>
-            <Text as="span" className="text-sm ml-auto">
-              Đã bán :{' '}
-              <Text as="span" className="text-colorPrimary">
-                0
+
+            <Box className="flex flex-wrap">
+              <Text as="span" className="text-sm">
+                Likes:{' '}
+                <Text as="span" className="text-colorPrimary">
+                  {product.likes}
+                </Text>
               </Text>
+
+              <Text as="span" className="text-sm ml-auto">
+                Đã bán :{' '}
+                <Text as="span" className="text-colorPrimary">
+                  0
+                </Text>
+              </Text>
+            </Box>
+            <Text as="span" className="text-sm flexItem gap-2">
+              <TruckIcon className="text-colorPrimary" width="18" height="18" />
+              Toàn quốc
             </Text>
           </Box>
         ))}

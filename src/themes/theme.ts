@@ -25,6 +25,7 @@ export const themeChakarUi = extendTheme({
     backgroundColorError: '#d55858',
     backgroundBodyColor: '#d2e4df42',
     backgroundColorScrollApp: '#afafaf',
+    backgroundColorFavoriteLabel: '#089568',
 
     // Border
     borderItemColor: '#5f5f5f31',
@@ -66,6 +67,7 @@ export const extendTailwind = {
     backgroundColorError: '#d55858',
     backgroundBodyColor: '#d2e4df42',
     backgroundColorScrollApp: '#afafaf',
+    backgroundColorFavoriteLabel: '#089568',
 
     // Border
     borderItemColor: '#5f5f5f31',
