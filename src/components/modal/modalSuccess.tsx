@@ -14,7 +14,7 @@ const ModalSuccess = () => {
       <Box className="h-full">
         <Text
           as="span"
-          lineHeight="30px"
+          lineHeight="24px"
           fontSize="headingTitle"
           className="heading-modal"
         >

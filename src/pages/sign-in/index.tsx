@@ -16,7 +16,7 @@ import { useStore } from '@/store'
 import { signIn } from '@/services'
 import { schemaSignIn } from '@/schema'
 import { Box, Text } from '@chakra-ui/react'
-import { ButtonPrimary, FooterForm } from '@/components'
+import { ButtonPrimary, FooterForm, SignSns } from '@/components'
 import { IDataUserSignIn, ISignInData } from '@/interfaces'
 
 const SignUp = () => {
@@ -38,13 +38,7 @@ const SignUp = () => {
     const res = (await signIn(data)) as IDataUserSignIn
 
     if (res?.token) {
-      Cookies.set(ROLE, res?.data?.role, { expires: DAY_SAVE_COOKIE })
-      Cookies.set(KEY_TOKEN_COOKIE, res.token, { expires: DAY_SAVE_COOKIE })
-      Cookies.set(KEY_DATA_USERS_COOKIE, JSON.stringify(res.data), {
-        expires: DAY_SAVE_COOKIE,
-      })
-      setDataAccount(res.data, res.token)
-      handleNextPage(res?.data?.role)
+      addDataAccountToCookies(res)
     } else {
       setError('password', { message: 'Incorrect Account Information' })
     }
@@ -52,6 +46,16 @@ const SignUp = () => {
     setTimeout(() => {
       setLoading(false)
     }, 300)
+  }
+
+  const addDataAccountToCookies = (res: IDataUserSignIn) => {
+    Cookies.set(ROLE, res?.data?.role, { expires: DAY_SAVE_COOKIE })
+    Cookies.set(KEY_TOKEN_COOKIE, res.token, { expires: DAY_SAVE_COOKIE })
+    Cookies.set(KEY_DATA_USERS_COOKIE, JSON.stringify(res.data), {
+      expires: DAY_SAVE_COOKIE,
+    })
+    setDataAccount(res.data, res.token)
+    handleNextPage(res?.data?.role)
   }
 
   const handleNextPage = (role: string) => {
@@ -132,6 +136,9 @@ const SignUp = () => {
             buttonType="close"
           />
         </Box>
+
+        <SignSns loginSuccessHandle={addDataAccountToCookies} />
+
         <FooterForm />
       </form>
     </Box>

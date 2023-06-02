@@ -32,7 +32,7 @@ export const themeChakarUi = extendTheme({
   },
   fontSizes: {
     // Font size
-    headingTitle: '28px',
+    headingTitle: '22px',
     messageTitle: '20px',
     sizeMenuAdmin: '22px',
     statusHeading: '20px',

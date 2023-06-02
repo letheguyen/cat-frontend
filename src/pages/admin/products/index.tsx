@@ -59,7 +59,7 @@ const Products = () => {
             <FitlImage
               height="100%"
               url={product.images?.[0]?.image}
-              className='border'
+              className="border"
             >
               <>
                 {product.likes >= FAVORITE_LIKES && (

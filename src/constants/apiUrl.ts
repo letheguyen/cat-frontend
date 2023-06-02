@@ -3,6 +3,7 @@ export const API_URL = {
   upload: '/upload',
   signUp: '/sign-up',
   signIn: '/sign-in',
+  signInSNS: '/sign-in-sns',
   categorys: '/categorys',
   product: '/product',
 

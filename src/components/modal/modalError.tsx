@@ -14,7 +14,7 @@ const ModalError = () => {
       <div>
         <Text
           as="span"
-          lineHeight="30px"
+          lineHeight="24px"
           fontSize="headingTitle"
           className="heading-modal"
         >
@@ -25,7 +25,7 @@ const ModalError = () => {
         </Text>
 
         <Image
-          width={100}
+          width={80}
           src={errorImage}
           alt="Image Error"
           className="m-auto mt-10"

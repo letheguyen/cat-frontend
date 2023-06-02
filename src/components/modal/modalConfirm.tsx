@@ -19,7 +19,7 @@ const ModalError = () => {
       <Box>
         <Text
           as="span"
-          lineHeight="30px"
+          lineHeight="24px"
           fontSize="headingTitle"
           className="heading-modal"
         >

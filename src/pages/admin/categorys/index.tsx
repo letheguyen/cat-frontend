@@ -156,7 +156,7 @@ const Categorys = () => {
                 <FitlImage
                   width="12%"
                   url={category.avatar}
-                  className="hover:scale-110 shadow-fourDirections rounded-full border border-colorPrimary"
+                  className="hover:scale-110 shadow-fourDirections overflow-hidden rounded-full border border-colorPrimary"
                 />
                 <Text className="text-heading line-clamp-1">
                   {category.title}

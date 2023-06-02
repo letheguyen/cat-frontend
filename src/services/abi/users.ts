@@ -1,6 +1,11 @@
 import { API_URL } from '@/constants'
 import { fetch } from '../axios'
-import { DataPostSignUp, IResponsFetch, ISignInData } from '@/interfaces'
+import {
+  DataPostSignUp,
+  IResponsFetch,
+  ISignInData,
+  ISignInSNSData,
+} from '@/interfaces'
 
 export const getAllUsers = async () => {
   try {
@@ -21,6 +26,14 @@ export const signUp = async (data: DataPostSignUp) => {
 export const signIn = async (data: ISignInData) => {
   try {
     return await fetch.post(API_URL.signIn, data)
+  } catch (error) {
+    return error
+  }
+}
+
+export const signSNS = async (data: ISignInSNSData) => {
+  try {
+    return await fetch.post(API_URL.signInSNS, data)
   } catch (error) {
     return error
   }

@@ -6,6 +6,14 @@ export interface ISignInData {
   email: string
   password: string
 }
+export interface ISignInSNSData {
+  userName: string | null
+  avatar: string | null
+  email: string | null
+  phone: string | null
+  age: number
+  uid: string
+}
 export interface IDataUser {
   age: number
   _id: string
