@@ -25,6 +25,7 @@ const SignSns = ({
   const { setLoading, setDataModal } = useStore()
 
   const handleSignSns = async (dataSign: UserCredential, appName: string) => {
+    setLoading(true)
     const dataAccount = {
       userName: dataSign.user.displayName,
       avatar: dataSign.user.photoURL,
@@ -34,6 +35,8 @@ const SignSns = ({
       uid: dataSign.user.uid,
     }
     const res = (await signSNS(dataAccount)) as IDataUserSignIn
+
+    console.log(res)
     if (res?.token) {
       loginSuccessHandle(res)
     } else {
@@ -46,7 +49,6 @@ const SignSns = ({
   }
 
   const handleSign = async (type: string) => {
-    setLoading(true)
     try {
       switch (type) {
         case 'Google':
@@ -61,6 +63,7 @@ const SignSns = ({
 
         case 'Githup':
           return await signInWithPopup(auth, providerGithup).then((data) => {
+            console.log(data)
             handleSignSns(data, 'Githup')
           })
       }
