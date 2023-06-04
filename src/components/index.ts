@@ -8,3 +8,5 @@ export { default as FooterForm } from './footerForm'
 export { default as FitlImage } from './fitlImage'
 export { default as RootModal } from './modal'
 export { default as SignSns } from './loginSns'
+export { default as Messenger } from './messenger'
+

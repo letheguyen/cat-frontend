@@ -18,6 +18,7 @@ import {
   ROLE_APP,
 } from '@/constants'
 import { useStore } from '@/store'
+import { useIoChat } from '@/hooks'
 import { IDataUser } from '@/interfaces'
 import { convertObjectToArray } from '@/utils'
 import ThemesProvider from '@/themes/themesProvider'
@@ -27,6 +28,9 @@ import '@/styles/main.scss'
 const App = ({ Component, pageProps }: AppProps) => {
   const { pathname } = useRouter()
   const { loading, role, token, setDataAccount } = useStore()
+
+  // Custom hook
+  useIoChat()
 
   const handleSaveDataUser = () => {
     const userData = Cookies.get(KEY_DATA_USERS_COOKIE)

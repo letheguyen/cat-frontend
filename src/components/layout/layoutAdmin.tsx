@@ -1,13 +1,11 @@
 import clsx from 'clsx'
 import Link from 'next/link'
-import Image from 'next/image'
 import React, { memo } from 'react'
 import { useRouter } from 'next/router'
-import { Box, Tab, TabList, Tabs, Text } from '@chakra-ui/react'
+import { Box } from '@chakra-ui/react'
 
-import { useStore } from '@/store'
 import { ILayoutApp } from '@/interfaces'
-import { PATH_NAME, USER_PATH } from '@/constants'
+import { PATH_NAME } from '@/constants'
 import {
   CategoryIcon,
   CategorysIcon,
@@ -15,33 +13,10 @@ import {
   ProductIcon,
   ProductIconList,
 } from '@/icons'
-import defaultAvatar from '/public/defaultAvatar.jpg'
+import Navbar from './navbar'
 
 const LayoutAdminSite: React.FC<ILayoutApp> = ({ children }) => {
-  const { dataAccount } = useStore()
-  const { push, pathname } = useRouter()
-
-  const dataNav = [
-    {
-      id: 3,
-      style: 'ml-auto',
-      content: (
-        <Box className="flex gap-3 justify-center items-center">
-          <Text color="colorPrimary">{dataAccount?.userName}</Text>
-          <Box className="block border-2 rounded-full border-colorPrimary w-10 h-10 overflow-hidden">
-            <Image
-              className="w-full"
-              width={44}
-              height={44}
-              src={dataAccount?.avatar || defaultAvatar}
-              alt="Avata"
-            />
-          </Box>
-        </Box>
-      ),
-      href: clsx(USER_PATH.user + dataAccount?._id),
-    },
-  ]
+  const { pathname } = useRouter()
 
   const dataMenu = [
     {
@@ -98,26 +73,7 @@ const LayoutAdminSite: React.FC<ILayoutApp> = ({ children }) => {
 
   return (
     <Box>
-      <Tabs>
-        <TabList
-          bg="white"
-          borderBottomWidth="thin"
-          className="fixed w-full z-50"
-          borderBottomColor="colorPrimary"
-        >
-          {dataNav.map((tabs) => (
-            <Tab
-              key={tabs.id}
-              color="transparent"
-              className={clsx(tabs.style)}
-              onClick={() => push(clsx(tabs.href))}
-            >
-              {tabs.content}
-            </Tab>
-          ))}
-        </TabList>
-      </Tabs>
-
+      <Navbar />
       <Box maxW="maxLayoutAdmin" margin="auto" className="flex gap-7 px-4">
         <Box
           bg="backgroundMenuApp"

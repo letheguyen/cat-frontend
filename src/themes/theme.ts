@@ -16,6 +16,7 @@ export const themeChakarUi = extendTheme({
     colorTextDescribe: '#727272',
     colorMessageError: '#ec0000cc',
     colorFieldRequired: '#ff2222f1',
+    colorActiveMessage: '#138581',
 
     // Background
     backgroundModal: '#f7f7f7',
@@ -58,6 +59,7 @@ export const extendTailwind = {
     colorTextDescribe: '#727272',
     colorMessageError: '#ec0000cc',
     colorFieldRequired: '#ff2222f1',
+    colorActiveMessage: '#138581',
 
     // Background
     backgroundModal: '#f7f7f7',
@@ -88,9 +90,13 @@ export const extendTailwind = {
     // Width min
     btn: '120px',
   },
+  maxHeight: {
+    messenger: '650px'
+  },
   height: {
     heightDescribeCategory: '70px',
     line: '2px',
+    messenger: '650px'
   },
   boxShadow: {
     fourDirections: '0 0 6px rgba(0, 0, 0, 0.3)',

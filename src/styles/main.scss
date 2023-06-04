@@ -126,6 +126,11 @@ textarea {
     @extend %flexCenter;
     @apply justify-around;
   }
+
+  &-end {
+    @extend %flexCenter;
+    @apply justify-end;
+  }
 }
 
 .btn {

@@ -8,3 +8,5 @@ export * from './category'
 export * from './provinces'
 export * from './button'
 export * from './product'
+export * from './messenger'
+

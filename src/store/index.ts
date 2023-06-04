@@ -1,8 +1,10 @@
 import { create } from 'zustand'
 
 import { commonSlice } from './common'
-import { ICommonState } from '@/interfaces'
+import { chatSlice } from './chat'
+import { IChatSlice, ICommonState } from '@/interfaces'
 
-export const useStore = create<ICommonState>()((...a) => ({
+export const useStore = create<ICommonState & IChatSlice>()((...a) => ({
   ...commonSlice(...a),
+  ...chatSlice(...a)
 }))
