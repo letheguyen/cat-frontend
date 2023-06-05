@@ -91,12 +91,12 @@ export const extendTailwind = {
     btn: '120px',
   },
   maxHeight: {
-    messenger: '650px'
+    messenger: '650px',
   },
   height: {
     heightDescribeCategory: '70px',
     line: '2px',
-    messenger: '650px'
+    messenger: '650px',
   },
   boxShadow: {
     fourDirections: '0 0 6px rgba(0, 0, 0, 0.3)',

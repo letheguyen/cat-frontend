@@ -8,7 +8,7 @@ const LayoutUserSite: React.FC<ILayoutApp> = ({ children }) => {
     <>
       <Box className="px-3">
         <Navbar />
-        <Box className='mt-16'>{children}</Box>
+        <Box className="mt-16">{children}</Box>
       </Box>
     </>
   )

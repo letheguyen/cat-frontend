@@ -6,7 +6,7 @@ import React, { useEffect, useState } from 'react'
 
 import {
   CODE_ERROR,
-  ERROR_DATA,
+  RESPONSE_DATA,
   MODAL_TYPE,
   PATH_NAME,
   TIME_CLOSE_MODAL_SUCCESS,
@@ -62,7 +62,7 @@ const SignUp = () => {
       const res = await signUp(newDataSignup)
       if (res?.errorCode === CODE_ERROR.SUCCESS) {
         setDataModal({
-          messageModal: 'Sign up ' + ERROR_DATA[res?.errorCode],
+          messageModal: 'Sign up ' + RESPONSE_DATA[res?.errorCode],
           modalKey: MODAL_TYPE.commonSuccess,
         })
 
@@ -72,7 +72,7 @@ const SignUp = () => {
         }, TIME_CLOSE_MODAL_SUCCESS)
       } else {
         setDataModal({
-          messageModal: 'Sign up ' + ERROR_DATA[res?.errorCode],
+          messageModal: 'Sign up ' + RESPONSE_DATA[res?.errorCode],
           modalKey: MODAL_TYPE.commonError,
         })
       }

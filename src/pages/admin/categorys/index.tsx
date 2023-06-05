@@ -11,7 +11,7 @@ import {
 } from '@/services'
 import {
   CODE_ERROR,
-  ERROR_DATA,
+  RESPONSE_DATA,
   FLAG_STATUS_CATEGORY,
   LIMIT_PAGE,
   MODAL_TYPE,
@@ -96,7 +96,7 @@ const Categorys = () => {
 
     if (res?.errorCode === CODE_ERROR.UPDATE_SUCCESS) {
       setDataModal({
-        messageModal: ERROR_DATA[res?.errorCode],
+        messageModal: RESPONSE_DATA[res?.errorCode],
         modalKey: MODAL_TYPE.commonSuccess,
       })
 
@@ -107,7 +107,7 @@ const Categorys = () => {
       }, TIME_CLOSE_MODAL_SUCCESS)
     } else {
       setDataModal({
-        messageModal: 'Category ' + ERROR_DATA[res?.errorCode],
+        messageModal: 'Category ' + RESPONSE_DATA[res?.errorCode],
         modalKey: MODAL_TYPE.commonError,
       })
     }

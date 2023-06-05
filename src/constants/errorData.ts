@@ -7,7 +7,7 @@ export const CODE_ERROR = {
   SERVER: 9999,
 } as const
 
-export const ERROR_DATA = {
+export const RESPONSE_DATA = {
   [CODE_ERROR.SUCCESS]: 'success',
   [CODE_ERROR.NO_DATA]: 'not found',
   [CODE_ERROR.EXISTS]: 'already exists',

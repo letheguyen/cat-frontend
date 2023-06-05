@@ -28,3 +28,29 @@ export const MessagerIcon = ({
     <path d="M14 19c-1.236 0-2.598.5-3.841 1.145-1.998 1.037-2.997 1.556-3.489 1.225-.492-.33-.399-1.355-.212-3.404L6.5 17.5" />
   </svg>
 )
+
+export const InfoIcon = ({
+  width = '25px',
+  className = '',
+  height = '25px',
+  onClick,
+}: IIcon) => (
+  <svg
+    fill="none"
+    width={width}
+    height={height}
+    strokeWidth="2"
+    onClick={onClick}
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    xmlns="http://www.w3.org/2000/svg"
+    className={clsx('ai ai-Info', className)}
+  >
+    <circle cx="12" cy="12" r="10" />
+    <path d="M12 7h.01" />
+    <path d="M10 11h2v5" />
+    <path d="M10 16h4" />
+  </svg>
+)

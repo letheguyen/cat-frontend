@@ -2,7 +2,7 @@ import { StateCreator } from 'zustand'
 
 import { ICommonState, IDataUser } from '@/interfaces'
 
-export const commonSlice: StateCreator<ICommonState> = (set) => ({
+export const commonSlice: StateCreator<ICommonState> = (set, get) => ({
   //user
   role: null,
   token: null,
@@ -40,5 +40,26 @@ export const commonSlice: StateCreator<ICommonState> = (set) => ({
   loading: null,
   setLoading(isLoad) {
     set(() => ({ loading: isLoad }))
+  },
+
+  // Chat
+  dataChat: null,
+  usersOnline: [],
+  setDataChat(data) {
+    const oldChat = get().dataChat
+    set(() => ({ dataChat: oldChat ? [...oldChat, data] : [data] }))
+  },
+  setDataUserOnline(data) {
+    const oldAccountOnline = get().usersOnline
+    if (oldAccountOnline.includes(data)) return
+    set(() => ({
+      usersOnline: oldAccountOnline ? [...oldAccountOnline, data] : [data],
+    }))
+  },
+
+  // Shop info
+  dataShop: null,
+  setDataShopInfo(data) {
+    set(() => ({ dataShop: data }))
   },
 })

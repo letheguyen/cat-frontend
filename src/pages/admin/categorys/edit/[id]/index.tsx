@@ -6,7 +6,7 @@ import { useForm, useFieldArray } from 'react-hook-form'
 
 import {
   CODE_ERROR,
-  ERROR_DATA,
+  RESPONSE_DATA,
   MODAL_TYPE,
   TIME_CLOSE_MODAL_SUCCESS,
   TYPE_FILE_SUPPORT,
@@ -79,7 +79,7 @@ const EditCreateCategory = () => {
 
       if (res?.errorCode === CODE_ERROR.SUCCESS) {
         setDataModal({
-          messageModal: 'Update category ' + ERROR_DATA[res?.errorCode],
+          messageModal: 'Update category ' + RESPONSE_DATA[res?.errorCode],
           modalKey: MODAL_TYPE.commonSuccess,
         })
 
@@ -89,7 +89,7 @@ const EditCreateCategory = () => {
         }, TIME_CLOSE_MODAL_SUCCESS)
       } else {
         setDataModal({
-          messageModal: 'Category ' + ERROR_DATA[res?.errorCode],
+          messageModal: 'Category ' + RESPONSE_DATA[res?.errorCode],
           modalKey: MODAL_TYPE.commonError,
         })
       }

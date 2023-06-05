@@ -5,6 +5,7 @@ export const ADMIN_PATH = {
   categorysEdit: '/admin/categorys/edit',
   createProduct: '/admin/create-product',
   categoryCreate: '/admin/create-category',
+  shopInformation: '/admin/shop-information',
 } as const
 
 export const SIGN_IN_UP = {

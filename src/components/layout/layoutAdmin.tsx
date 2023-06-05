@@ -4,15 +4,16 @@ import React, { memo } from 'react'
 import { useRouter } from 'next/router'
 import { Box } from '@chakra-ui/react'
 
-import { ILayoutApp } from '@/interfaces'
-import { PATH_NAME } from '@/constants'
 import {
   CategoryIcon,
   CategorysIcon,
   DashboardIcon,
+  InfoIcon,
   ProductIcon,
   ProductIconList,
 } from '@/icons'
+import { ILayoutApp } from '@/interfaces'
+import { PATH_NAME } from '@/constants'
 import Navbar from './navbar'
 
 const LayoutAdminSite: React.FC<ILayoutApp> = ({ children }) => {
@@ -26,6 +27,16 @@ const LayoutAdminSite: React.FC<ILayoutApp> = ({ children }) => {
         <>
           <DashboardIcon width="30" height="22" className="mr-1" />
           Dashboard
+        </>
+      ),
+    },
+    {
+      id: 63,
+      href: PATH_NAME.shopInformation,
+      content: (
+        <>
+          <InfoIcon width="30" height="22" className="mr-1" />
+          Shop Information
         </>
       ),
     },

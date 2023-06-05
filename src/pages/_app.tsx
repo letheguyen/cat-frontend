@@ -13,6 +13,7 @@ import {
 } from '@/components'
 import {
   ADMIN_PATH,
+  SIGN_IN_UP,
   KEY_DATA_USERS_COOKIE,
   KEY_TOKEN_COOKIE,
   ROLE_APP,
@@ -24,10 +25,11 @@ import { convertObjectToArray } from '@/utils'
 import ThemesProvider from '@/themes/themesProvider'
 
 import '@/styles/main.scss'
+import { getInformation } from '@/services'
 
 const App = ({ Component, pageProps }: AppProps) => {
   const { pathname } = useRouter()
-  const { loading, role, token, setDataAccount } = useStore()
+  const { loading, role, token, setDataAccount, setDataShopInfo } = useStore()
 
   // Custom hook
   useIoChat()
@@ -46,17 +48,30 @@ const App = ({ Component, pageProps }: AppProps) => {
   const getLayout = (page: React.ReactElement) => {
     let Layout = LayoutUserSite
     const adminUrls = convertObjectToArray(ADMIN_PATH)
+    const signInOrSignUpUrls = convertObjectToArray(SIGN_IN_UP)
 
     if (adminUrls.includes(clsx('/' + pathname.split('/')[1]))) {
       if (role === ROLE_APP.ADMIN && token) {
         Layout = LayoutAdminSite
       }
     }
+
+    if (signInOrSignUpUrls.includes(pathname)) {
+      return page
+    }
+
     return <Layout>{page}</Layout>
+  }
+
+  const handleGetDataShopInfo = async () => {
+    if (pathname === ADMIN_PATH.shopInformation) return
+    const dataShop = await getInformation()
+    dataShop && setDataShopInfo(dataShop[0])
   }
 
   useEffect(() => {
     handleSaveDataUser()
+    handleGetDataShopInfo()
     // eslint-disable-next-line
   }, [])
 

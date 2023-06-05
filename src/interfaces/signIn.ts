@@ -1,3 +1,6 @@
+import { IAtrributes } from './category'
+import { IDataAccount } from './messenger'
+
 export interface IDataUserSignIn {
   token: string
   data: IDataUser
@@ -27,4 +30,7 @@ export interface IDataUser {
   districts: string | undefined
   background: string | undefined
   addressDetail: string | undefined
+}
+export interface IDataAccountTop {
+  dataAccount: IDataAccount
 }

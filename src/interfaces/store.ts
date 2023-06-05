@@ -1,7 +1,9 @@
 import { MODAL_TYPE } from '@/constants'
-import { IDataUser, IDataUserSignIn } from './signIn'
+import { IDataUser } from './signIn'
 import { ValueOf } from './common'
 import { IModalType } from './modal'
+import { IChatContent, IDataAccount } from './messenger'
+import { IDataShopInforStore, IDataShopInformation } from './shopInformation'
 
 export type modalType = ValueOf<typeof MODAL_TYPE>
 
@@ -24,4 +26,14 @@ export interface ICommonState {
   // App
   loading: null | boolean
   setLoading: (isLoad: null | boolean) => void
+
+  // Chat
+  usersOnline: string[]
+  dataChat: IChatContent[] | null
+  setDataChat: (data: IChatContent) => void
+  setDataUserOnline: (data: string) => void
+
+  // Shop info
+  dataShop: null | IDataShopInforStore
+  setDataShopInfo: (data: IDataShopInforStore) => void
 }

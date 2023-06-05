@@ -3,15 +3,14 @@ export interface IMessager {
   height?: string
   className?: string
 }
-
 export interface IChatContent {
-  content: string,
-  idUser: string,
-  image?: string | null,
+  content: string
+  idUser: string
+  image?: string | null
   avatar?: string
 }
-
-export interface IChatSlice {
-  dataChat: IChatContent[] | null,
-  setDataChat: (data: IChatContent) => void
+export interface IDataAccount {
+  _id: string
+  userName: string
+  avatar: string | undefined
 }

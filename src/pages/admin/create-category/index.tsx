@@ -6,7 +6,7 @@ import { useForm, useFieldArray } from 'react-hook-form'
 
 import {
   CODE_ERROR,
-  ERROR_DATA,
+  RESPONSE_DATA,
   MODAL_TYPE,
   PATH_NAME,
   TIME_CLOSE_MODAL_SUCCESS,
@@ -20,8 +20,6 @@ import { schemaCreateCategory } from '@/schema'
 import { handleGetUrlImage as saveImage } from '@/utils'
 import { ButtonPrimary, FitlImage, HeadingTitle } from '@/components'
 
-import noImage from '/public/noImage.png'
-
 const CreateCategory = () => {
   const { push } = useRouter()
   const { setLoading, setDataModal, closeModal } = useStore()
@@ -32,9 +30,7 @@ const CreateCategory = () => {
     register,
     getValues,
     handleSubmit,
-    setValue,
     resetField,
-    reset,
     watch,
     control,
     formState: { errors },
@@ -72,7 +68,7 @@ const CreateCategory = () => {
 
       if (res?.errorCode === CODE_ERROR.SUCCESS) {
         setDataModal({
-          messageModal: 'Create category ' + ERROR_DATA[res?.errorCode],
+          messageModal: 'Create category ' + RESPONSE_DATA[res?.errorCode],
           modalKey: MODAL_TYPE.commonSuccess,
         })
 
@@ -82,7 +78,7 @@ const CreateCategory = () => {
         }, TIME_CLOSE_MODAL_SUCCESS)
       } else {
         setDataModal({
-          messageModal: 'Category ' + ERROR_DATA[res?.errorCode],
+          messageModal: 'Category ' + RESPONSE_DATA[res?.errorCode],
           modalKey: MODAL_TYPE.commonError,
         })
       }
@@ -304,14 +300,6 @@ const CreateCategory = () => {
           className="!rounded-md mt-6"
           type="submit"
           title="Create Category"
-        />
-
-        <ButtonPrimary
-          onClick={() => push(PATH_NAME.home)}
-          className="!rounded-md mt-6"
-          type="button"
-          title="Back"
-          buttonType="close"
         />
       </Box>
     </form>

@@ -19,7 +19,7 @@ import { createProduct, getCategorys } from '@/services'
 import { ButtonPrimary, FitlImage, HeadingTitle } from '@/components'
 import {
   CODE_ERROR,
-  ERROR_DATA,
+  RESPONSE_DATA,
   MAX_LENGTH_IAMGE,
   MODAL_TYPE,
   PATH_NAME,
@@ -36,7 +36,7 @@ const detailSizeType = {
 }
 
 const CreateProduct = () => {
-  const { back, push } = useRouter()
+  const { push } = useRouter()
   const { setLoading, setDataModal, closeModal } = useStore()
   const [dataCategory, setDataCategory] = useState<IDetailCategory[] | null>()
 
@@ -113,7 +113,7 @@ const CreateProduct = () => {
 
       if (res?.errorCode === CODE_ERROR.SUCCESS) {
         setDataModal({
-          messageModal: 'Create product ' + ERROR_DATA[res?.errorCode],
+          messageModal: 'Create product ' + RESPONSE_DATA[res?.errorCode],
           modalKey: MODAL_TYPE.commonSuccess,
         })
 
@@ -123,7 +123,7 @@ const CreateProduct = () => {
         }, TIME_CLOSE_MODAL_SUCCESS)
       } else {
         setDataModal({
-          messageModal: 'Product ' + ERROR_DATA[res?.errorCode],
+          messageModal: 'Product ' + RESPONSE_DATA[res?.errorCode],
           modalKey: MODAL_TYPE.commonError,
         })
       }
@@ -451,14 +451,6 @@ const CreateProduct = () => {
           className="!rounded-md mt-6"
           type="submit"
           title="Create Project"
-        />
-
-        <ButtonPrimary
-          onClick={back}
-          className="!rounded-md mt-6"
-          type="button"
-          title="Back"
-          buttonType="close"
         />
       </Box>
     </form>

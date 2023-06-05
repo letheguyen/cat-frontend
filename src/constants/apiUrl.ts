@@ -6,6 +6,8 @@ export const API_URL = {
   signInSNS: '/sign-in-sns',
   categorys: '/categorys',
   product: '/product',
+  shopInformation: '/shop-infomation',
+  getShopInfo: '/shop-info',
 
   // Empty
   wards: '/wards/getByDistrict',
