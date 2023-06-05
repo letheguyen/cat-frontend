@@ -33,4 +33,6 @@ export interface IDataUser {
 }
 export interface IDataAccountTop {
   dataAccount: IDataAccount
+  isChild?: boolean
+  className?: string
 }

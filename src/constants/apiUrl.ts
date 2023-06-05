@@ -8,6 +8,8 @@ export const API_URL = {
   product: '/product',
   shopInformation: '/shop-infomation',
   getShopInfo: '/shop-info',
+  rommChat: '/chat-room',
+  detailRommChat: '/chat-room/:id',
 
   // Empty
   wards: '/wards/getByDistrict',

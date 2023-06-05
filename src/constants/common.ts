@@ -6,6 +6,7 @@ export const APP_NAME = 'Kitten world' as const
 export const ROLE = 'kitten_world_role' as const
 export const KEY_TOKEN_COOKIE = 'kitten_world' as const
 export const KEY_DATA_USERS_COOKIE = 'kitten_world_user' as const
+export const LIMIT_ROOMS = 9 as const
 
 export const ROLE_APP = {
   USER: 'R3',
