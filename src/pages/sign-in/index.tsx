@@ -56,6 +56,7 @@ const SignUp = () => {
     })
     setDataAccount(res.data, res.token)
     handleNextPage(res?.data?.role)
+    location.reload()
   }
 
   const handleNextPage = (role: string) => {

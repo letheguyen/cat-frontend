@@ -2,21 +2,12 @@ import { KEY_TOKEN_COOKIE } from '@/constants'
 import axios from 'axios'
 import Cookies from 'js-cookie'
 
-const handleGetToken = () => {
-  if (!Cookies.get(KEY_TOKEN_COOKIE)) return undefined
-  return 'Bearer' + ' ' + Cookies.get(KEY_TOKEN_COOKIE)
-}
-
 export const fetch = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:1202',
+  baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
   headers: {
-    Authorization: handleGetToken(),
+    Authorization: Cookies.get(KEY_TOKEN_COOKIE) as string,
     'Content-Type': 'application/json',
   },
-})
-
-export const fetchProvinces = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_PROVINCES,
 })
 
 fetch.interceptors.response.use(

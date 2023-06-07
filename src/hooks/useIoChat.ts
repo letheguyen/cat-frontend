@@ -15,6 +15,7 @@ export const useIoChat = () => {
     setDataChat,
     dataAccount,
     usersOnline,
+    allRoomAdmin,
     dataRoomUser,
     setRoomUser,
     setRoomAdmin,
@@ -36,14 +37,16 @@ export const useIoChat = () => {
         page: 1,
         limit: LIMIT_ROOMS,
       })
+      refetchRooms(null)
       setRoomAdmin(allRoomsAdmin)
     }
 
     if (token && role === ROLE_APP.USER) {
       const roomUser: IRoomDetail | null = await getAllRoomAdmin()
+      console.log(roomUser)
       setRoomUser(roomUser ? roomUser : null)
+      refetchRooms(null)
     }
-    refetchRooms(null)
   }
 
   // Refetch rooms
@@ -65,7 +68,9 @@ export const useIoChat = () => {
         setDataUserOnline(arrayAccount)
       })
     }
-  }, [dataAccount])
+  }, [token])
+
+  console.log(allRoomAdmin)
 
   // Event socket
   useEffect(() => {
