@@ -29,7 +29,8 @@ import { getInformation } from '@/services'
 
 const App = ({ Component, pageProps }: AppProps) => {
   const { pathname } = useRouter()
-  const { loading, role, token, setDataAccount, setDataShopInfo } = useStore()
+  const { loading, role, token, setDataAccount, setDataShopInfo, dataChat } =
+    useStore()
 
   // Custom hook
   useIoChat()
@@ -57,7 +58,7 @@ const App = ({ Component, pageProps }: AppProps) => {
     }
 
     if (signInOrSignUpUrls.includes(pathname)) {
-      return page
+      return <div className="px-3">{page}</div>
     }
 
     return <Layout>{page}</Layout>

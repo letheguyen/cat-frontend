@@ -45,16 +45,31 @@ export const commonSlice: StateCreator<ICommonState> = (set, get) => ({
   // Chat
   dataChat: null,
   usersOnline: [],
-  setDataChat(data) {
-    const oldChat = get().dataChat
-    set(() => ({ dataChat: oldChat ? [...oldChat, data] : [data] }))
+  fetchRooms: null,
+  dataRoomUser: null,
+  allRoomAdmin: null,
+  setDataChat(data, isAddTop) {
+    set((state) => ({
+      dataChat: state.dataChat
+        ? isAddTop
+          ? [...data, ...state.dataChat]
+          : [...state.dataChat, ...data]
+        : [...data],
+    }))
   },
   setDataUserOnline(data) {
-    const oldAccountOnline = get().usersOnline
-    if (oldAccountOnline.includes(data)) return
     set(() => ({
-      usersOnline: oldAccountOnline ? [...oldAccountOnline, data] : [data],
+      usersOnline: data,
     }))
+  },
+  refetchRooms(isFetch) {
+    set(() => ({ fetchRooms: isFetch }))
+  },
+  setRoomUser(data) {
+    set(() => ({ dataRoomUser: data }))
+  },
+  setRoomAdmin(data) {
+    set(() => ({ allRoomAdmin: data }))
   },
 
   // Shop info

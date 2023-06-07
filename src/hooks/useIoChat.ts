@@ -1,41 +1,71 @@
-import { IChatContent } from '@/interfaces'
-import { useStore } from '@/store'
 import { useEffect } from 'react'
-import io from 'socket.io-client'
 
-const socket = io(process.env.NEXT_PUBLIC_API_BASE_URL as string)
+import { socket } from '@/utils'
+import { useStore } from '@/store'
+import { getAllRoomAdmin, getDetailRoomChat } from '@/services'
+import { LIMIT_ROOMS, ROLE_APP } from '@/constants'
+import { IAllRoomDetail, IDataMessge, IRoomDetail } from '@/interfaces'
 
 export const useIoChat = () => {
-  const { setDataChat, dataAccount, usersOnline, setDataUserOnline } =
-    useStore()
+  // Store
+  const {
+    role,
+    token,
+    fetchRooms,
+    setDataChat,
+    dataAccount,
+    usersOnline,
+    dataRoomUser,
+    setRoomUser,
+    setRoomAdmin,
+    refetchRooms,
+    setDataUserOnline,
+  } = useStore()
 
-  const handleCheckAccountOnline = () => {
-    if (dataAccount?._id) {
-      socket.emit('ACOUNT_ONELINE', dataAccount?._id)
+  // Get rooms data
+  const handleGetRooms = async () => {
+    if (token && role === ROLE_APP.ADMIN) {
+      const allRoomsAdmin: IAllRoomDetail | null = await getAllRoomAdmin({
+        page: 1,
+        limit: LIMIT_ROOMS,
+      })
+      setRoomAdmin(allRoomsAdmin)
     }
+
+    if (token && role === ROLE_APP.USER) {
+      const roomUser: IRoomDetail | null = await getAllRoomAdmin()
+      setRoomUser(roomUser ? roomUser : null)
+    }
+    refetchRooms(null)
   }
 
+  // Refetch rooms
   useEffect(() => {
-    socket.on('CHAT', (message: IChatContent) => {
-      setDataChat(message)
-    })
-
-    socket.on('ACOUNT_ONELINE', (id: string) => {
-      if (usersOnline.includes(id)) return
-      setDataUserOnline(id)
-    })
-
-    return () => {
-      socket.disconnect()
+    if (fetchRooms) {
+      handleGetRooms()
     }
-  }, [])
+  }, [fetchRooms])
 
+  // Event socket
   useEffect(() => {
-    if (dataAccount) {
-      socket.connect()
-      handleCheckAccountOnline()
-    } else {
-      socket.disconnect()
+    const isAdmin = role === ROLE_APP.ADMIN
+
+    if (token) {
+      handleGetRooms()
+      socket.emit('LOGIN', token)
+
+      socket.on('ACCOUNT_ONLINE', (arrayAccount: string[]) => {
+        setDataUserOnline(arrayAccount)
+      })
     }
   }, [dataAccount])
+
+  // Event socket
+  useEffect(() => {
+    if (token && dataRoomUser) {
+      socket.on(dataRoomUser._id, (sendMessage: IDataMessge) => {
+        setDataChat([sendMessage])
+      })
+    }
+  }, [dataRoomUser])
 }

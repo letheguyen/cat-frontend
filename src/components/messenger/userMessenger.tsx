@@ -3,20 +3,27 @@ import { useStore } from '@/store'
 import { Box } from '@chakra-ui/react'
 import React, { memo } from 'react'
 
-import FitlImage from './fitlImage'
+import FitlImage from '../fitlImage'
 import { IDataAccountTop } from '@/interfaces'
+import { useRouter } from 'next/router'
+import { ROLE_APP } from '@/constants'
 
 const UserMessenger: React.FC<IDataAccountTop> = ({
   dataAccount,
   isChild = false,
   className,
 }) => {
-  const { usersOnline } = useStore()
+  const { usersOnline, role } = useStore()
+  const { push, pathname } = useRouter()
 
   return (
     <Box
+      onClick={() => {
+        if (role !== ROLE_APP.ADMIN) return
+        push({ pathname, query: { chatId: dataAccount._id } })
+      }}
       className={clsx(
-        'flexItem gap-3 cursor-pointer hover:bg-colorPrimary/10',
+        'flexItem gap-3 cursor-pointer hover:bg-colorPrimary/10 ',
         isChild && 'border-l border-l-colorPrimary/20 pl-3',
         className
       )}
@@ -29,7 +36,7 @@ const UserMessenger: React.FC<IDataAccountTop> = ({
       <Box className="flex-col">
         <p
           className={clsx(
-            'block mb-0 leading-6',
+            'block mb-0 leading-6 transition-all ease-in',
             isChild && 'text-base opacity-75 leading-5'
           )}
         >
@@ -43,7 +50,7 @@ const UserMessenger: React.FC<IDataAccountTop> = ({
         >
           <div
             className={clsx(
-              'rounded-full',
+              'rounded-full transition-all ease-in',
               isChild ? 'w-2 h-2 ' : 'w-3 h-3 ',
               usersOnline.includes(dataAccount._id)
                 ? 'bg-colorPrimary'

@@ -53,3 +53,8 @@ export interface IParamsCookies {
 export interface IQuery {
   page?: number
 }
+export interface IPropsIconLoading {
+  width?: string
+  height?: string
+  className?: string
+}

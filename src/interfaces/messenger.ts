@@ -18,9 +18,10 @@ export interface IDataAccount {
 }
 export interface IDataRoom {
   _id: string
-  idUser: string
-  roomName: string
-  avatarUser: string
+  name: string
+  userId: string
+  seller: string
+  roomImage: string
 }
 
 export interface IResponseRooms {
@@ -30,4 +31,32 @@ export interface IResponseRooms {
 export interface IParamsGetRooms {
   page: number
   limit: number
+}
+
+export interface IResponseDetailRoom {
+  data: IDataMessge[]
+  pagination: IPagination
+}
+export interface IDataMessge {
+  message: string
+  idRoom: string
+  from: string
+  to: string
+  _id: string
+}
+export interface IPropsFormSend {
+  onSubmit: (message: string) => void
+  isSendAdmin?: boolean
+}
+
+export interface IAllRoomDetail {
+  data: IRoomDetail[] | []
+  pagination: IPagination
+}
+export interface IRoomDetail {
+  _id: string
+  name: string
+  userId: string
+  seller: string
+  roomImage: string
 }

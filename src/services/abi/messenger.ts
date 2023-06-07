@@ -3,23 +3,24 @@ import {
   IDataRoom,
   IParamsGetRooms,
   IResponsFetch,
+  IResponseDetailRoom,
   IResponseRooms,
 } from '@/interfaces'
 import { fetch } from '../axios'
 
 export const createChatRoom = async (idUser: string) => {
   try {
-    return (await fetch.post(API_URL.rommChat, { idUser })) as IResponsFetch
+    return (await fetch.post(API_URL.roomChat, { idUser })) as IResponsFetch
   } catch (error) {
     return null
   }
 }
 
-export const getAllRoomAdmin = async (params: IParamsGetRooms) => {
+export const getAllRoomAdmin = async (params?: IParamsGetRooms) => {
   try {
-    return (await fetch.get(API_URL.rommChat, {
+    return (await fetch.get(API_URL.roomChat, {
       params,
-    })) as IResponseRooms
+    })) as any
   } catch (error) {
     return null
   }
@@ -30,9 +31,9 @@ export const getDetailRoomChat = async (
   id: string
 ) => {
   try {
-    return (await fetch.get(API_URL.detailRommChat.replace(':id', id), {
+    return (await fetch.get(API_URL.detailroomChat.replace(':id', id), {
       params,
-    })) as IResponseRooms
+    })) as IResponseDetailRoom
   } catch (error) {
     return null
   }

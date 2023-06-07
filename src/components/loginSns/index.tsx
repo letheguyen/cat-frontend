@@ -36,7 +36,6 @@ const SignSns = ({
     }
     const res = (await signSNS(dataAccount)) as IDataUserSignIn
 
-    console.log(res)
     if (res?.token) {
       loginSuccessHandle(res)
     } else {
@@ -63,7 +62,6 @@ const SignSns = ({
 
         case 'Githup':
           return await signInWithPopup(auth, providerGithup).then((data) => {
-            console.log(data)
             handleSignSns(data, 'Githup')
           })
       }

@@ -41,8 +41,6 @@ const Products = () => {
     handleGetProduct()
   }, [handleGetProduct])
 
-  console.log(products)
-
   return (
     <Box className="h-full">
       <HeadingTitle title="Products" />
