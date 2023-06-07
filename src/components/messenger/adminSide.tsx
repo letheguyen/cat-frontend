@@ -19,7 +19,6 @@ import { createChatRoom, getAllRoomAdmin, getDetailRoomChat } from '@/services'
 import FormSendMessage from './formSendMessage'
 import MessengerBody from './messengerBody'
 import { useRouter } from 'next/router'
-import { socket } from '@/utils'
 import UserSide from './userSide'
 
 const AdminSide: React.FC<IMessager> = () => {

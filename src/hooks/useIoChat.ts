@@ -1,10 +1,10 @@
 import { useEffect } from 'react'
 
-import { socket } from '@/utils'
 import { useStore } from '@/store'
 import { getAllRoomAdmin, getDetailRoomChat } from '@/services'
 import { LIMIT_ROOMS, ROLE_APP } from '@/constants'
 import { IAllRoomDetail, IDataMessge, IRoomDetail } from '@/interfaces'
+import { io } from 'socket.io-client'
 
 export const useIoChat = () => {
   // Store
@@ -21,6 +21,13 @@ export const useIoChat = () => {
     refetchRooms,
     setDataUserOnline,
   } = useStore()
+
+  // Socket
+  const socket = io(process.env.NEXT_PUBLIC_API_BASE_URL as string, {
+    extraHeaders: {
+      Authorization: token ? (token as string) : '',
+    },
+  })
 
   // Get rooms data
   const handleGetRooms = async () => {

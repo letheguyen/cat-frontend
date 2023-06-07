@@ -9,8 +9,8 @@ import UserMessenger from './userMessenger'
 import FormSendMessage from './formSendMessage'
 import { ButtonPrimary, LoadingItem } from '@/components'
 import { createChatRoom, getDetailRoomChat } from '@/services'
-import { socket } from '@/utils'
 import { IPagination } from '@/interfaces'
+import { io } from 'socket.io-client'
 
 const UserSide = () => {
   // State
@@ -30,6 +30,13 @@ const UserSide = () => {
     setDataChat,
     refetchRooms,
   } = useStore()
+
+  // Socket
+  const socket = io(process.env.NEXT_PUBLIC_API_BASE_URL as string, {
+    extraHeaders: {
+      Authorization: token ? (token as string) : '',
+    },
+  })
 
   // Create rooms
   const createRoomChat = async () => {
