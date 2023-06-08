@@ -36,12 +36,14 @@ export interface ICommonState {
   // Chat
   usersOnline: string[]
   dataChat: IDataMessge[] | null
-  setDataChat: (data: IDataMessge[], isAddTop?: boolean) => void
-  setDataUserOnline: (data: string[]) => void
-
   fetchRooms: null | boolean
   dataRoomUser: null | IRoomDetail
   allRoomAdmin: null | IAllRoomDetail
+  queueMessage: null | string[]
+  setQueueMessage: (data: string[] | null) => void
+  setDataChat: (data: IDataMessge[], isAddTop?: boolean) => void
+  setDataUserOnline: (data: string[]) => void
+  clearChat: () => void
   refetchRooms: (fetch: boolean | null) => void
   setRoomUser: (data: IRoomDetail | null) => void
   setRoomAdmin: (data: IAllRoomDetail | null) => void

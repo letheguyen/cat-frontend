@@ -1,42 +1,21 @@
 import clsx from 'clsx'
+import React, { memo } from 'react'
+import { io } from 'socket.io-client'
 import { Box } from '@chakra-ui/react'
-import React, { memo, useEffect, useState } from 'react'
 
 import { useStore } from '@/store'
-import { COUNT_MESSAGE } from '@/constants'
 import MessengerBody from './messengerBody'
 import UserMessenger from './userMessenger'
 import FormSendMessage from './formSendMessage'
-import { ButtonPrimary, LoadingItem } from '@/components'
-import { createChatRoom, getDetailRoomChat } from '@/services'
-import { IPagination } from '@/interfaces'
-import { io } from 'socket.io-client'
+import { ButtonPrimary } from '@/components'
+import { createChatRoom } from '@/services'
 
 const UserSide = () => {
-  // State
-  const [page, setPage] = useState(1)
-  const [loading, setLoading] = useState(false)
-  const [dataPaginate, setDataPaginate] = useState<IPagination>()
-
   // Store
-  const {
-    dataAccount,
-    dataChat,
-    dataShop,
-    dataRoomUser,
-    role,
-    usersOnline,
-    token,
-    setDataChat,
-    refetchRooms,
-  } = useStore()
+  const { dataAccount, dataShop, dataRoomUser, refetchRooms } = useStore()
 
   // Socket
-  const socket = io(process.env.NEXT_PUBLIC_API_BASE_URL as string, {
-    extraHeaders: {
-      Authorization: token ? (token as string) : '',
-    },
-  })
+  const socket = io(process.env.NEXT_PUBLIC_API_BASE_URL as string)
 
   // Create rooms
   const createRoomChat = async () => {
@@ -51,33 +30,12 @@ const UserSide = () => {
     const messageSend = {
       idRoom: dataRoomUser?._id,
       from: dataAccount?._id,
-      to: dataShop?._id,
+      to: dataRoomUser?.seller,
       message: message,
       idUserCreate: dataAccount?._id,
     }
     socket.emit('CHAT', messageSend)
   }
-
-  // Get message
-  const getMessage = async () => {
-    if (dataRoomUser && page) {
-      if (dataPaginate && dataPaginate.totalPage < page) return
-      const newData = await getDetailRoomChat(
-        { page, limit: 10 },
-        dataRoomUser._id
-      )
-      if (dataChat && page === 1) return
-      if (newData) {
-        setDataChat(newData.data, true)
-        setDataPaginate(newData.pagination)
-      }
-    }
-  }
-
-  // Effect
-  useEffect(() => {
-    getMessage()
-  }, [dataRoomUser, page])
 
   return (
     <>
@@ -99,7 +57,14 @@ const UserSide = () => {
           dataRoomUser ? 'h-full w-full relative' : 'flexItem-center'
         )}
       >
-        {!dataRoomUser && (
+        {dataRoomUser ? (
+          <>
+            <Box className="mt-4 flex flex-col max-h-contentMessenger overflow-hidden h-screen mb-2">
+              <MessengerBody />
+            </Box>
+            <FormSendMessage onSubmit={onSubmit} />
+          </>
+        ) : (
           <ButtonPrimary
             className="!rounded-md mt-6"
             type="submit"
@@ -107,25 +72,6 @@ const UserSide = () => {
             onClick={() => createRoomChat()}
           />
         )}
-
-        <Box
-          className={clsx(
-            'mt-4 flex flex-col max-h-contentMessenger overflow-hidden h-screen mb-2'
-          )}
-        >
-          {loading && (
-            <Box className="absolute top-0 left-0 w-full h-screen max-h-contentMessenger flexItem-center bg-black/10">
-              <LoadingItem width="30px" height="30px" className="m-auto z-40" />
-            </Box>
-          )}
-
-          <MessengerBody
-            isSearch={page === 1}
-            getChat={() => setPage((state) => state + 1)}
-          />
-        </Box>
-
-        {dataRoomUser && <FormSendMessage onSubmit={onSubmit} />}
       </Box>
     </>
   )

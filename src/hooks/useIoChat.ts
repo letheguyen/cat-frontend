@@ -1,34 +1,34 @@
 import { useEffect } from 'react'
+import { io } from 'socket.io-client'
+import { useRouter } from 'next/router'
 
 import { useStore } from '@/store'
-import { getAllRoomAdmin, getDetailRoomChat } from '@/services'
+import { getAllRoomAdmin } from '@/services'
 import { LIMIT_ROOMS, ROLE_APP } from '@/constants'
 import { IAllRoomDetail, IDataMessge, IRoomDetail } from '@/interfaces'
-import { io } from 'socket.io-client'
 
 export const useIoChat = () => {
+  const { query } = useRouter()
+
   // Store
   const {
     role,
     token,
     fetchRooms,
-    setDataChat,
     dataAccount,
-    usersOnline,
     allRoomAdmin,
     dataRoomUser,
+    queueMessage,
+    setDataChat,
     setRoomUser,
     setRoomAdmin,
     refetchRooms,
+    setQueueMessage,
     setDataUserOnline,
   } = useStore()
 
   // Socket
-  const socket = io(process.env.NEXT_PUBLIC_API_BASE_URL as string, {
-    extraHeaders: {
-      Authorization: token ? (token as string) : '',
-    },
-  })
+  const socket = io(process.env.NEXT_PUBLIC_API_BASE_URL as string)
 
   // Get rooms data
   const handleGetRooms = async () => {
@@ -43,7 +43,6 @@ export const useIoChat = () => {
 
     if (token && role === ROLE_APP.USER) {
       const roomUser: IRoomDetail | null = await getAllRoomAdmin()
-      console.log(roomUser)
       setRoomUser(roomUser ? roomUser : null)
       refetchRooms(null)
     }
@@ -58,26 +57,45 @@ export const useIoChat = () => {
 
   // Event socket
   useEffect(() => {
-    const isAdmin = role === ROLE_APP.ADMIN
-
     if (token) {
       handleGetRooms()
       socket.emit('LOGIN', token)
-
       socket.on('ACCOUNT_ONLINE', (arrayAccount: string[]) => {
         setDataUserOnline(arrayAccount)
       })
     }
   }, [token])
 
-  console.log(allRoomAdmin)
-
   // Event socket
   useEffect(() => {
     if (token && dataRoomUser) {
       socket.on(dataRoomUser._id, (sendMessage: IDataMessge) => {
+        console.log(sendMessage)
         setDataChat([sendMessage])
       })
     }
   }, [dataRoomUser])
+
+  // Event socket
+  useEffect(() => {
+    const isAdmin = role === ROLE_APP.ADMIN
+    const dataRooms = allRoomAdmin?.data
+
+    if (isAdmin && dataRooms) {
+      dataRooms.map((room) => {
+        if (!query.chatId) return
+        socket.on(room._id, (sendMessage: IDataMessge) => {
+          if (
+            (sendMessage.idRoom === room._id &&
+              query.chatId === sendMessage.from) ||
+            sendMessage.from === dataAccount?._id
+          ) {
+            queueMessage ? setDataChat([]) : []
+          } else {
+            setQueueMessage([sendMessage.from])
+          }
+        })
+      })
+    }
+  }, [allRoomAdmin, query])
 }

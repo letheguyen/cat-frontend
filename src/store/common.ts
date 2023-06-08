@@ -48,6 +48,13 @@ export const commonSlice: StateCreator<ICommonState> = (set, get) => ({
   fetchRooms: null,
   dataRoomUser: null,
   allRoomAdmin: null,
+  queueMessage: null,
+  setQueueMessage(data) {
+    set(() => ({ queueMessage: data }))
+  },
+  clearChat() {
+    set(() => ({ dataChat: null }))
+  },
   setDataChat(data, isAddTop) {
     set((state) => ({
       dataChat: state.dataChat
@@ -58,9 +65,7 @@ export const commonSlice: StateCreator<ICommonState> = (set, get) => ({
     }))
   },
   setDataUserOnline(data) {
-    set(() => ({
-      usersOnline: data,
-    }))
+    set(() => ({ usersOnline: data }))
   },
   refetchRooms(isFetch) {
     set(() => ({ fetchRooms: isFetch }))

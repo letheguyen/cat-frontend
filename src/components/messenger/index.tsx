@@ -1,6 +1,6 @@
 import clsx from 'clsx'
 import { Box } from '@chakra-ui/react'
-import React, { memo, useRef, useState } from 'react'
+import React, { memo, useEffect, useRef, useState } from 'react'
 
 import { useStore } from '@/store'
 import { MessagerIcon } from '@/icons'
@@ -12,7 +12,7 @@ import AdminSide from './adminSide'
 
 const Messenger = () => {
   // Store
-  const { role } = useStore()
+  const { role, clearChat } = useStore()
 
   // State
   const refMessenger = useRef(null)
@@ -20,6 +20,11 @@ const Messenger = () => {
 
   // Custom hook
   useClickOutside(refMessenger, () => onOpen(false))
+
+  // Clear old chat
+  useEffect(() => {
+    clearChat()
+  }, [open])
 
   return (
     <div>

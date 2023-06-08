@@ -1,29 +1,86 @@
 import clsx from 'clsx'
-import React, { memo, useEffect, useRef } from 'react'
+import { Box } from '@chakra-ui/react'
+import { useRouter } from 'next/router'
+import React, { memo, useEffect, useRef, useState } from 'react'
 
 import { useStore } from '@/store'
+import { ROLE_APP } from '@/constants'
+import LoadingItem from '../loadingItem'
+import { IPagination } from '@/interfaces'
+import { getDetailRoomChat } from '@/services'
 
-const MessengerBody = ({
-  isSearch,
-  getChat,
-}: {
-  isSearch?: boolean
-  getChat: () => void
-}) => {
+const MessengerBody = () => {
+  // State
+  const [page, setPage] = useState(1)
+  const [loading, setLoading] = useState(false)
+  const [dataPaginate, setDataPaginate] = useState<IPagination>()
   const scrollEl = useRef<HTMLDivElement>(null)
-  const { dataChat, dataAccount } = useStore()
+  const { query } = useRouter()
+
+  // Store
+  const {
+    dataAccount,
+    dataChat,
+    allRoomAdmin,
+    dataRoomUser,
+    role,
+    setDataChat,
+  } = useStore()
+
+  // Handle get message
+  const handleGetMessage = async (roomId: string) => {
+    const newData = await getDetailRoomChat({ page, limit: 10 }, roomId)
+    setTimeout(() => {
+      setLoading(false)
+    }, 500)
+
+    if (dataChat && page === 1) return
+    if (newData) {
+      setDataChat(newData.data, true)
+      setDataPaginate(newData.pagination)
+    }
+  }
+
+  // Get message admin
+  const getMessageAdmin = async () => {
+    if (query.chatId && page && role === ROLE_APP.ADMIN) {
+      const room = allRoomAdmin?.data?.find(
+        (room) => room.userId === query.chatId
+      )
+      setLoading(true)
+      if (room?._id) handleGetMessage(room?._id)
+    }
+  }
+
+  // Get message user
+  const getMessageUser = async () => {
+    if (dataRoomUser && page && role === ROLE_APP.USER) {
+      if (dataPaginate && dataPaginate.totalPage < page) return
+      setLoading(true)
+      handleGetMessage(dataRoomUser._id)
+    }
+  }
+
+  // Effect
+  useEffect(() => {
+    getMessageAdmin()
+  }, [page, query])
 
   useEffect(() => {
-    if (scrollEl.current && isSearch) {
+    getMessageUser()
+  }, [dataRoomUser, page])
+
+  useEffect(() => {
+    if (scrollEl.current && page === 1) {
       scrollEl.current.scrollTop = scrollEl.current.scrollHeight
     }
-  }, [dataChat, isSearch])
+  }, [dataChat, page])
 
   useEffect(() => {
     const onScroll = () => {
       if (scrollEl.current) {
         if (scrollEl.current.scrollTop === 0) {
-          getChat()
+          setPage((state) => state + 1)
         }
       }
     }
@@ -40,25 +97,32 @@ const MessengerBody = ({
   }, [])
 
   return (
-    <div
-      ref={scrollEl}
-      className="h-full w-full overflow-x-hidden overflow-y-auto flex flex-col gap-2 bg-white pb-3 pr-1"
-    >
-      {dataAccount &&
-        dataChat?.map((chat, index) => (
-          <div
-            key={index}
-            className={clsx(
-              'inline-block max-w-[80%] px-3 py-1 rounded',
-              dataAccount._id === chat.from
-                ? 'bg-colorPrimary/20 ml-auto'
-                : 'bg-black/5 mr-auto'
-            )}
-          >
-            {chat.message}
-          </div>
-        ))}
-    </div>
+    <>
+      {loading && (
+        <Box className="absolute top-0 left-0 w-full h-screen max-h-contentMessenger flexItem-center bg-black/10">
+          <LoadingItem width="30px" height="30px" className="m-auto z-40" />
+        </Box>
+      )}
+      <div
+        ref={scrollEl}
+        className="h-full w-full overflow-x-hidden overflow-y-auto flex flex-col gap-2 bg-white pb-3 pr-1"
+      >
+        {dataAccount &&
+          dataChat?.map((chat, index) => (
+            <div
+              key={index}
+              className={clsx(
+                'inline-block max-w-[80%] px-3 py-1 rounded',
+                dataAccount._id === chat.from
+                  ? 'bg-colorPrimary/20 ml-auto'
+                  : 'bg-black/5 mr-auto'
+              )}
+            >
+              {chat.message}
+            </div>
+          ))}
+      </div>
+    </>
   )
 }
 

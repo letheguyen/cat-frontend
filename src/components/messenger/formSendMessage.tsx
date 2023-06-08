@@ -1,14 +1,10 @@
-import { SendIcon } from '@/icons'
-import { IPropsFormSend } from '@/interfaces'
-import { useStore } from '@/store'
 import clsx from 'clsx'
 import React, { memo, useRef, useState } from 'react'
 
-const FormSendMessage: React.FC<IPropsFormSend> = ({
-  onSubmit,
-  isSendAdmin = false,
-}) => {
-  const { dataChat } = useStore()
+import { SendIcon } from '@/icons'
+import { IPropsFormSend } from '@/interfaces'
+
+const FormSendMessage: React.FC<IPropsFormSend> = ({ onSubmit }) => {
   const [rows, setRows] = useState(1)
   const [message, setMessage] = useState('')
   const inputRef = useRef<HTMLTextAreaElement>(null)
