@@ -42,6 +42,7 @@ export interface IDataMessge {
   idRoom: string
   from: string
   to: string
+  created: number
   _id: string
 }
 export interface IPropsFormSend {
