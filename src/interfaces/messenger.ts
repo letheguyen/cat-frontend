@@ -44,6 +44,7 @@ export interface IDataMessge {
   to: string
   created: number
   _id: string
+  idUserCreate: string
 }
 export interface IPropsFormSend {
   onSubmit: (message: string) => void

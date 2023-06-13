@@ -12,10 +12,15 @@ import { createChatRoom } from '@/services'
 
 const UserSide = () => {
   // Store
-  const { dataAccount, dataShop, dataRoomUser, refetchRooms } = useStore()
+  const { dataAccount, token, dataShop, dataRoomUser, refetchRooms } =
+    useStore()
 
   // Socket
-  const socket = io(process.env.NEXT_PUBLIC_API_BASE_URL as string)
+  const socket = io(process.env.NEXT_PUBLIC_API_BASE_URL as string, {
+    extraHeaders: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
 
   // Create rooms
   const createRoomChat = async () => {

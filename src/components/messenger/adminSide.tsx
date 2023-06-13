@@ -1,61 +1,35 @@
 import clsx from 'clsx'
 import io from 'socket.io-client'
 import { Box } from '@chakra-ui/react'
-import React, { memo, useEffect, useRef, useState } from 'react'
+import { useRouter } from 'next/router'
+import React, { memo, useEffect, useState } from 'react'
 
 import { useStore } from '@/store'
-import { CloseIcon, MessagerIcon } from '@/icons'
-import { LIMIT_ROOMS, ROLE_APP } from '@/constants'
-import { useClickOutside } from '@/hooks'
-import { UserMessenger, ButtonPrimary, LoadingItem } from '@/components'
-import {
-  IDataAccount,
-  IDataRoom,
-  IMessager,
-  IPagination,
-  IDataMessge,
-  IAllRoomDetail,
-} from '@/interfaces'
-import { createChatRoom, getAllRoomAdmin, getDetailRoomChat } from '@/services'
+import { CloseIcon } from '@/icons'
+import { ROLE_APP } from '@/constants'
+import { UserMessenger } from '@/components'
+import { IDataAccount, IDataRoom, IMessager, IPagination } from '@/interfaces'
 import FormSendMessage from './formSendMessage'
 import MessengerBody from './messengerBody'
-import { useRouter } from 'next/router'
-import UserSide from './userSide'
 
 const AdminSide: React.FC<IMessager> = () => {
-  const [dataRoomsAdmin, setDataRoomsAdmin] = useState<IAllRoomDetail>()
-
   // Store
-  const {
-    dataAccount,
-    dataChat,
-    dataShop,
-    dataRoomUser,
-    allRoomAdmin,
-    role,
-    usersOnline,
-    token,
-    setDataChat,
-    clearChat,
-    refetchRooms,
-  } = useStore()
+  const { allRoomAdmin, role, token, waitingLine, setWaitingLine, clearChat } =
+    useStore()
 
   // Socket
-  const socket = io(process.env.NEXT_PUBLIC_API_BASE_URL as string)
+  const socket = io(process.env.NEXT_PUBLIC_API_BASE_URL as string, {
+    extraHeaders: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
 
   // State
-  const refMessenger = useRef(null)
-  const [open, onOpen] = useState(false)
-  const [loading, setLoading] = useState(false)
-  const [showAdminSend, setShowAdminSend] = useState(false)
   const [page, setPage] = useState(1)
   const [dataPaginate, setDataPaginate] = useState<IPagination>()
   const [dataRooms, setDataRooms] = useState<IDataRoom[]>()
   const [accountTop, setAccountTop] = useState<IDataAccount>()
   const { query, pathname, push } = useRouter()
-
-  // Custom hook
-  useClickOutside(refMessenger, () => onOpen(false))
 
   // Scroll buttom
   const handleScroll = (e: any) => {
@@ -75,9 +49,9 @@ const AdminSide: React.FC<IMessager> = () => {
 
   // Submit
   const submit = (message: string) => {
-    if (query.chatId && role === ROLE_APP.ADMIN && message) {
+    if (query.userId && role === ROLE_APP.ADMIN && message) {
       const room = allRoomAdmin?.data?.find(
-        (room) => room.userId === query.chatId
+        (room) => room.userId === query.userId
       )
       if (!room) return
       const messageSend = {
@@ -94,9 +68,9 @@ const AdminSide: React.FC<IMessager> = () => {
   // Get account top
   const handleSetAccountTop = () => {
     clearChat()
-    if (query.chatId && allRoomAdmin?.data) {
+    if (query.userId && allRoomAdmin?.data) {
       const accountTop = allRoomAdmin?.data.find(
-        (acc) => acc.userId === query.chatId
+        (acc) => acc.userId === query.userId
       )
       if (!accountTop) return
       setAccountTop({
@@ -114,6 +88,20 @@ const AdminSide: React.FC<IMessager> = () => {
     handleSetAccountTop()
   }, [query])
 
+  useEffect(() => {
+    if (!accountTop) return
+
+    const newWaitingLine = waitingLine?.filter(
+      (accId) => accId !== accountTop._id
+    )
+
+    console.log(newWaitingLine)
+
+    if (newWaitingLine) setWaitingLine(newWaitingLine)
+  }, [accountTop])
+
+  console.log(waitingLine)
+
   return (
     <>
       <Box className="h-12 w-full border-b border-b-colorPrimary/30 flexItem transition-all ease-in">
@@ -127,8 +115,8 @@ const AdminSide: React.FC<IMessager> = () => {
             <CloseIcon
               width="40"
               height="40"
-              onClick={() => push({ pathname, query: { chatId: null } })}
-              className={'opacity-70 p-1 hover:opacity-100 iconClose'}
+              onClick={() => push({ pathname, query: { userId: null } })}
+              className={'opacity-70 p-3 hover:opacity-100 iconClose'}
             />
           </>
         ) : (
@@ -158,12 +146,6 @@ const AdminSide: React.FC<IMessager> = () => {
                 }}
               />
             ))
-          )}
-
-          {loading && (
-            <Box className="absolute top-0 left-0 w-full h-screen max-h-contentMessenger flexItem-center bg-black/10">
-              <LoadingItem width="30px" height="30px" className="m-auto z-40" />
-            </Box>
           )}
         </Box>
         {accountTop && <FormSendMessage onSubmit={(value) => submit(value)} />}

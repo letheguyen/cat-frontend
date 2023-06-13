@@ -49,6 +49,10 @@ export const commonSlice: StateCreator<ICommonState> = (set, get) => ({
   dataRoomUser: null,
   allRoomAdmin: null,
   queueMessage: null,
+  waitingLine: null,
+  setWaitingLine(data) {
+    set(() => ({ waitingLine: data }))
+  },
   setQueueMessage(data) {
     set(() => ({ queueMessage: data }))
   },

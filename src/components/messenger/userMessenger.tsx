@@ -13,14 +13,16 @@ const UserMessenger: React.FC<IDataAccountTop> = ({
   isChild = false,
   className,
 }) => {
-  const { usersOnline, role } = useStore()
+  const { usersOnline, role, waitingLine } = useStore()
   const { push, pathname } = useRouter()
+
+  console.log(waitingLine)
 
   return (
     <Box
       onClick={() => {
         if (role !== ROLE_APP.ADMIN) return
-        push({ pathname, query: { chatId: dataAccount._id } })
+        push({ pathname, query: { userId: dataAccount._id } })
       }}
       className={clsx(
         'flexItem gap-3 cursor-pointer hover:bg-colorPrimary/10 ',
@@ -33,6 +35,7 @@ const UserMessenger: React.FC<IDataAccountTop> = ({
         className="rounded-full overflow-hidden border border-colorPrimary"
         url={dataAccount?.avatar}
       />
+
       <Box className="flex-col">
         <p
           className={clsx(
@@ -60,6 +63,8 @@ const UserMessenger: React.FC<IDataAccountTop> = ({
           {usersOnline.includes(dataAccount._id) ? 'Online' : 'Recent Activity'}
         </span>
       </Box>
+
+      {/* {waitingLine?.includes(dataAccount._id) ? 'chưa' : 'roi'} */}
     </Box>
   )
 }

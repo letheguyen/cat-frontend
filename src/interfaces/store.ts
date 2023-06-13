@@ -40,6 +40,8 @@ export interface ICommonState {
   dataRoomUser: null | IRoomDetail
   allRoomAdmin: null | IAllRoomDetail
   queueMessage: null | string[]
+  waitingLine: null | string[]
+  setWaitingLine: (data: null | string[]) => void
   setQueueMessage: (data: string[] | null) => void
   setDataChat: (data: IDataMessge[], isAddTop?: boolean) => void
   setDataUserOnline: (data: string[]) => void

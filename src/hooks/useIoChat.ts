@@ -1,6 +1,5 @@
-import { useEffect, useRef } from 'react'
 import { io } from 'socket.io-client'
-import { useRouter } from 'next/router'
+import { useEffect, useRef } from 'react'
 
 import { useStore } from '@/store'
 import { getAllRoomAdmin } from '@/services'
@@ -9,30 +8,28 @@ import { IAllRoomDetail, IDataMessge, IRoomDetail } from '@/interfaces'
 
 export const useIoChat = () => {
   // State
-  const { query } = useRouter()
   const chatOld = useRef<IDataMessge>()
-  const { chatId } = query
 
   // Store
   const {
     role,
     token,
     fetchRooms,
-    dataAccount,
     allRoomAdmin,
     dataRoomUser,
-    queueMessage,
-    dataChat,
     setDataChat,
     setRoomUser,
     setRoomAdmin,
     refetchRooms,
-    setQueueMessage,
     setDataUserOnline,
   } = useStore()
 
   // Socket
-  const ws = io(process.env.NEXT_PUBLIC_API_BASE_URL as string)
+  const ws = io(process.env.NEXT_PUBLIC_API_BASE_URL as string, {
+    extraHeaders: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
 
   // Get rooms data
   const handleGetRooms = async () => {
@@ -52,12 +49,12 @@ export const useIoChat = () => {
     }
   }
 
-  // Event ws
   useEffect(() => {
     if (token) {
       handleGetRooms()
       ws.emit('LOGIN', token)
       ws.on('ACCOUNT_ONLINE', (arrayAccount: string[]) => {
+        console.log(arrayAccount)
         setDataUserOnline(arrayAccount)
       })
     }
@@ -73,28 +70,22 @@ export const useIoChat = () => {
   // Event ws
   useEffect(() => {
     if (token && dataRoomUser) {
-      ws.on(dataRoomUser._id, (sendMessage: IDataMessge) => {
-        setDataChat([sendMessage])
+      ws.on(dataRoomUser._id, (chat: IDataMessge) => {
+        setDataChat([chat])
       })
     }
   }, [dataRoomUser])
 
   // Event ws
   useEffect(() => {
-    if (chatId && allRoomAdmin && dataAccount) {
+    if (allRoomAdmin) {
       const { data } = allRoomAdmin
-
       data?.map((room) => {
         ws.on(room._id, (chat: IDataMessge) => {
-          const { created, from, idRoom, to } = chat
-          if (created === chatOld.current?.created) return
-          console.log(chatId, room.userId)
-          if (idRoom === room._id && chatId === room.userId) {
-            setDataChat([chat])
-          }
+          setDataChat([chat])
           chatOld.current = chat
         })
       })
     }
-  }, [chatId as string, dataAccount])
+  }, [allRoomAdmin])
 }
