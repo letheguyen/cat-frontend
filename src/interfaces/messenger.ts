@@ -61,4 +61,5 @@ export interface IRoomDetail {
   userId: string
   seller: string
   roomImage: string
+  waiting?: boolean
 }

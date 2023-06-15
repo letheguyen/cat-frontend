@@ -67,7 +67,7 @@ const ShopInformation = () => {
         setDataShopInfo(dataShop[0])
 
         setDataModal({
-          messageModal: 'Update category ' + RESPONSE_DATA[res?.errorCode],
+          messageModal: 'Update information ' + RESPONSE_DATA[res?.errorCode],
           modalKey: MODAL_TYPE.commonSuccess,
         })
       } else {

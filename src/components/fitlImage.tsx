@@ -44,16 +44,18 @@ const FitlImage: React.FC<IFitlImage> = ({
         width: width,
       }}
     >
-      <Box
-        style={{
-          paddingTop: height,
-          backgroundPosition: 'center',
-          backgroundImage: 'url(' + image + ')',
-        }}
-        className="bg-cover relative"
-      >
-        {children}
-      </Box>
+      {image && (
+        <Box
+          style={{
+            paddingTop: height,
+            backgroundPosition: 'center',
+            backgroundImage: 'url(' + image + ')',
+          }}
+          className="bg-cover relative"
+        >
+          {children}
+        </Box>
+      )}
     </Box>
   )
 }

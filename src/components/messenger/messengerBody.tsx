@@ -4,29 +4,29 @@ import { useRouter } from 'next/router'
 import React, { memo, useEffect, useRef, useState } from 'react'
 
 import { useStore } from '@/store'
-import { COUNT_MESSAGE, ROLE_APP } from '@/constants'
 import LoadingItem from '../loadingItem'
-import { IDataMessge, IPagination } from '@/interfaces'
 import { getDetailRoomChat } from '@/services'
+import { COUNT_MESSAGE, ROLE_APP } from '@/constants'
+import { IDataMessge, IPagination } from '@/interfaces'
 
 const MessengerBody = () => {
   // State
   const [page, setPage] = useState(1)
-  const [chatData, setChatData] = useState<IDataMessge[]>()
   const [loading, setLoading] = useState(false)
-  const [dataPaginate, setDataPaginate] = useState<IPagination>()
   const scrollEl = useRef<HTMLDivElement>(null)
+  const [chatData, setChatData] = useState<IDataMessge[]>()
+  const [dataPaginate, setDataPaginate] = useState<IPagination>()
   const { query } = useRouter()
 
   // Store
   const {
-    dataAccount,
+    role,
     dataChat,
+    dataAccount,
     allRoomAdmin,
     dataRoomUser,
-    role,
+    usersOnline,
     setDataChat,
-    setWaitingLine,
   } = useStore()
 
   // Handle get message

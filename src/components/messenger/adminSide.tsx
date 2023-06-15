@@ -2,19 +2,26 @@ import clsx from 'clsx'
 import io from 'socket.io-client'
 import { Box } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
-import React, { memo, useEffect, useState } from 'react'
+import React, { memo, useEffect, useMemo, useState } from 'react'
 
 import { useStore } from '@/store'
 import { CloseIcon } from '@/icons'
-import { ROLE_APP } from '@/constants'
-import { UserMessenger } from '@/components'
-import { IDataAccount, IDataRoom, IMessager, IPagination } from '@/interfaces'
-import FormSendMessage from './formSendMessage'
+import { LIMIT_ROOMS, ROLE_APP } from '@/constants'
 import MessengerBody from './messengerBody'
+import { UserMessenger } from '@/components'
+import FormSendMessage from './formSendMessage'
+import {
+  IAllRoomDetail,
+  IDataAccount,
+  IDataRoom,
+  IMessager,
+  IPagination,
+} from '@/interfaces'
+import { getAllRooms } from '@/services'
 
 const AdminSide: React.FC<IMessager> = () => {
   // Store
-  const { allRoomAdmin, role, token, waitingLine, setWaitingLine, clearChat } =
+  const { allRoomAdmin, role, token, waitingLine, clearChat, setRoomAdmin } =
     useStore()
 
   // Socket
@@ -26,23 +33,17 @@ const AdminSide: React.FC<IMessager> = () => {
 
   // State
   const [page, setPage] = useState(1)
-  const [dataPaginate, setDataPaginate] = useState<IPagination>()
-  const [dataRooms, setDataRooms] = useState<IDataRoom[]>()
   const [accountTop, setAccountTop] = useState<IDataAccount>()
   const { query, pathname, push } = useRouter()
 
   // Scroll buttom
   const handleScroll = (e: any) => {
+    if (!allRoomAdmin) return
+    const { pagination } = allRoomAdmin
     const { scrollHeight, scrollTop, clientHeight } = e.target
     const bottom = scrollHeight - scrollTop === clientHeight
 
-    if (
-      bottom &&
-      dataPaginate &&
-      dataRooms &&
-      role === ROLE_APP.ADMIN &&
-      dataPaginate?.totalPage > dataRooms?.length
-    ) {
+    if (bottom && role === ROLE_APP.ADMIN && page <= pagination.totalPage) {
       setPage(page + 1)
     }
   }
@@ -83,24 +84,45 @@ const AdminSide: React.FC<IMessager> = () => {
     }
   }
 
-  // -- Effect--
+  // Get room admin
+  const getNewRoomAdmin = async () => {
+    if (allRoomAdmin) {
+      const { data } = allRoomAdmin
+      const newRooms: IAllRoomDetail | null = await getAllRooms({
+        page: page,
+        limit: LIMIT_ROOMS,
+      })
+
+      if (newRooms) {
+        setRoomAdmin({ ...newRooms, data: [...data, ...newRooms.data] })
+      }
+    }
+  }
+
+  // Data acc
+  const dataAcc = useMemo(() => {
+    const dataWaiting =
+      allRoomAdmin?.data
+        ?.filter((room) => waitingLine?.includes(room.userId))
+        .map((room) => ({ ...room, waiting: true })) || []
+
+    const dataRoom =
+      allRoomAdmin?.data
+        ?.filter((room) => !waitingLine?.includes(room.userId))
+        .map((room) => ({ ...room, waiting: false })) || []
+
+    return [...dataWaiting, ...dataRoom]
+  }, [waitingLine, allRoomAdmin])
+
+  // Effect
   useEffect(() => {
     handleSetAccountTop()
   }, [query])
 
   useEffect(() => {
-    if (!accountTop) return
-
-    const newWaitingLine = waitingLine?.filter(
-      (accId) => accId !== accountTop._id
-    )
-
-    console.log(newWaitingLine)
-
-    if (newWaitingLine) setWaitingLine(newWaitingLine)
-  }, [accountTop])
-
-  console.log(waitingLine)
+    if (page <= 1) return
+    getNewRoomAdmin()
+  }, [page])
 
   return (
     <>
@@ -134,7 +156,7 @@ const AdminSide: React.FC<IMessager> = () => {
           {accountTop ? (
             <MessengerBody />
           ) : (
-            allRoomAdmin?.data?.map((room, i) => (
+            dataAcc?.map((room, i) => (
               <UserMessenger
                 isChild
                 key={room._id + i}

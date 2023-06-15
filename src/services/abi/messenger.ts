@@ -16,7 +16,7 @@ export const createChatRoom = async (idUser: string) => {
   }
 }
 
-export const getAllRoomAdmin = async (params?: IParamsGetRooms) => {
+export const getAllRooms = async (params?: IParamsGetRooms) => {
   try {
     return (await fetch.get(API_URL.roomChat, {
       params,

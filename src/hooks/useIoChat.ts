@@ -1,26 +1,35 @@
 import { io } from 'socket.io-client'
-import { useEffect, useRef } from 'react'
+import { useRouter } from 'next/router'
+import { useCallback, useEffect, useRef, useState } from 'react'
 
 import { useStore } from '@/store'
-import { getAllRoomAdmin } from '@/services'
+import { getAllRooms } from '@/services'
 import { LIMIT_ROOMS, ROLE_APP } from '@/constants'
 import { IAllRoomDetail, IDataMessge, IRoomDetail } from '@/interfaces'
 
 export const useIoChat = () => {
   // State
   const chatOld = useRef<IDataMessge>()
+  const timmerId = useRef<null | NodeJS.Timeout>(null)
+  const [dataWaiting, setDataWaiting] = useState<string>()
+  const { query } = useRouter()
+  const { userId } = query
 
   // Store
   const {
     role,
     token,
     fetchRooms,
-    allRoomAdmin,
+    dataChat,
     dataRoomUser,
+    waitingLine,
+    usersOnline,
+    allRoomAdmin,
     setDataChat,
     setRoomUser,
     setRoomAdmin,
     refetchRooms,
+    setWaitingLine,
     setDataUserOnline,
   } = useStore()
 
@@ -34,7 +43,7 @@ export const useIoChat = () => {
   // Get rooms data
   const handleGetRooms = async () => {
     if (token && role === ROLE_APP.ADMIN) {
-      const allRoomsAdmin: IAllRoomDetail | null = await getAllRoomAdmin({
+      const allRoomsAdmin: IAllRoomDetail | null = await getAllRooms({
         page: 1,
         limit: LIMIT_ROOMS,
       })
@@ -43,22 +52,62 @@ export const useIoChat = () => {
     }
 
     if (token && role === ROLE_APP.USER) {
-      const roomUser: IRoomDetail | null = await getAllRoomAdmin()
+      const roomUser: IRoomDetail | null = await getAllRooms()
       setRoomUser(roomUser ? roomUser : null)
       refetchRooms(null)
     }
   }
 
+  // Get account online other page
+  const handleCheckNewChat = (id: string) => {
+    if (timmerId.current) {
+      clearTimeout(timmerId.current)
+    }
+
+    const isOnLine = allRoomAdmin?.data?.find((rooms) => rooms.userId === id)
+    if (!isOnLine || !usersOnline.includes(id)) return
+
+    timmerId.current = setTimeout(() => {
+      refetchRooms(true)
+    }, 2000)
+  }
+
+  useEffect(() => {
+    const chatEnd = dataChat?.[dataChat.length - 1]
+    if (chatEnd?.idRoom && usersOnline) {
+      handleCheckNewChat(chatEnd?.from)
+    }
+  }, [dataChat, usersOnline])
+
+  // Event ws
   useEffect(() => {
     if (token) {
       handleGetRooms()
       ws.emit('LOGIN', token)
       ws.on('ACCOUNT_ONLINE', (arrayAccount: string[]) => {
-        console.log(arrayAccount)
         setDataUserOnline(arrayAccount)
       })
     }
   }, [token])
+
+  // Event ws
+  useEffect(() => {
+    if (userId && waitingLine) {
+      if (!waitingLine.includes(userId as string)) return
+      const newIdAcc = waitingLine.filter((accId) => accId !== userId)
+      newIdAcc && setWaitingLine(newIdAcc)
+    }
+  }, [userId, waitingLine])
+
+  // Event ws
+  useEffect(() => {
+    if (dataWaiting) {
+      const newAccId = waitingLine
+        ? [...waitingLine, dataWaiting]
+        : [dataWaiting]
+      setWaitingLine(newAccId)
+    }
+  }, [dataWaiting])
 
   // Refetch rooms
   useEffect(() => {
@@ -78,14 +127,13 @@ export const useIoChat = () => {
 
   // Event ws
   useEffect(() => {
-    if (allRoomAdmin) {
-      const { data } = allRoomAdmin
-      data?.map((room) => {
-        ws.on(room._id, (chat: IDataMessge) => {
-          setDataChat([chat])
-          chatOld.current = chat
-        })
+    if (role === ROLE_APP.ADMIN) {
+      ws.on('ADMIN_CHAT', (chat: IDataMessge) => {
+        if (chatOld.current?.created === chat.created) return
+        setDataChat([chat])
+        setDataWaiting(chat.from)
+        chatOld.current = chat
       })
     }
-  }, [allRoomAdmin])
+  }, [role, usersOnline])
 }

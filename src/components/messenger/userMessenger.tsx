@@ -1,12 +1,12 @@
 import clsx from 'clsx'
 import { useStore } from '@/store'
-import { Box } from '@chakra-ui/react'
 import React, { memo } from 'react'
+import { Box } from '@chakra-ui/react'
+import { useRouter } from 'next/router'
 
 import FitlImage from '../fitlImage'
-import { IDataAccountTop } from '@/interfaces'
-import { useRouter } from 'next/router'
 import { ROLE_APP } from '@/constants'
+import { IDataAccountTop } from '@/interfaces'
 
 const UserMessenger: React.FC<IDataAccountTop> = ({
   dataAccount,
@@ -15,8 +15,6 @@ const UserMessenger: React.FC<IDataAccountTop> = ({
 }) => {
   const { usersOnline, role, waitingLine } = useStore()
   const { push, pathname } = useRouter()
-
-  console.log(waitingLine)
 
   return (
     <Box
@@ -64,7 +62,11 @@ const UserMessenger: React.FC<IDataAccountTop> = ({
         </span>
       </Box>
 
-      {/* {waitingLine?.includes(dataAccount._id) ? 'chưa' : 'roi'} */}
+      {waitingLine?.includes(dataAccount._id) && (
+        <Box className="ml-auto mr-3">
+          <span className="relative inline-flex rounded-full h-3 w-3 bg-colorActiveMessage"></span>
+        </Box>
+      )}
     </Box>
   )
 }
